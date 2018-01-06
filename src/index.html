@@ -1,16 +1,82 @@
-<!doctype html>
-<html lang="">
+<!DOCTYPE html>
+<html>
   <head>
-      <meta charset="utf-8">
-      <title>Testing webpack</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Blog des gens compliqués</title>
   </head>
+
   <body>
-    <h1>Testing Webpack</h1>
-    <p>Lorem ipsum</p>
-    <input type="text" id="text1" />
-    <button id="btn1">Clicky</button><button id="btn2">MoreText</button>
-    <div id="theDiv"></div>
+    <!-- Navbar and Header -->
+    <header>
+    <nav class="nav-extended blue-grey darken-2" id="navbar" role="navigation">
+      <div class="nav-background"></div>
+      <div class="nav-wrapper container">
+        <!--<a href="/pages/demo" class="brand-logo"><i class="material-icons">camera</i></a>-->
+        <span class="nav-title">Blog des gens compliqués</span>
+      </div>
+      
+      <div class="categories-wrapper">
+        <div class="categories-container">
+          <div class="container">
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+            <div class="left">Does this work?</div>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="/pages/demo">Accueil</a></li>
+              <li><a href="/pages/dark-theme">Articles</a></li>
+              <li class="active"><a href="/pages/blog">Brèves</a></li>
+              <li><a href="/pages/docs">A propos</a></li>
+              <li><a href="/pages/docs">Contact</a></li>
+              <li><a href="/pages/docs">Engagez-moi</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <ul class="side-nav" id="nav-mobile">
+      <li><a href="/pages/demo"><i class="material-icons">camera</i>Gallery</a></li>
+      <li><a href="/pages/dark-theme"><i class="material-icons">brightness_3</i>Dark Theme</a></li>
+      <li><a href="/pages/blog"><i class="material-icons">edit</i>Blog</a></li>
+      <li><a href="/pages/docs"><i class="material-icons">school</i>Docs</a></li>
+      <li><a href="/pages/full-header"><i class="material-icons">fullscreen</i>Fullscreen Header</a></li>
+      <li><a href="/pages/horizontal"><i class="material-icons">swap_horiz</i>Horizontal Style</a></li>
+      <li><a href="/pages/no-image"><i class="material-icons">texture</i>No Image Expand</a></li>
+    </ul>
+  </header>
+
+  <main class="container section" id="mainEl">
     
+  </main>
+
+  <footer class="page-footer blue-grey">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Moteur de Blog Basique par VEZDe</h5>
+          <p class="grey-text text-lighten-4">Utilise <a href="https://vuejs.org/" target="_blank">Vue.js</a>, 
+            <a href="http://materializecss.com/" target="_blank">MaterializeCSS</a> 
+            et le <a href="https://playframework.com/" target="_blank">Play Framework.</a></p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Social</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      © 2017 dkvz.eu ; I probably won't sue you
+      </div>
+    </div>
+  </footer>
+   
   </body>
 </html>
+      

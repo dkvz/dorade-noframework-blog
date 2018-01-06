@@ -22,16 +22,24 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpg|gif)$/i,
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/i,
         use: [
           {
             loader: 'url-loader',
             options: {
               limit: 10000,
-              name: './img/[name][hash].[ext]'
+              name: './img/[name][hash:7].[ext]'
             }
           }
         ]
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: './fonts/[name][hash:7].[ext]'
+        }
       },
       {
         test: /\.html$/,
@@ -53,7 +61,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
-      {from: 'assets',to: 'assets'} 
+      {from: 'assets', to: 'assets'} 
     ])
   ]
 }
