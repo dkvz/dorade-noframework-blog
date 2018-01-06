@@ -63,5 +63,9 @@ module.exports = {
     new CopyWebpackPlugin([
       {from: 'assets', to: 'assets'} 
     ])
-  ]
+  ],
+  devServer: {
+    port: 8080,
+    historyApiFallback: true
+  }
 }
