@@ -8,6 +8,9 @@ var app = window.app;
 
 page('*', function(data, next) {
   // Gets called before any routing happens.
+  // Reset anything that would've been loaded before.
+  // This is just a design choice but an easy and effective one.
+  app.loadedCount = 0;
   app.changeRandomQuote();
   next();
 });
@@ -16,6 +19,10 @@ page('/', function() {
   app.setMenuItemActive('homeL');
   // We need to load the articles and shorts in the callback:
   app.setMainContent('home');
+  app.hideSpinner();
+  app.loadArticles(app.loadedCount, app.maxArticlesHome, function() {
+    console.log('Callback');
+  });
 });
 page('/pages/:name', function(data) {
   document.title = data.params.name.charAt(0).toUpperCase() +

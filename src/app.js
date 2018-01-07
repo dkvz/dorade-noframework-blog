@@ -52,6 +52,12 @@ var app = {
     'contactL',
     'hireMeL'
   ],
+  loadedCount: 0,
+  currentTags: [],
+  maxArticlesHome: 5,
+  maxShortsHome: 10,
+  maxArticles: 10,
+  maxShorts: 30,
   createElementFromText: function(text) {
     // This weird stuff is required to work with some
     // of the IE versions.
@@ -66,12 +72,14 @@ var app = {
     var s = document.createElement("script");
     s.type = "text/javascript";
     s.src = '/scripts/' + this.fragments[fragment].script;
+    // I could use bind() to keep my 'this' context in this onload
+    // but it turns out bind() is not supported by IE 9.
     s.onload = function() {
-      this._replaceMainContent(this.fragments[fragment].template);
+      app._replaceMainContent(app.fragments[fragment].template);
       // We don't hide the spinner here, it's supposed to be done in
       // the callback (or not if you don't want to).
       if (callback !== undefined) callback();
-    }.bind(this);
+    };
     document.body.appendChild(s);
   },
   showSpinner: function() {
@@ -131,6 +139,51 @@ var app = {
       this.contentEl.removeChild(this.contentEl.firstChild);
     }
     this.contentEl.appendChild(this.createElementFromText(fragmentText));
+  },
+  _fetchArticlesOrShorts(start, count, short, callback) {
+    // If short is defined we load shorts.
+    // I'm using the jQuery AJAX stuff since I have jQuery anyway.
+    var url = this.apiUrl + (short ? '/shorts-starting-from' : '/articles-starting-from/') +
+      start + '?max=' + count;
+    // Currently tags are disabled for shorts. Although they would work in
+    // the backend I think.
+    if (!short && this.currentTags.length > 0) {
+      // URL encode the tags and add them to the URL using comma as separator.
+      url += '&tags=';
+      for (var i = 0; i < this.currentTags.length; i++) {
+        if (i > 0) {
+          url += ',';
+        }
+        url += encodeURIComponent(this.currentTags[i]);
+      }
+    }
+    $.getJSON(url, function(data) {
+      // Set ret with the data.
+      if (data) {
+        app.loadedCount = data.length;
+      }
+      callback(data);
+    }).fail(function(xhr, errorText) {
+      // If we get a 404 it's no use trying to load more articles.
+      // or shorts.
+      console.log('HTTP error in fetching articles or shorts - ' 
+        + xhr.status);
+      callback(null);
+    });
+  },
+  loadArticles(start, count, element, callback) {
+    // We use the callback here usually to reset a 
+    // specific spinner (usually).
+    // Check if not undefined before calling it.
+    // The spinner to reset is not the same on the home
+    // page as compared to the articles page.
+    this._fetchArticlesOrShorts(start, count, false, function(data) {
+      console.log(data);
+      if (callback !== undefined) callback();
+    });
+  },
+  loadShorts(start, count, callback) {
+
   }
 };
 window.app = app;
@@ -156,6 +209,10 @@ app.showSpinner();  // This line is currently useless.
 $('.button-collapse').sideNav();
 app.mainEl = document.getElementById('mainEl');
 app.contentEl = document.getElementById('contentEl');
+// Load tags only once in here:
+// TODO
+
+
 
 /*
 * Add the HTML fragments of objects on the home page
