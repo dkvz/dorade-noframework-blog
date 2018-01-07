@@ -5,12 +5,14 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/app.js'
+    main: './src/app.js',
+    about: './src/about.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'scripts/[name].js',
-    chunkFilename: 'fragments/[name][hash].js'
+    chunkFilename: 'fragments/[name][hash].js',
+    publicPath: '/'
   },
   module: {
     loaders: [
@@ -66,6 +68,7 @@ module.exports = {
   ],
   devServer: {
     port: 8080,
-    historyApiFallback: true
+    historyApiFallback: true,
+    publicPath: '/'
   }
 }

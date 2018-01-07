@@ -22,32 +22,45 @@
         <div class="categories-container">
           <div class="container">
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-            <div class="left">Does this work?</div>
+            <div class="left" id="randomQuote">Does this work?</div>
             <ul class="right hide-on-med-and-down">
-              <li><a href="/pages/demo">Accueil</a></li>
-              <li><a href="/pages/dark-theme">Articles</a></li>
-              <li class="active"><a href="/pages/blog">Brèves</a></li>
-              <li><a href="/pages/docs">A propos</a></li>
-              <li><a href="/pages/docs">Contact</a></li>
-              <li><a href="/pages/docs">Engagez-moi</a></li>
+              <li id="homeL" class="active"><a href="/">Accueil</a></li>
+              <li id="articlesL"><a href="/articles">Articles</a></li>
+              <li id="shortsL"><a href="/breves">Brèves</a></li>
+              <li id="aboutL"><a href="/pages/about">A propos</a></li>
+              <li id="contactL"><a href="/pages/contact">Contact</a></li>
+              <li id="hireMeL"><a href="/pages/hireme">Engagez-moi</a></li>
             </ul>
           </div>
         </div>
       </div>
     </nav>
     <ul class="side-nav" id="nav-mobile">
-      <li><a href="/pages/demo"><i class="material-icons">camera</i>Gallery</a></li>
-      <li><a href="/pages/dark-theme"><i class="material-icons">brightness_3</i>Dark Theme</a></li>
-      <li><a href="/pages/blog"><i class="material-icons">edit</i>Blog</a></li>
-      <li><a href="/pages/docs"><i class="material-icons">school</i>Docs</a></li>
-      <li><a href="/pages/full-header"><i class="material-icons">fullscreen</i>Fullscreen Header</a></li>
-      <li><a href="/pages/horizontal"><i class="material-icons">swap_horiz</i>Horizontal Style</a></li>
-      <li><a href="/pages/no-image"><i class="material-icons">texture</i>No Image Expand</a></li>
+      <li id="homeLM"><a href="/"><i class="material-icons">camera</i>Accueil</a></li>
+      <li id="articlesLM"><a href="/articles"><i class="material-icons">brightness_3</i>Articles</a></li>
+      <li id="shortsLM"><a href="/breves"><i class="material-icons">edit</i>Brèves</a></li>
+      <li id="aboutLM"><a href="/pages/about"><i class="material-icons">school</i>A propos</a></li>
+      <li id="contactLM"><a href="/pages/contact"><i class="material-icons">fullscreen</i>Contact</a></li>
+      <li id="hireMeLM"><a href="/pages/hireme"><i class="material-icons">swap_horiz</i>Engagez-moi</a></li>
     </ul>
   </header>
 
   <main class="container section" id="mainEl">
-    
+    <div id="contentEl"></div>
+
+    <div class="card-panel white center" id="spinnerCard">
+      <div class="preloader-wrapper active">
+        <div class="spinner-layer">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="page-footer blue-grey">
