@@ -227,7 +227,8 @@ var app = {
     this._fetchArticlesOrShorts(start, count, false, function(data) {
       for (var i = 0; i < data.length; i++) {
         var parsedArt = app.parseTemplate('article', data[i]);
-        var el = document.querySelector('#' + element);
+        //var el = document.querySelector('#' + element);
+        var el = document.getElementById(element);
         el.appendChild(app.createElementFromText(parsedArt));
       }
       if (callback !== undefined) callback();
