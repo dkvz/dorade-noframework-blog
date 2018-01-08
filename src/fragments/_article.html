@@ -1,31 +1,24 @@
 <div class="col s12">
   <div class="article-card card hoverable">
-    <div class="card-content">
-      <img class="right top-img" src="https://dkvz.eu/wp-content/stuff/center_elements_thumb.png" width="110" width="110" />
-      <span class="card-title blue-grey-text text-darken-1">Card Title</span>
+    <div class="card-content nice-links">
+      <img class="right top-img" src="{{thumbImage}}" width="110" width="110" />
+      <span class="card-title blue-grey-text text-darken-1">{{title}}</span>
       <div>
-        <div class="chip">
-          <a href="#">Informatique & web</a>
-        </div>
-        <div class="chip">
-          <a href="#">Expérience sociale</a>
-        </div>
+        {{tags}}
       </div>
       <div class="article-info">
         <div class="date-author">
-          <i class="material-icons">date_range</i>&nbsp;05/12/2017 16:20:07
+          <i class="material-icons">date_range</i>&nbsp;{{date}}
         </div>
         <div class="date-author">
-            <i class="material-icons">account_box</i>&nbsp;Par <b>VEZDe</b>
+            <i class="material-icons">account_box</i>&nbsp;Par <b>{{author}}</b>
         </div>
       </div>
-      <p>I am a very simple card. I am good at containing small bits of information.
-      I am convenient because I require little markup to use effectively.</p>
-      <p>And this is another paragraph.</p>
+      {{summary}}
     </div>
     <div class="card-action">
-      <a class="waves-effect waves-light btn"><i class="material-icons right">open_in_new</i>Suite</a>
-      <a class="waves-effect waves-light btn right"><i class="material-icons">comment</i></a>
+      <a class="waves-effect waves-light btn" href="/articles/{{articleUrl}}"><i class="material-icons right">open_in_new</i>Suite</a>
+      <a class="waves-effect waves-light btn right" href="/articles/{{articleUrl}}?toBottom"><i class="material-icons">comment</i></a>
     </div>
   </div>
 </div>

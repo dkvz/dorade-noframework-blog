@@ -19,10 +19,16 @@ page('/', function() {
   app.setMenuItemActive('homeL');
   // We need to load the articles and shorts in the callback:
   app.setMainContent('home');
+  //var element = app.contentEl.querySelector('#lastArticles');
   app.hideSpinner();
-  app.loadArticles(app.loadedCount, app.maxArticlesHome, function() {
-    console.log('Callback');
-  });
+  app.loadArticles(
+    app.loadedCount, 
+    app.maxArticlesHome, 
+    'lastArticles', 
+    function() {
+      console.log('Callback');
+    }
+  );
 });
 page('/pages/:name', function(data) {
   document.title = data.params.name.charAt(0).toUpperCase() +

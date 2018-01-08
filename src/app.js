@@ -31,10 +31,53 @@ var app = {
   ],
   fragments: {
     short: {
-      filename: '_breve.html'
+      filename: '_breve.html',
+      properties: [
+        {name: 'thumbImage'},
+        {name: 'title'},
+        {name: 'summary'},
+        {name: 'date', process: function(val) {
+          var d = new Date(val);
+          if (d.toLocaleString !== undefined) {
+            // Only works on IE 11 and above.
+            return d.toLocaleDateString('fr');
+          } else {
+            return d.toString();
+          }
+        }},
+        {name: 'content'},
+        {name: 'id'}
+      ]
     },
     article: {
-      filename: '_article.html'
+      filename: '_article.html',
+      properties: [
+        {name: 'thumbImage'},
+        {name: 'title'},
+        {name: 'summary'},
+        {
+          name: 'tags', 
+          template: 'tag', 
+          properties: [
+            {name: 'id'},
+            {name: 'name'}
+          ]
+        },
+        {name: 'date', process: function(val) {
+          var d = new Date(val);
+          if (d.toLocaleString !== undefined) {
+            // Only works on IE 11 and above.
+            return d.toLocaleString('fr');
+          } else {
+            return d.toString();
+          }
+        }},
+        {name: 'author'},
+        {name: 'articleUrl'}
+      ]
+    },
+    tag: {
+      filename: '_tag.html'
     },
     home: {
       filename: 'home.html'
@@ -54,7 +97,7 @@ var app = {
   ],
   loadedCount: 0,
   currentTags: [],
-  maxArticlesHome: 5,
+  maxArticlesHome: 3,
   maxShortsHome: 10,
   maxArticles: 10,
   maxShorts: 30,
@@ -63,7 +106,11 @@ var app = {
     // of the IE versions.
     var div = document.createElement('div');
     div.innerHTML = text;
-    return div.firstChild;
+    if (div.childNodes.length > 1) {
+      return div;
+    } else {
+      return div.firstChild;
+    }
   },
   lazyLoadPage: function(fragment, callback) {
     // I use this function to lazy-load JS that
@@ -178,12 +225,52 @@ var app = {
     // The spinner to reset is not the same on the home
     // page as compared to the articles page.
     this._fetchArticlesOrShorts(start, count, false, function(data) {
-      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        var parsedArt = app.parseTemplate('article', data[i]);
+        var el = document.querySelector('#' + element);
+        el.appendChild(app.createElementFromText(parsedArt));
+      }
       if (callback !== undefined) callback();
     });
   },
   loadShorts(start, count, callback) {
 
+  },
+  parseTemplate(fragment, data) {
+    var mainTpl = this.fragments[fragment].template;
+    for (var i = 0; i < this.fragments[fragment].properties.length; i++) {
+      var cur = this.fragments[fragment].properties[i];
+      var reg = new RegExp('\{\{' + cur.name + '\}\}', 'g');
+      // I only allow one level of repeating content in a template.
+      // I'd have to get into something recursive otherwise.
+      var value;
+      if (cur.process !== undefined) {
+        value = cur.process(data[cur.name]);
+      } else {
+        value = data[cur.name];
+      }
+      if (cur.template !== undefined) {
+        // The property is an array.
+        var result = '';
+        for (var x = 0; x < value.length; x++) {
+          var tpl = cur.template;
+          for (var y = 0; y < cur.properties.length; y++) {
+            var regTpl = new RegExp('\{\{' + cur.properties[y].name +
+              '\}\}', 'g');
+            tpl = tpl.replace(regTpl, value[x][cur.properties[y].name]);
+          }
+          result += tpl;
+        }
+        value = result;
+      }
+      if (value !== undefined) {
+        mainTpl = mainTpl.replace(
+          reg,
+          value
+        );
+      }
+    }
+    return mainTpl;
   }
 };
 window.app = app;
@@ -219,6 +306,7 @@ app.contentEl = document.getElementById('contentEl');
 */
 app.fragments.short.template = require('./fragments/_breve.html');
 app.fragments.article.template = require('./fragments/_article.html');
+app.fragments.tag.template = require('./fragments/_tag.html');
 app.fragments.home.template = require('./fragments/home.html');
 
 /*
