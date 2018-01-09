@@ -20,13 +20,15 @@ page('/', function() {
   // We need to load the articles and shorts in the callback:
   app.setMainContent('home');
   //var element = app.contentEl.querySelector('#lastArticles');
+  // If mainContent is loaded we can hide the main spinner here:
   app.hideSpinner();
+  app.showOtherSpinner('articlesSpinner');
   app.loadArticles(
     app.loadedCount, 
     app.maxArticlesHome, 
     'lastArticles', 
     function() {
-      console.log('Callback');
+      app.hideOtherSpinner('articlesSpinner');
     }
   );
 });

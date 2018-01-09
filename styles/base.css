@@ -212,3 +212,22 @@ nav .nav-background {
   64%      { color: #B10DC9; }
   80%      { color: #FF4136; }
 }
+
+/* Card scale-up effect */
+.scale-up {
+	-webkit-transform: scale(0.6);
+	transform: scale(0.6);
+	-webkit-animation: scaleUp 0.65s ease-in-out forwards;
+	animation: scaleUp 0.65s ease-in-out forwards;
+}
+
+@-webkit-keyframes scaleUp {
+	0% { }
+	100% { -webkit-transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleUp {
+	0% { }
+	100% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
+}
+/* End card scale-up effect */

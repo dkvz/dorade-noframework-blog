@@ -135,6 +135,18 @@ var app = {
   hideSpinner: function() {
     this.spinner.style.display = 'none';
   },
+  showOtherSpinner: function(id) {
+    var spin = document.getElementById(id);
+    if (spin !== undefined) {
+      spin.style.display = '';
+    }
+  },
+  hideOtherSpinner: function(id) {
+    var spin = document.getElementById(id);
+    if (spin !== undefined) {
+      spin.style.display = 'none';
+    }
+  },
   randomQuote: function() {
     return this.quotes[Math.floor(Math.random() * this.quotes.length)];
   },
@@ -218,6 +230,14 @@ var app = {
       callback(null);
     });
   },
+  _animateCard(element) {
+    if (element.className > 0) {
+      element.className += ' scale-up';
+    } else {
+      element.className = 'scale-up';
+    }
+    return element;
+  },
   loadArticles(start, count, element, callback) {
     // We use the callback here usually to reset a 
     // specific spinner (usually).
@@ -225,11 +245,20 @@ var app = {
     // The spinner to reset is not the same on the home
     // page as compared to the articles page.
     this._fetchArticlesOrShorts(start, count, false, function(data) {
-      for (var i = 0; i < data.length; i++) {
-        var parsedArt = app.parseTemplate('article', data[i]);
-        //var el = document.querySelector('#' + element);
+      if (data.length) {
+        // Let's use a document fragment. We ditch IE 7 but we get
+        // only one reflow instead of a lot of them.
+        // I think Materialize doesn't support IE 7 anyway.
+        var docFrag = document.createDocumentFragment();
+        for (var i = 0; i < data.length; i++) {
+          var parsedArt = app.parseTemplate('article', data[i]);
+          //var el = document.querySelector('#' + element);
+          docFrag.appendChild(
+            app._animateCard(app.createElementFromText(parsedArt))
+          );
+        }
         var el = document.getElementById(element);
-        el.appendChild(app.createElementFromText(parsedArt));
+        el.appendChild(docFrag);
       }
       if (callback !== undefined) callback();
     });
@@ -254,7 +283,7 @@ var app = {
         // The property is an array.
         var result = '';
         for (var x = 0; x < value.length; x++) {
-          var tpl = cur.template;
+          var tpl = this.fragments[cur.template].template;
           for (var y = 0; y < cur.properties.length; y++) {
             var regTpl = new RegExp('\{\{' + cur.properties[y].name +
               '\}\}', 'g');
