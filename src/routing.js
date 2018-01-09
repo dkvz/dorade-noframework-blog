@@ -10,7 +10,6 @@ page('*', function(data, next) {
   // Gets called before any routing happens.
   // Reset anything that would've been loaded before.
   // This is just a design choice but an easy and effective one.
-  app.loadedCount = 0;
   app.changeRandomQuote();
   next();
 });
@@ -23,14 +22,32 @@ page('/', function() {
   // If mainContent is loaded we can hide the main spinner here:
   app.hideSpinner();
   app.showOtherSpinner('articlesSpinner');
-  app.loadArticles(
-    app.loadedCount, 
-    app.maxArticlesHome, 
-    'lastArticles', 
+  // We always load frm 0 on the home page.
+  app.loadArticlesOrShorts(
+    0, 
+    app.maxArticlesHome,
+    false,
+    'desc',
+    'lastArticles',
     function() {
       app.hideOtherSpinner('articlesSpinner');
+      // app.loadedCount is only used in the articles
+      // or shorts list page.
+      app.loadedCount = 0;
     }
   );
+  app.loadArticlesOrShorts(
+    0, 
+    app.maxShortsHome,
+    true,
+    'desc',
+    'lastShorts',
+    function() {
+      app.hideOtherSpinner('shortsSpinner');
+      app.loadedCount = 0;
+    }
+  );
+
 });
 page('/pages/:name', function(data) {
   document.title = data.params.name.charAt(0).toUpperCase() +
@@ -70,7 +87,7 @@ page('/articles/:name/:toBottom?', function(data) {
     // app to notify the other page.
     // (app.scrollToBottom = true)
   } else {
-    // Don't....
+    // Don't scroll to bottom.
   }
   app.articleParams = data.params;
 });

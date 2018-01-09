@@ -231,3 +231,14 @@ nav .nav-background {
 	100% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
 }
 /* End card scale-up effect */
+
+/* Simple page transition I'm using */
+.trans-left {
+  animation: transLeft 0.7s ease;
+}
+
+@keyframes transLeft {
+  0% {transform: translate3d(-60vw, 0, 0);}
+  100% {transform: translate3d(0, 0, 0);}
+}
+/* End page transition I'm using */

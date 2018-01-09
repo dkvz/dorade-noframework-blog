@@ -37,13 +37,12 @@ var app = {
         {name: 'title'},
         {name: 'summary'},
         {name: 'date', process: function(val) {
-          var d = new Date(val);
-          if (d.toLocaleString !== undefined) {
-            // Only works on IE 11 and above.
-            return d.toLocaleDateString('fr');
-          } else {
-            return d.toString();
+          // My dates are weird strings that can't be used
+          // in the Date constructor.
+          if (val !== undefined && val.length > 10) {
+            return val.substr(0, 10);
           }
+          return '';
         }},
         {name: 'content'},
         {name: 'id'}
@@ -64,13 +63,9 @@ var app = {
           ]
         },
         {name: 'date', process: function(val) {
-          var d = new Date(val);
-          if (d.toLocaleString !== undefined) {
-            // Only works on IE 11 and above.
-            return d.toLocaleString('fr');
-          } else {
-            return d.toString();
-          }
+          // I'll have to do something about the date
+          // format one day.
+          return val;
         }},
         {name: 'author'},
         {name: 'articleUrl'}
@@ -197,13 +192,19 @@ var app = {
     while (this.contentEl.firstChild) {
       this.contentEl.removeChild(this.contentEl.firstChild);
     }
-    this.contentEl.appendChild(this.createElementFromText(fragmentText));
+    // We should ues Modernizr to check if browser is animation capable.
+    // Or not I guess it still works if not animation capable.
+    var el = this._animateElement(this.createElementFromText(fragmentText), 'trans-left');
+    this.contentEl.appendChild(el);
   },
-  _fetchArticlesOrShorts(start, count, short, callback) {
+  _fetchArticlesOrShorts(start, count, short, order, callback) {
     // If short is defined we load shorts.
     // I'm using the jQuery AJAX stuff since I have jQuery anyway.
-    var url = this.apiUrl + (short ? '/shorts-starting-from' : '/articles-starting-from/') +
+    var url = this.apiUrl + (short ? '/shorts-starting-from/' : '/articles-starting-from/') +
       start + '?max=' + count;
+    if (order !== undefined) {
+      url += '&order=' + order;
+    }
     // Currently tags are disabled for shorts. Although they would work in
     // the backend I think.
     if (!short && this.currentTags.length > 0) {
@@ -230,31 +231,35 @@ var app = {
       callback(null);
     });
   },
-  _animateCard(element) {
-    if (element.className > 0) {
-      element.className += ' scale-up';
+  _animateElement(element, animation) {
+    // This is ugly but IE doesn't support classList.
+    // I don't know which IE and I don't care.
+    if (element.className.length > 0) {
+      element.className += ' ' + animation;
     } else {
-      element.className = 'scale-up';
+      element.className = animation;
     }
     return element;
   },
-  loadArticles(start, count, element, callback) {
+  loadArticlesOrShorts(start, count, short, order, element, callback) {
     // We use the callback here usually to reset a 
     // specific spinner (usually).
     // Check if not undefined before calling it.
     // The spinner to reset is not the same on the home
     // page as compared to the articles page.
-    this._fetchArticlesOrShorts(start, count, false, function(data) {
-      if (data.length) {
+    this._fetchArticlesOrShorts(start, count, short, order, function(data) {
+      if (data !== null && data.length) {
         // Let's use a document fragment. We ditch IE 7 but we get
         // only one reflow instead of a lot of them.
         // I think Materialize doesn't support IE 7 anyway.
         var docFrag = document.createDocumentFragment();
         for (var i = 0; i < data.length; i++) {
-          var parsedArt = app.parseTemplate('article', data[i]);
+          var parsedArt = app.parseTemplate(
+            short ? 'short': 'article', data[i]
+          );
           //var el = document.querySelector('#' + element);
           docFrag.appendChild(
-            app._animateCard(app.createElementFromText(parsedArt))
+            app._animateElement(app.createElementFromText(parsedArt), 'scale-up')
           );
         }
         var el = document.getElementById(element);
@@ -262,9 +267,6 @@ var app = {
       }
       if (callback !== undefined) callback();
     });
-  },
-  loadShorts(start, count, callback) {
-
   },
   parseTemplate(fragment, data) {
     var mainTpl = this.fragments[fragment].template;

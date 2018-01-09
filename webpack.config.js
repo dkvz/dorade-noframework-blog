@@ -63,7 +63,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
-      {from: 'assets', to: 'assets'} 
+      {from: 'assets', to: 'assets'}
     ])
   ],
   devServer: {
