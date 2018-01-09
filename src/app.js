@@ -91,6 +91,7 @@ var app = {
     'hireMeL'
   ],
   loadedCount: 0,
+  tags: [],
   currentTags: [],
   maxArticlesHome: 3,
   maxShortsHome: 10,
@@ -132,13 +133,13 @@ var app = {
   },
   showOtherSpinner: function(id) {
     var spin = document.getElementById(id);
-    if (spin !== undefined) {
+    if (spin) {
       spin.style.display = '';
     }
   },
   hideOtherSpinner: function(id) {
     var spin = document.getElementById(id);
-    if (spin !== undefined) {
+    if (spin) {
       spin.style.display = 'none';
     }
   },
@@ -308,14 +309,18 @@ var app = {
 window.app = app;
 
 /*
-* Including the JS
+* Including the JS and polyfills
 */
 //window.$ = require('jquery');
 //$ = window.$;
 // The min build seems to include jQuery with a NodeJS require.
 // Leaving the jQuery import is not an issue though,
 // Webpack won't import it twice.
+// ---
+// I don't know why I bother with this polyfill:
+require('./polyfills/event-listeners.js');
 require('materialize-css/dist/js/materialize.min.js');
+
 
 /*
 * Page initialization - listeners
@@ -324,7 +329,7 @@ require('materialize-css/dist/js/materialize.min.js');
 // shown:
 app.spinner = document.getElementById('spinnerCard');
 app.showSpinner();  // This line is currently useless.
-// Enable the navbar from Materialize:
+// Enable the navbar from Materialize (can only be done with jQuery):
 $('.button-collapse').sideNav();
 app.mainEl = document.getElementById('mainEl');
 app.contentEl = document.getElementById('contentEl');
