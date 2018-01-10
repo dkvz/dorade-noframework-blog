@@ -28,87 +28,94 @@
   <body>
     <!-- Navbar and Header -->
     <header>
-    <nav class="nav-extended blue-grey darken-2" id="navbar" role="navigation">
-      <div class="nav-background"></div>
-      <div class="nav-wrapper container">
-        <!--<a href="/pages/demo" class="brand-logo"><i class="material-icons">camera</i></a>-->
-        <span class="nav-title">Blog des gens compliqués</span>
-      </div>
+      <ul id="dropdownTags" class="dropdown-content">
+        <li id="menuTagAll"><a href="/articles">Tous les articles</a></li>
+      </ul>
+      <nav class="nav-extended blue-grey darken-2" id="navbar" role="navigation">
+        <div class="nav-background"></div>
+        <div class="nav-wrapper container">
+          <!--<a href="/pages/demo" class="brand-logo"><i class="material-icons">camera</i></a>-->
+          <span class="nav-title">Blog des gens compliqués</span>
+          <ul class="right hide-on-med-and-down">
+            <li id="homeL" class="active"><a href="/">Accueil</a></li>
+            <li id="hireMeL"><a href="/pages/hireme">Engagez-moi</a></li>
+            <li id="aboutL"><a href="/pages/about">A propos</a></li>
+          </ul>
+        </div>
       
-      <div class="categories-wrapper">
-        <div class="categories-container">
-          <div class="container">
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-            <div class="left" id="randomQuote">Does this work?</div>
-            <ul class="right hide-on-med-and-down">
-              <li id="homeL" class="active"><a href="/">Accueil</a></li>
-              <li id="articlesL"><a href="/articles">Articles</a></li>
-              <li id="shortsL"><a href="/breves">Brèves</a></li>
-              <li id="aboutL"><a href="/pages/about">A propos</a></li>
-              <li id="contactL"><a href="/pages/contact">Contact</a></li>
-              <li id="hireMeL"><a href="/pages/hireme">Engagez-moi</a></li>
+        <div class="categories-wrapper">
+          <div class="categories-container">
+            <div class="container">
+              <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+              <div class="left" id="randomQuote"></div>
+              <ul class="right hide-on-med-and-down">
+                <li id="articlesL"><a class="dropdown-button" href="#!" data-activates="dropdownTags">Articles<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li id="shortsL"><a href="/breves">Brèves</a></li>
+                <li id="contactL"><a href="/pages/contact">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <ul class="side-nav" id="nav-mobile">
+        <li id="homeLM"><a href="/"><i class="material-icons">camera</i>Accueil</a></li>
+        <li id="articlesLM"><a href="/articles"><i class="material-icons">brightness_3</i>Articles</a></li>
+        <li id="shortsLM"><a href="/breves"><i class="material-icons">edit</i>Brèves</a></li>
+        <li id="aboutLM"><a href="/pages/about"><i class="material-icons">school</i>A propos</a></li>
+        <li id="contactLM"><a href="/pages/contact"><i class="material-icons">fullscreen</i>Contact</a></li>
+        <li id="hireMeLM"><a href="/pages/hireme"><i class="material-icons">swap_horiz</i>Engagez-moi</a></li>
+        <li class="divider"></li>
+        <li><a href="#!"><b>Catégories</b></a></li>
+      </ul>
+    </header>
+
+    <main class="container section" id="mainEl">
+      <div id="contentEl"></div>
+
+      <div class="card-panel white center" id="spinnerCard">
+        <div class="preloader-wrapper active">
+          <div class="spinner-layer">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="page-footer blue-grey">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Moteur de Blog Basique par VEZDe</h5>
+            <p class="grey-text text-lighten-4">
+              Utilise <a href="http://materializecss.com/" target="_blank">MaterializeCSS</a> et 
+              <b>AUCUN</b> framework Javascript.
+            </p>
+            <p>
+              Membre officiel du comité anti-React
+            </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Social</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="https://twitter.com/MrSausageroll">Twitter</a></li>
+              <li><a class="grey-text text-lighten-3" href="https://github.com/dkvz">Github</a></li>
+              <li><a class="grey-text text-lighten-3" href="/pages/contact">Contact</a></li>
             </ul>
           </div>
         </div>
       </div>
-    </nav>
-    <ul class="side-nav" id="nav-mobile">
-      <li id="homeLM"><a href="/"><i class="material-icons">camera</i>Accueil</a></li>
-      <li id="articlesLM"><a href="/articles"><i class="material-icons">brightness_3</i>Articles</a></li>
-      <li id="shortsLM"><a href="/breves"><i class="material-icons">edit</i>Brèves</a></li>
-      <li id="aboutLM"><a href="/pages/about"><i class="material-icons">school</i>A propos</a></li>
-      <li id="contactLM"><a href="/pages/contact"><i class="material-icons">fullscreen</i>Contact</a></li>
-      <li id="hireMeLM"><a href="/pages/hireme"><i class="material-icons">swap_horiz</i>Engagez-moi</a></li>
-    </ul>
-  </header>
-
-  <main class="container section" id="mainEl">
-    <div id="contentEl"></div>
-
-    <div class="card-panel white center" id="spinnerCard">
-      <div class="preloader-wrapper active">
-        <div class="spinner-layer">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div><div class="gap-patch">
-            <div class="circle"></div>
-          </div><div class="circle-clipper right">
-            <div class="circle"></div>
-          </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2018 dkvz.eu ; I probably won't sue you
         </div>
       </div>
-    </div>
-  </main>
-
-  <footer class="page-footer blue-grey">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Moteur de Blog Basique par VEZDe</h5>
-          <p class="grey-text text-lighten-4">
-            Utilise <a href="http://materializecss.com/" target="_blank">MaterializeCSS</a> et 
-            <b>AUCUN</b> framework Javascript.
-          </p>
-          <p>
-            Membre officiel du comité anti-React
-          </p>
-        </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Social</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="https://twitter.com/MrSausageroll">Twitter</a></li>
-            <li><a class="grey-text text-lighten-3" href="https://github.com/dkvz">Github</a></li>
-            <li><a class="grey-text text-lighten-3" href="/pages/contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      © 2017 dkvz.eu ; I probably won't sue you
-      </div>
-    </div>
-  </footer>
+    </footer>
    
   </body>
 </html>

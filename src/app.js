@@ -80,6 +80,22 @@ var app = {
     about: {
       filename: 'about.html',
       script: 'about.js'
+    },
+    menuTag: {
+      filename: '_menuTag.html',
+      properties: [
+        {name: 'name'},
+        {name: 'nameEncoded'},
+        {id: 'id'}
+      ]
+    },
+    menuTagMobile: {
+      filename: '_menuTagMobile.html',
+      properties: [
+        {name: 'name'},
+        {name: 'nameEncoded'},
+        {id: 'id'}
+      ]
     }
   },
   menuItems: [
@@ -166,7 +182,7 @@ var app = {
     document.getElementById('randomQuote').innerText = this.randomQuote();
   },
   show404: function()  {
-    Materialize.toast('Page introuvable - ' + 
+    Materialize.toast('Page introuvable' + 
       '. Vous avez été redirigé vers la page d\'accueil.', 4000);
   },
   setMainContent: function(fragment, callback) {
@@ -304,6 +320,41 @@ var app = {
       }
     }
     return mainTpl;
+  },
+  loadTags() {
+    // This is supposed to be called only once.
+    $.getJSON(this.apiUrl + '/tags', function(data) {
+      if (data && data.length) {
+        var docFragL = document.createDocumentFragment();
+        var docFragM = document.createDocumentFragment();
+        for (var i = 0; i < data.length; i++) {
+          // Add the URL encoded name for the links:
+          data[i].nameEncoded = encodeURIComponent(data[i].name);
+          app.tags.push(data[i]);
+          // I need to add the tags to the document:
+          docFragL.appendChild(
+            app.createElementFromText(
+              app.parseTemplate('menuTag', data[i])
+            )
+          );
+          docFragM.appendChild(
+            app.createElementFromText(
+              app.parseTemplate('menuTagMobile', data[i])
+            )
+          );
+        }
+        document.getElementById('dropdownTags').appendChild(docFragL);
+        document.getElementById('nav-mobile').appendChild(docFragM);
+      }
+    }).fail(function(xhr, errorText) {
+      console.log('HTTP error in fetching tags - ' 
+        + xhr.status);
+      // We could hide or change the nature of what is normally
+      // the tag menu.
+      Materialize.toast(
+        'Le chargement des catégories a échoué. C\'est pas super normal.'
+      );
+    });
   }
 };
 window.app = app;
@@ -321,34 +372,45 @@ window.app = app;
 require('./polyfills/event-listeners.js');
 require('materialize-css/dist/js/materialize.min.js');
 
+/*
+* Add the HTML fragments of objects on the home page
+* Other fragments will be lazy loaded.
+*/
+app.fragments.short.template = require('./fragments/_breve.html');
+app.fragments.article.template = require('./fragments/_article.html');
+app.fragments.tag.template = require('./fragments/_tag.html');
+app.fragments.menuTag.template = require('./fragments/_menuTag.html');
+app.fragments.menuTagMobile.template = require('./fragments/_menuTagMobile.html');
+app.fragments.home.template = require('./fragments/home.html');
 
 /*
 * Page initialization - listeners
+* This could be all put in a function.
 */
 // Add the spinner thingy to indicate loading, and start with it
 // shown:
 app.spinner = document.getElementById('spinnerCard');
 app.showSpinner();  // This line is currently useless.
-// Enable the navbar from Materialize (can only be done with jQuery):
+// Enable the stuff from Materialize (can only be done with jQuery):
 $('.button-collapse').sideNav();
+$('.dropdown-button').dropdown();
 app.mainEl = document.getElementById('mainEl');
 app.contentEl = document.getElementById('contentEl');
 // Load tags only once in here:
-// TODO
-
-
-
-/*
-* Add the HTML fragments of objects on the home page
-*/
-app.fragments.short.template = require('./fragments/_breve.html');
-app.fragments.article.template = require('./fragments/_article.html');
-app.fragments.tag.template = require('./fragments/_tag.html');
-app.fragments.home.template = require('./fragments/home.html');
-
-/*
-* More app functions
-*/
+app.loadTags();
+// We always need the fixed toolbar thingy.
+// I'm using jQuery in there because it's much easier.
+function pinNavbar() {
+  var scrollVal = document.body.scrollTop || document.documentElement.scrollTop;
+  var headerHeight = $('#navbar').height() - 64;
+  if (scrollVal > headerHeight) {
+    $('.categories-container').toggleClass('pinned', true);
+  } else {
+    $('.categories-container').toggleClass('pinned', false);
+    $('.nav-background').css('opacity', (headerHeight - scrollVal) / headerHeight);
+  }
+}
+window.addEventListener('scroll', pinNavbar);
 
 /*
 * Start routing:

@@ -25,6 +25,12 @@ I just removed the createElement thingy and replaced it with a getElementById.
 
 ## TODO
 
+* I need to switch to mobile menu much quicker, I have a visual bug with my top menu at some point.
+* All the initialization stuff might have to be put in a "document ready" bloc. Not sure.
+* I NEED THE MANIFEST PLUGIN and use that to load my fragments with their right hashes.
+* The mobile menu has weird bottom margin issues.
+* Add the tags to the mobile menu as well.
+* List style is still bad (I'm trying not to use materialize's "browser-default").
 * I need to pick the images for the mobile menu.
 * There is a serious FOUC going on, I need to inject the materialize CSS in the head using the HTML plugin, not know how yet.
 * I forgot to add the number of comments to articles.

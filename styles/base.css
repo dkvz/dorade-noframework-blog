@@ -117,7 +117,19 @@ nav .nav-background {
   #mainEl {
     width: 100%;
   }
+  #randomQuote {
+    font-size: 0.8em;
+  }
 }
+
+/*@media (min-width: 600px) and (max-width: 1380px) {
+  #randomQuote {
+    font-size: 0.8em;
+  }
+  nav ul a {
+    font-size: 0.8em;
+  }
+}*/
 
 .date-author * {
   vertical-align: middle;

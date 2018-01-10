@@ -68,15 +68,23 @@ page('/tag/:name', function(data) {
   document.title = app.titleBase;
   app.currentTags = [];
   app.currentTags.push(data.params.name);
+  app.setMenuItemActive('articlesL');
+  // Set the right links to active in the dropdown menu
+  // AND in the mobile menu:
+
   //app.refreshArticles();
 });
 page('/breves', function() {
+  // Don't forget to change the title
 
 });
 page('/breves/:id', function() {
+  // Don't forget to change the title
 
 });
 page('/articles', function() {
+  // Don't forget to change the title
+  app.setMenuActive('articlesL');
 
 });
 page('/articles/:name/:toBottom?', function(data) {
