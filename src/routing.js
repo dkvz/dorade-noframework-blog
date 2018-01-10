@@ -50,14 +50,14 @@ page('/', function() {
 
 });
 page('/pages/:name', function(data) {
-  document.title = data.params.name.charAt(0).toUpperCase() +
-    data.params.name.slice(1) + ' | ' + app.titleBase;
+  document.title = (data.params.name.charAt(0).toUpperCase() +
+    data.params.name.slice(1)).replace('-', ' ') + ' | ' 
+    + app.titleBase;
   switch(data.params.name) {
     case 'about':
-      app.setMenuItemActive('aboutL');
-      app.setMainContent('about', function() {
-        app.hideSpinner();
-      });
+    case 'contact':
+    case 'hireme':
+      app.loadStaticPage(data.params.name);
       break;
     default:
       document.title = app.titleBase;

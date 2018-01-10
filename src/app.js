@@ -59,7 +59,8 @@ var app = {
           template: 'tag', 
           properties: [
             {name: 'id'},
-            {name: 'name'}
+            {name: 'name'},
+            {name: 'nameEncoded'}
           ]
         },
         {name: 'date', process: function(val) {
@@ -68,18 +69,23 @@ var app = {
           return val;
         }},
         {name: 'author'},
-        {name: 'articleUrl'}
+        {name: 'articleUrl'},
+        {name: 'commentsCount'}
       ]
     },
-    tag: {
-      filename: '_tag.html'
-    },
-    home: {
-      filename: 'home.html'
-    },
+    tag: {filename: '_tag.html'},
+    home: {filename: 'home.html'},
     about: {
       filename: 'about.html',
       script: 'about.js'
+    },
+    contact: {
+      filename: 'contact.html',
+      script: 'contact.js'
+    },
+    hireme: {
+      filename: 'hireme.html',
+      script: 'hireme.js'
     },
     menuTag: {
       filename: '_menuTag.html',
@@ -104,7 +110,7 @@ var app = {
     'shortsL',
     'aboutL',
     'contactL',
-    'hireMeL'
+    'hiremeL'
   ],
   loadedCount: 0,
   tags: [],
@@ -271,6 +277,15 @@ var app = {
         // I think Materialize doesn't support IE 7 anyway.
         var docFrag = document.createDocumentFragment();
         for (var i = 0; i < data.length; i++) {
+          // If on articles we need to add a field to tags.
+          // We could also fetch it from the general tags array
+          // that the app fetched to generate the tag menus.
+          if (!short && data[i].tags && data[i].tags.length > 0) {
+            for (var t = 0; t < data[i].tags.length; t++) {
+              data[i].tags[t].nameEncoded = 
+                encodeURIComponent(data[i].tags[t].name);
+            }
+          }
           var parsedArt = app.parseTemplate(
             short ? 'short': 'article', data[i]
           );
@@ -354,6 +369,13 @@ var app = {
       Materialize.toast(
         'Le chargement des catégories a échoué. C\'est pas super normal.'
       );
+    });
+  },
+  loadStaticPage(page) {
+    this.setMenuItemActive(page + 'L');
+    this.showSpinner();
+    this.setMainContent(page, function() {
+      app.hideSpinner();
     });
   }
 };

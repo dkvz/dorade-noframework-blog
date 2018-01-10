@@ -69,12 +69,11 @@ nav .nav-background {
 }
 
 .article-card ul {
-  padding-left: 24px;
+  padding-left: 34px;
 }
 
 .article-card ul > li {
-  list-style-type: disc; 
-  list-style-position: inside;
+  list-style: disc outside none;
 }
 
 .article-card h1 {
@@ -198,6 +197,12 @@ nav .nav-background {
   -webkit-animation: zomg 3s infinite;
   -moz-animation: zomg 3s infinite;
   animation: zomg 3s infinite;
+}
+
+.around-justified-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 @-webkit-keyframes zomg {
