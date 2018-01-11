@@ -205,6 +205,11 @@ nav .nav-background {
   justify-content: space-around;
 }
 
+.article-card .card-content p {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
 @-webkit-keyframes zomg {
   0%, 100% { color: #7ccdea; }
   16%      { color: #0074D9; }
@@ -259,3 +264,4 @@ nav .nav-background {
   100% {transform: translate3d(0, 0, 0);}
 }
 /* End page transition I'm using */
+

@@ -25,9 +25,15 @@ I just removed the createElement thingy and replaced it with a getElementById.
 
 ## TODO
 
+* The backend seems to be missing "order" for shorts.
+* Disable the source maps in production or check that the -p flag does that.
+* I need to put my robot / IE loadmore button.
+* Layout info for articles and shorts could be a variable.
+* The infinite scrolling pages could use a fab that goes to the top. SHouldn't be too hard to do.
 * All the initialization stuff might have to be put in a "document ready" bloc. Not sure.
 * I NEED THE MANIFEST PLUGIN and use that to load my fragments with their right hashes.
 * The mobile menu has weird bottom margin issues.
+* Pagejs requires html5 history api, I think it doesn't work on IE 8 (to check) - There is a polyfill.
 * My URL encoded tag links have spaces in them. I don't think they had spaces on the older blog.
 * List style is better but maybe could be better in articles.
 * I need to pick the images for the mobile menu.

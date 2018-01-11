@@ -14,6 +14,7 @@ page('*', function(data, next) {
   next();
 });
 page('/', function() {
+  app.currentPage = 'home';
   document.title = app.titleBase;
   app.setMenuItemActive('homeL');
   // We need to load the articles and shorts in the callback:
@@ -29,6 +30,7 @@ page('/', function() {
     false,
     'desc',
     'lastArticles',
+    'col s12',
     function() {
       app.hideOtherSpinner('articlesSpinner');
       // app.loadedCount is only used in the articles
@@ -42,6 +44,7 @@ page('/', function() {
     true,
     'desc',
     'lastShorts',
+    'col l6 m6 s12',
     function() {
       app.hideOtherSpinner('shortsSpinner');
       app.loadedCount = 0;
@@ -57,6 +60,7 @@ page('/pages/:name', function(data) {
     case 'about':
     case 'contact':
     case 'hireme':
+      app.currentPage = data.params.name;
       app.loadStaticPage(data.params.name);
       break;
     default:
@@ -65,17 +69,19 @@ page('/pages/:name', function(data) {
   }
 });
 page('/tag/:name', function(data) {
-  document.title = app.titleBase;
   app.currentTags = [];
   app.currentTags.push(data.params.name);
   app.setMenuItemActive('articlesL');
+  app.currentPage = 'articles';
   // Set the right links to active in the dropdown menu
   // AND in the mobile menu:
-
-  //app.refreshArticles();
+  app.setActiveMenuTag(data.params.name);
+  app.showArticlesPage();  
 });
 page('/breves', function() {
-  // Don't forget to change the title
+  app.currentTags = [];
+  app.currentPage = 'breves';
+  app.showArticlesPage();
 
 });
 page('/breves/:id', function() {
@@ -83,11 +89,14 @@ page('/breves/:id', function() {
 
 });
 page('/articles', function() {
-  // Don't forget to change the title
-  app.setMenuActive('articlesL');
-
+  // Reset tags:
+  app.currentTags = [];
+  app.currentPage = 'articles';
+  app.showArticlesPage();
 });
 page('/articles/:name/:toBottom?', function(data) {
+  app.currentPage = 'article';
+  app.loadedCount = 0;
   if (data.params.toBottom) {
     // Scroll to bottom, might only want to do
     // that when the page has loaded...

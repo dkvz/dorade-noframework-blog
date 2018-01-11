@@ -8,7 +8,8 @@ module.exports = {
     main: './src/app.js',
     about: './src/about.js',
     contact: './src/contact.js',
-    hireme: './src/hireme.js'
+    hireme: './src/hireme.js',
+    articles: './src/articles.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -74,4 +75,6 @@ module.exports = {
     historyApiFallback: true,
     publicPath: '/'
   }
+  /*,
+  devtool: 'eval-source-map'*/
 }

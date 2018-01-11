@@ -45,7 +45,8 @@ var app = {
           return '';
         }},
         {name: 'content'},
-        {name: 'id'}
+        {name: 'id'},
+        {name: 'layout'}
       ]
     },
     article: {
@@ -54,6 +55,7 @@ var app = {
         {name: 'thumbImage'},
         {name: 'title'},
         {name: 'summary'},
+        {name: 'layout'},
         {
           name: 'tags', 
           template: 'tag', 
@@ -72,6 +74,10 @@ var app = {
         {name: 'articleUrl'},
         {name: 'commentsCount'}
       ]
+    },
+    articles: {
+      filename: 'articles.html',
+      script: 'articles.js'
     },
     tag: {filename: '_tag.html'},
     home: {filename: 'home.html'},
@@ -92,7 +98,7 @@ var app = {
       properties: [
         {name: 'name'},
         {name: 'nameEncoded'},
-        {id: 'id'}
+        {name: 'id'}
       ]
     },
     menuTagMobile: {
@@ -100,7 +106,7 @@ var app = {
       properties: [
         {name: 'name'},
         {name: 'nameEncoded'},
-        {id: 'id'}
+        {name: 'id'}
       ]
     }
   },
@@ -112,13 +118,18 @@ var app = {
     'contactL',
     'hiremeL'
   ],
+  scrollTres: 200,
   loadedCount: 0,
   tags: [],
   currentTags: [],
+  currentPage: '',
   maxArticlesHome: 3,
   maxShortsHome: 10,
-  maxArticles: 10,
-  maxShorts: 30,
+  maxArticles: 5,
+  maxShorts: 20,
+  bottomReached: false,
+  orderDesc: true,
+  previousDiff: 0,
   createElementFromText: function(text) {
     // This weird stuff is required to work with some
     // of the IE versions.
@@ -130,7 +141,7 @@ var app = {
       return div.firstChild;
     }
   },
-  lazyLoadPage: function(fragment, callback) {
+  lazyLoadPage: function(fragment, callback, args) {
     // I use this function to lazy-load JS that
     // also has HTML stringified into it.
     this.showSpinner();
@@ -140,7 +151,7 @@ var app = {
     // I could use bind() to keep my 'this' context in this onload
     // but it turns out bind() is not supported by IE 9.
     s.onload = function() {
-      app._replaceMainContent(app.fragments[fragment].template);
+      app._replaceMainContent(app.fragments[fragment].template, args);
       // We don't hide the spinner here, it's supposed to be done in
       // the callback (or not if you don't want to).
       if (callback !== undefined) callback();
@@ -168,7 +179,18 @@ var app = {
   randomQuote: function() {
     return this.quotes[Math.floor(Math.random() * this.quotes.length)];
   },
-  setMenuItemActive(menuId) {
+  setActiveMenuTag: function(tagName) {
+    for (var i = 0; i < this.tags.length; i++) {
+      if (this.tags[i].name === tagName || this.tags[i].nameEncoded === tagName) {
+        document.getElementById('menuTagL' + this.tags[i].id).className = 'active';
+        document.getElementById('menuTagM' + this.tags[i].id).className = 'active';
+      } else {
+        document.getElementById('menuTagL' + this.tags[i].id).className = '';
+        document.getElementById('menuTagM' + this.tags[i].id).className = '';
+      }
+    }
+  },
+  setMenuItemActive: function(menuId) {
     for (var i = 0; i < this.menuItems.length; i++) {
       // If my link li elements had more than one class
       // this would NOT work.
@@ -191,17 +213,21 @@ var app = {
     Materialize.toast('Page introuvable' + 
       '. Vous avez été redirigé vers la page d\'accueil.', 4000);
   },
-  setMainContent: function(fragment, callback) {
+  /**
+   * args in an array of objects with keys name and value.
+   * Will replace these keys by the values in the template.
+   */
+  setMainContent: function(fragment, callback, args) {
     if (this.fragments[fragment] !== undefined) {
       // Check if we got the template:
       if (this.fragments[fragment].template !== undefined) {
-        this._replaceMainContent(this.fragments[fragment].template);
+        this._replaceMainContent(this.fragments[fragment].template, args);
         // we need to call the provided callback:
         if (callback !== undefined) callback();
       } else {
         // get the template from a lazy loaded script
         // where the template is stringified in.
-        this.lazyLoadPage(fragment, callback);
+        this.lazyLoadPage(fragment, callback, args);
       }
     } else {
       // Use the 404 main content.
@@ -209,7 +235,14 @@ var app = {
       this.show404();
     }
   },
-  _replaceMainContent: function(fragmentText) {
+  _replaceMainContent: function(fragmentText, args) {
+    // Place the "args" into the template:
+    if (args && args.constructor === Array) {
+      for (var a = 0; a < args.length; a++) {
+        var reg = new RegExp('\{\{' + args[a].name + '\}\}', 'g');
+        fragmentText = fragmentText.replace(reg, args[a].value);
+      }
+    }
     // I actually use the id "content" no and not mainEl.
     // Just remove everything from it and add the new content.
     while (this.contentEl.firstChild) {
@@ -220,7 +253,7 @@ var app = {
     var el = this._animateElement(this.createElementFromText(fragmentText), 'trans-left');
     this.contentEl.appendChild(el);
   },
-  _fetchArticlesOrShorts(start, count, short, order, callback) {
+  _fetchArticlesOrShorts: function(start, count, short, order, layout, callback) {
     // If short is defined we load shorts.
     // I'm using the jQuery AJAX stuff since I have jQuery anyway.
     var url = this.apiUrl + (short ? '/shorts-starting-from/' : '/articles-starting-from/') +
@@ -242,8 +275,11 @@ var app = {
     }
     $.getJSON(url, function(data) {
       // Set ret with the data.
-      if (data) {
-        app.loadedCount = data.length;
+      if (data && data.length) {
+        app.loadedCount += data.length;
+        for (var d = 0; d < data.length; d++) {
+          data[d].layout = layout;
+        }
       }
       callback(data);
     }).fail(function(xhr, errorText) {
@@ -254,9 +290,10 @@ var app = {
       callback(null);
     });
   },
-  _animateElement(element, animation) {
+  _animateElement: function(element, animation) {
     // This is ugly but IE doesn't support classList.
     // I don't know which IE and I don't care.
+    // Actually some of my stuff doesn't even work in IE 8 anyway.
     if (element.className.length > 0) {
       element.className += ' ' + animation;
     } else {
@@ -264,14 +301,15 @@ var app = {
     }
     return element;
   },
-  loadArticlesOrShorts(start, count, short, order, element, callback) {
+  loadArticlesOrShorts: function(start, count, short, order, element, layout, callback) {
     // We use the callback here usually to reset a 
     // specific spinner (usually).
     // Check if not undefined before calling it.
     // The spinner to reset is not the same on the home
     // page as compared to the articles page.
-    this._fetchArticlesOrShorts(start, count, short, order, function(data) {
-      if (data !== null && data.length) {
+    this._fetchArticlesOrShorts(start, count, short, order, layout, function(data) {
+      var el = document.getElementById(element);
+      if (data !== null && data.length && el) {
         // Let's use a document fragment. We ditch IE 7 but we get
         // only one reflow instead of a lot of them.
         // I think Materialize doesn't support IE 7 anyway.
@@ -294,13 +332,14 @@ var app = {
             app._animateElement(app.createElementFromText(parsedArt), 'scale-up')
           );
         }
-        var el = document.getElementById(element);
         el.appendChild(docFrag);
+      } else {
+        console.log('Got no data or an undefined element to add the data to.')
       }
       if (callback !== undefined) callback();
     });
   },
-  parseTemplate(fragment, data) {
+  parseTemplate: function(fragment, data) {
     var mainTpl = this.fragments[fragment].template;
     for (var i = 0; i < this.fragments[fragment].properties.length; i++) {
       var cur = this.fragments[fragment].properties[i];
@@ -336,7 +375,7 @@ var app = {
     }
     return mainTpl;
   },
-  loadTags() {
+  loadTags: function() {
     // This is supposed to be called only once.
     $.getJSON(this.apiUrl + '/tags', function(data) {
       if (data && data.length) {
@@ -371,12 +410,133 @@ var app = {
       );
     });
   },
-  loadStaticPage(page) {
+  loadStaticPage: function(page) {
     this.setMenuItemActive(page + 'L');
     this.showSpinner();
     this.setMainContent(page, function() {
       app.hideSpinner();
     });
+  },
+  loadMoreContentOnpage: function(page) {
+    if (!app.bottomReached) {
+      console.log('Loading more data...');
+      app.bottomReached = true;
+      switch(page) {
+        case 'articles':
+          app.showSpinner();
+          app.loadArticlesOrShorts(
+            app.loadedCount, 
+            app.maxArticles,
+            false,
+            app.orderDesc ? 'desc' : 'asc',
+            'articles',
+            'col s12',
+            function() {
+              app.hideSpinner();
+              app.bottomReached = false;
+            }
+          );
+          break;
+        case 'article':
+  
+          break;
+        case 'breves':
+          console.log('Loading more shorts...');
+          app.showSpinner();
+          app.loadArticlesOrShorts(
+            app.loadedCount, 
+            app.maxShorts,
+            true,
+            app.orderDesc ? 'desc' : 'asc',
+            'articles',
+            'col l4 m6 s12',
+            function() {
+              app.hideSpinner();
+              app.bottomReached = false;
+            }
+          );
+          break;
+        default:
+          // Remove the listener, we're not on a
+          // supported page.
+          app.disableInfiniteScrolling();
+      }
+    }
+  },
+  inifinteScrollCallback: function() {
+    // I could use window.innerHeight without jQuery but
+    // it's IE 9+ only.
+    var inner = $('#mainEl').innerHeight();
+    var curDiff = window.pageYOffset - inner;
+    if (Math.abs(curDiff) < 250 && 
+      Math.abs(curDiff) >= app.previousDiff) {
+      app.previousDiff = Math.abs(curDiff) - 20;
+      app.loadMoreContentOnpage(app.currentPage);          
+    }
+
+    /* var inner = window.innerHeight;
+    var curDiff = window.pageYOffset - inner;
+    console.log('Current scroll diff: ' + curDiff);
+    if (curDiff > 250 && curDiff >= app.previousDiff) {
+      app.previousDiff = curDiff - 20;
+      app.loadMoreContentOnpage(app.currentPage);          
+    } */
+  },
+  enableInfiniteScrolling: function() {
+    // I need to handle multiple listeners for scroll possibly
+    // on the same element, because my fixed navbar thingy uses
+    // a scroll listener.
+    window.addEventListener('scroll', app.inifinteScrollCallback);
+  },
+  disableInfiniteScrolling: function() {
+    window.removeEventListener('scroll', app.inifinteScrollCallback);
+  },
+  showArticlesPage: function() {
+    document.title = this.titleBase;
+    this.loadedCount = 0;
+    // Prevent one extra loading from the infinite
+    // scrolling thingy:
+    this.bottomReached = true;
+    this.showSpinner();
+    if (this.currentPage === 'articles') {
+      this.setMenuItemActive('articlesL');
+      this.setMainContent('articles', function() {
+        // The initialization code is lazy loaded.
+        if (app.fragments.articles.initPage !== undefined)
+          app.fragments.articles.initPage();
+        app.loadArticlesOrShorts(
+          0, 
+          app.maxArticles,
+          false,
+          app.orderDesc ? 'desc' : 'asc',
+          'articles',
+          'col s12',
+          function() {
+            app.hideSpinner();
+            app.bottomReached = false;
+          }
+        );
+      }, [{name: 'title', value: 'Articles'}]); 
+    } else {
+      this.setMenuItemActive('shortsL');
+      this.setMainContent('articles', function() {
+        // The initialization code is lazy loaded.
+        if (app.fragments.articles.initPage !== undefined)
+          app.fragments.articles.initPage();
+        app.loadArticlesOrShorts(
+          0, 
+          app.maxShorts,
+          true,
+          app.orderDesc ? 'desc' : 'asc',
+          'articles',
+          'col l4 m6 s12',
+          function() {
+            app.hideSpinner();
+            app.bottomReached = false;
+          }
+        );
+      }, [{name: 'title', value: 'Brèves'}]);
+    }
   }
 };
 window.app = app;
