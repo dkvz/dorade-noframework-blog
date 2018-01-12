@@ -10,20 +10,102 @@ app.fragments.article.initPage = function() {
 
 };
 
-app.loadComments = function() {
+app.loadComments = function(start, count, callback) {
+  // Get the articleId from the hidden input:
+  var articleId = app.getCurrentArticleId();
+  if (articleId !== '') {
+    // We don't need to set bottomReached an all that
+    // here, it's set in the infiniteScrolling function.
+    $.getJSON(
+      app.apiUrl + '/comments-starting-from/' + articleId + '&max=' + count, 
+      function(data) {
+      // Set ret with the data.
+      if (data && data.length) {
+        var docFrag = document.createDocumentFragment();
+        for (var i = 0; i < data.length; i++) {
+          data[i].number = app.loadedCount + (i + 1);
+          docFrag.appendChild(app.createElementFromText(
+            app.parseTemplate('comment', data[i])
+          ));
+        }
+        app.loadedCount += data.length;
+        document.getElementById('comments').appendChild(docFrag);
+      }
+      callback(data);
+    }).fail(function(xhr, errorText) {
+      // If we get a 404 it's no use trying to load more articles.
+      // or shorts.
+      console.log('HTTP error in fetching comments - ' 
+        + xhr.status);
+      callback(null);
+    });
+  }
+};
 
+app.simpleHtmlStrip = function(text) {
+  return text.replace(/<(?:.|\n)*?>/gm, '');
 };
 
 app.sendComment = function() {
   // Get the articleId from the hidden input:
   var articleId = app.getCurrentArticleId();
-
-  // We should probably add the new comment to the DOM.
-  
+  var author = document.getElementById('nameInput');
+  var comment = document.getElementById('commentInput');
+  var quest = document.getElementById('questionInput');
+  var trim = new RegExp(/^\s+|\s+$/, 'g');
+  if (quest.value == '2') {
+    if (author.value.replace(trim, '') !== '') {
+      if (comment.value.replace(trim, '') !== '') {
+        // We should probably add the new comment to the DOM.
+        // In that case, add 1 to loadedCount.
+        // My save comment API is a regular url encoded form for
+        // some reason.
+        // It should work with jQuery as a data object, needs testing.
+        app.toast('Envoi en cours...');
+        $.post(
+          this.apiUrl + '/comments', 
+          {articleurl: articleId, 
+            author: author.value, 
+            comment: comment.value}
+        ).done(function(data) {
+          app.toast('Message enregistré. Enfin si tout va bien.');
+          // We need to load more comments here:
+          app.showSpinner();
+          app.bottomReached = true;
+          app.loadComments(app.loadedCount, app.maxComments, function() {
+            app.hideSpinner();
+            app.bottomReached = false;
+          });
+        }).fail(function(xhr, errorText) {
+          app.toast('Votre commentaire n\'a pas pu' +
+            ' être enregistré pour une raison obscure.');
+        });
+        // Reset all the fields that can be marked
+        // as invalid:
+        quest.className = '';
+        author.className = '';
+        comment.className = '';
+      } else {
+        app.toast('Votre commentaire est vide.');
+        comment.className = 'invalid';
+      }
+    } else {
+      app.toast('Veuillez renseigner un nom.');
+      author.className = 'invalid';
+    }
+  } else {
+    app.toast('Veuillez revoir les règles de priorité ' +
+      'des opérateurs mathétmatiques.');
+    quest.className = 'invalid';
+  }
 };
 
 app.getCurrentArticleId = function() {
-  return document.getElementById('articleIdInput').value;
+  var el = document.getElementById('articleIdInput');
+  if (el) {
+    return document.getElementById('articleIdInput').value;
+  }
+  return '';
 };
 
 app.loadArticle = function(articleId, scrollToBottom, toc) {
@@ -57,6 +139,10 @@ app.loadArticle = function(articleId, scrollToBottom, toc) {
       docFrag.appendChild(app.createElementFromText(
         app.parseTemplate('articleContent', data)
       ));
+      // Scroll to bottom if it was required:
+      if (scrollToBottom) {
+        location.hash = '#commentsA';
+      }
       // Enable infinite scrolling:
       app.enableInfiniteScrolling();
     } else {

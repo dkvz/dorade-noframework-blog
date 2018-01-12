@@ -84,7 +84,7 @@ var app = {
       script: 'article.js'
     },
     articleContent: {
-      filename = '_articleContent.html',
+      filename: '_articleContent.html',
       properties: [
         {name: 'title'},
         {name: 'author'},
@@ -161,9 +161,13 @@ var app = {
   maxShortsHome: 10,
   maxArticles: 5,
   maxShorts: 20,
+  maxComments: 10,
   bottomReached: false,
   orderDesc: true,
   previousDiff: 0,
+  toast: function(text) {
+    Materialize.toast(text, 4000);
+  },
   createElementFromText: function(text) {
     // This weird stuff is required to work with some
     // of the IE versions.
@@ -481,7 +485,16 @@ var app = {
           );
           break;
         case 'article':
-  
+          console.log('Loading comments...');
+          app.showSpinner();
+          app.loadComments(
+            app.loadedCount, 
+            app.maxComments,
+            function() {
+              app.hideSpinner();
+              app.bottomReached = false;
+            }
+          );
           break;
         case 'breves':
           console.log('Loading more shorts...');

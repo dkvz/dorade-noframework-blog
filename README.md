@@ -25,7 +25,9 @@ I just removed the createElement thingy and replaced it with a getElementById.
 
 ## TODO
 
+* The backend has to be able to save comments using the articleId as well as the URL.
 * Does the backend really remove HTML from comments? Got to check that.
+* All the direct calls to materialize.toast can be made to app.toast.
 * If you're loading something and move to another page it will create an error.
 * By clicking a menu multiple time, do we proc the routing function multiple times?
 * Disable the source maps in production or check that the -p flag does that.
