@@ -81,7 +81,10 @@ var app = {
     },
     article: {
       filename: 'article.html',
-      script: 'article.js',
+      script: 'article.js'
+    },
+    articleContent: {
+      filename = '_articleContent.html',
       properties: [
         {name: 'title'},
         {name: 'author'},
@@ -560,16 +563,6 @@ var app = {
         );
       }, [{name: 'title', value: 'Brèves'}]);
     }
-  },
-  getArticle(articleId, callback) {
-    // articleId can also the article URL.
-    var url = this.apiUrl + '/article/' + articleId;
-    $.getJSON(url, function(data) {
-      callback(data);
-    }).fail(function(xhr, errorText) {
-      // Every error will be considered as if it was a 404.
-      callback(null);
-    });
   }
 };
 window.app = app;
