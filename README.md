@@ -25,7 +25,7 @@ I just removed the createElement thingy and replaced it with a getElementById.
 
 ## TODO
 
-* The backend seems to be missing "order" for shorts.
+* Does the backend really remove HTML from comments? Got to check that.
 * Disable the source maps in production or check that the -p flag does that.
 * I need to put my robot / IE loadmore button.
 * Layout info for articles and shorts could be a variable.
@@ -42,3 +42,6 @@ I just removed the createElement thingy and replaced it with a getElementById.
 * I often use checks to !== undefined, especially for callbacks. I can probably just use if (callback) or event better, something like (callback && callback())  -> To check.
 * Theme color in the manifest.json is wrong.
 * The styles folder should be inside src.
+* Add "exit page" callbacks in routing to unregister event listeners on some pages.
+  * Removing nodes also GCs the listeners, but not very effectively on old IE versions (as in IE 8).
+  * So this is very low priority.

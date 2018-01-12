@@ -79,6 +79,25 @@ var app = {
       filename: 'articles.html',
       script: 'articles.js'
     },
+    article: {
+      filename: 'article.html',
+      script: 'article.js',
+      properties: [
+        {name: 'title'},
+        {name: 'author'},
+        {name: 'date'},
+        {name: 'author'}
+      ]
+    },
+    comment: {
+      filename: '_comment.html',
+      properties: [
+        {name: 'number'},
+        {name: 'author'},
+        {name: 'date'},
+        {name: 'comment'}
+      ]
+    },
     tag: {filename: '_tag.html'},
     home: {filename: 'home.html'},
     about: {
@@ -212,6 +231,10 @@ var app = {
   show404: function()  {
     Materialize.toast('Page introuvable' + 
       '. Vous avez été redirigé vers la page d\'accueil.', 4000);
+  },
+  showArticle404: function(articleId) {
+    Materialize.toast('L\'article identifié comme "' + articleId 
+      + '" n\'existe pas ou plus.');
   },
   /**
    * args in an array of objects with keys name and value.
@@ -537,6 +560,16 @@ var app = {
         );
       }, [{name: 'title', value: 'Brèves'}]);
     }
+  },
+  getArticle(articleId, callback) {
+    // articleId can also the article URL.
+    var url = this.apiUrl + '/article/' + articleId;
+    $.getJSON(url, function(data) {
+      callback(data);
+    }).fail(function(xhr, errorText) {
+      // Every error will be considered as if it was a 404.
+      callback(null);
+    });
   }
 };
 window.app = app;

@@ -31,7 +31,7 @@ app.fragments.articles.initPage = function() {
       } else {
         app.loadArticlesOrShorts(
           0, 
-          app.maxshorts,
+          app.maxShorts,
           true,
           app.orderDesc ? 'desc' : 'asc',
           'articles',
