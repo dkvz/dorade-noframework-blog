@@ -43,6 +43,11 @@ I just removed the createElement thingy and replaced it with a getElementById.
 * Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
 * In the fragments array, spinner-card should be called spinnerCard.
 * I often use checks to !== undefined, especially for callbacks. I can probably just use if (callback) or event better, something like (callback && callback())  -> To check.
+* We could delcare a contructor for the app object and call new somehwere. I think react works like that.
+  * Check how cookie clicker does it. I like it because the code of cookie clicker is super dirty.
+* Technically if we're already on the articles page, we don't have to reload it entirely if we click a tag, we just need to refresh the loaded articles.
+  * We could just cache the generated root elements of pages, since we don't need to re-fetch that stuff. We'd have to be careful of event listeners sticking around with these elements. I have to check the performances on mobile, but it could be a good idea.
+    * We would just be keeping the document fragment.
 * Theme color in the manifest.json is wrong.
 * The styles folder should be inside src.
 * Add "exit page" callbacks in routing to unregister event listeners on some pages.

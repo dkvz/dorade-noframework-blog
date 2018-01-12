@@ -85,8 +85,16 @@ page('/breves', function() {
 
 });
 page('/breves/:id', function() {
-  // Don't forget to change the title
-
+  // This is almost identical to the 
+  // articles/article_url page.
+  // Could be refactored.
+  app.currentPage = 'article';
+  app.loadedCount = 0;
+  app.showSpinner();
+  app.setMainContent('article', function() {
+    app.hideSpinner();
+    app.loadArticle(data.params.id, data.params.ToBottom);
+  });
 });
 page('/articles', function() {
   // Reset tags:
@@ -97,16 +105,14 @@ page('/articles', function() {
 page('/articles/:name/:toBottom?', function(data) {
   app.currentPage = 'article';
   app.loadedCount = 0;
-  if (data.params.toBottom) {
-    // Scroll to bottom, might only want to do
-    // that when the page has loaded...
-    // In the previous blog I used a global flag in
-    // app to notify the other page.
-    // (app.scrollToBottom = true)
-  } else {
-    // Don't scroll to bottom.
-  }
-  app.articleParams = data.params;
+  app.showSpinner();
+  app.setMainContent('article', function() {
+    // I'm not sure if I can just pass what a function
+    // that has to be lazy loaded as a callback...
+    // Don't think so.
+    app.hideSpinner();
+    app.loadArticle(data.params.name, data.params.ToBottom, true);
+  });
 });
 page('/contact', function() {
   page.redirect('/pages/contact');

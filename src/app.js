@@ -89,7 +89,18 @@ var app = {
         {name: 'title'},
         {name: 'author'},
         {name: 'date'},
-        {name: 'author'}
+        {name: 'author'},
+        {name: 'content'},
+        {name: 'id'},
+        {
+          name: 'tags', 
+          template: 'tag', 
+          properties: [
+            {name: 'id'},
+            {name: 'name'},
+            {name: 'nameEncoded'}
+          ]
+        }
       ]
     },
     comment: {
@@ -130,7 +141,8 @@ var app = {
         {name: 'nameEncoded'},
         {name: 'id'}
       ]
-    }
+    },
+    article404: {filename: '_article404.html'}
   },
   menuItems: [
     'homeL',
@@ -278,6 +290,11 @@ var app = {
     // Or not I guess it still works if not animation capable.
     var el = this._animateElement(this.createElementFromText(fragmentText), 'trans-left');
     this.contentEl.appendChild(el);
+  },
+  removeContentFromNode: function(node) {
+    while (node.firstChild) {
+      node.removeChild(node.firstChild);
+    }
   },
   _fetchArticlesOrShorts: function(start, count, short, order, layout, callback) {
     // If short is defined we load shorts.

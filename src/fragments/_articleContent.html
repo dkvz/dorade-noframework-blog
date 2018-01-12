@@ -40,7 +40,7 @@
       <div class="collapsible-body">
         <div class="row">
           <div class="input-field col s12">
-            <input id="nameIput" required type="text">
+            <input id="nameInput" required type="text" />
             <label for="nameInput">Votre nom</label>
           </div>
           <div class="input-field col s12">
@@ -49,12 +49,17 @@
           </div>
           <div class="input-field col s12">
             <i class="material-icons prefix">help</i>
-            <input id="questionIput" type="text">
+            <input id="questionInput" type="text" />
             <label for="questionInput">Combien font 4x0+2?</label>
           </div>
           <div class="col s12">
-            <button class="btn waves-effect waves-light right" name="action" id="submitComment">Envoyer
-              <i class="material-icons right">send</i>
+            <input type="hidden" value="{{id}}" id="articleIdInput" />
+            <button class="btn waves-effect waves-light right" 
+              name="action" 
+              onclick="app.sendComment"
+              id="submitComment">
+                Envoyer
+                <i class="material-icons right">send</i>
             </button>
           </div>
         </div>  
