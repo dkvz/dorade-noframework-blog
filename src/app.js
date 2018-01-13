@@ -49,8 +49,8 @@ var app = {
         {name: 'layout'}
       ]
     },
-    article: {
-      filename: '_article.html',
+    articleCard: {
+      filename: '_articleCard.html',
       properties: [
         {name: 'thumbImage'},
         {name: 'title'},
@@ -71,7 +71,7 @@ var app = {
           return val;
         }},
         {name: 'author'},
-        {name: 'articleUrl'},
+        {name: 'articleURL'},
         {name: 'commentsCount'}
       ]
     },
@@ -372,7 +372,7 @@ var app = {
             }
           }
           var parsedArt = app.parseTemplate(
-            short ? 'short': 'article', data[i]
+            short ? 'short': 'articleCard', data[i]
           );
           //var el = document.querySelector('#' + element);
           docFrag.appendChild(
@@ -615,7 +615,7 @@ require('materialize-css/dist/js/materialize.min.js');
 * Other fragments will be lazy loaded.
 */
 app.fragments.short.template = require('./fragments/_breve.html');
-app.fragments.article.template = require('./fragments/_article.html');
+app.fragments.articleCard.template = require('./fragments/_articleCard.html');
 app.fragments.tag.template = require('./fragments/_tag.html');
 app.fragments.menuTag.template = require('./fragments/_menuTag.html');
 app.fragments.menuTagMobile.template = require('./fragments/_menuTagMobile.html');

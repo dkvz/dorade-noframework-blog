@@ -2,7 +2,7 @@ body {
   background-image: url('../assets/patgpibgray.jpg');
   background-repeat: repeat;
   background-position: top left;
-  background-attachment: scroll;
+  background-attachment: fixed;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -140,7 +140,7 @@ nav .nav-background {
 }
 
 .screen {
-  font-size: 0.75em;
+  font-size: 0.85em;
   padding: 15px;
   margin-bottom: 1.8em;
   background: #333;
@@ -184,6 +184,10 @@ nav .nav-background {
   overflow: auto;
   padding-bottom: 10px;
   padding-top: 4px;
+}
+
+.comment-card pre {
+  white-space:pre-wrap;
 }
 
 .nice-links a {

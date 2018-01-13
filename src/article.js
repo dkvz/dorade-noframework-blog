@@ -1,13 +1,13 @@
 
 app.fragments.article.template = require('./fragments/article.html');
-app.fragments.articleContent.template = require('./fragments/articleContent.html');
+app.fragments.articleContent.template = require('./fragments/_articleContent.html');
 app.fragments.comment.template = require('./fragments/_comment.html');
 app.fragments.article404.template = require('./fragments/_article404.html');
 
 app.fragments.article.initPage = function() {
   // If I add event listeners here and keep the nodes intact 
   // in some variable, the listeners should stick around.
-
+  $('.collapsible').collapsible();
 };
 
 app.loadComments = function(start, count, callback) {
@@ -17,7 +17,8 @@ app.loadComments = function(start, count, callback) {
     // We don't need to set bottomReached an all that
     // here, it's set in the infiniteScrolling function.
     $.getJSON(
-      app.apiUrl + '/comments-starting-from/' + articleId + '&max=' + count, 
+      app.apiUrl + '/comments-starting-from/' + articleId + 
+        '?start=' + app.loadedCount + '&max=' + count, 
       function(data) {
       // Set ret with the data.
       if (data && data.length) {
@@ -49,6 +50,7 @@ app.simpleHtmlStrip = function(text) {
 app.sendComment = function() {
   // Get the articleId from the hidden input:
   var articleId = app.getCurrentArticleId();
+  var numericId = parseInt(articleId, 10);
   var author = document.getElementById('nameInput');
   var comment = document.getElementById('commentInput');
   var quest = document.getElementById('questionInput');
@@ -61,12 +63,19 @@ app.sendComment = function() {
         // My save comment API is a regular url encoded form for
         // some reason.
         // It should work with jQuery as a data object, needs testing.
+        var body = {
+          author: author.value, 
+          comment: comment.value
+        };
+        if (isNaN(numericId)) {
+          body.articleurl = numericId;
+        } else {
+          body.article_id = articleId;
+        }
         app.toast('Envoi en cours...');
         $.post(
           this.apiUrl + '/comments', 
-          {articleurl: articleId, 
-            author: author.value, 
-            comment: comment.value}
+          body
         ).done(function(data) {
           app.toast('Message enregistré. Enfin si tout va bien.');
           // We need to load more comments here:
@@ -82,21 +91,22 @@ app.sendComment = function() {
         });
         // Reset all the fields that can be marked
         // as invalid:
-        quest.className = '';
-        author.className = '';
-        comment.className = '';
+        // classList doesn't work on IE9 but it doesn't matter
+        quest.classList.remove('invalid');
+        author.classList.remove('invalid');
+        comment.classList.remove('invalid');
       } else {
         app.toast('Votre commentaire est vide.');
-        comment.className = 'invalid';
+        comment.classList.add('invalid');
       }
     } else {
       app.toast('Veuillez renseigner un nom.');
-      author.className = 'invalid';
+      author.classList.add('invalid');
     }
   } else {
     app.toast('Veuillez revoir les règles de priorité ' +
       'des opérateurs mathétmatiques.');
-    quest.className = 'invalid';
+    quest.classList.add('invalid');
   }
 };
 
@@ -158,6 +168,7 @@ app.loadArticle = function(articleId, scrollToBottom, toc) {
     // If setMainContent wasn't erasing everything when we change
     // article, we'd have to clear the content node here.
     document.getElementById('article').appendChild(docFrag);
+    app.fragments.article.initPage();
   });
 };
 

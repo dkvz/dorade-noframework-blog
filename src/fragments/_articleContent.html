@@ -1,4 +1,5 @@
-<h2 class="blue-grey-text text-darken-2 drop-anim">{{title}}</h2>
+<div class="article-card">
+  <h2 class="blue-grey-text text-darken-2 drop-anim">{{title}}</h2>
   <div>
     {{tags}}
   </div>
@@ -56,7 +57,7 @@
             <input type="hidden" value="{{id}}" id="articleIdInput" />
             <button class="btn waves-effect waves-light right" 
               name="action" 
-              onclick="app.sendComment"
+              onclick="app.sendComment()"
               id="submitComment">
                 Envoyer
                 <i class="material-icons right">send</i>

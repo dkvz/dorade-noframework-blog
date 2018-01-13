@@ -2,14 +2,16 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var dev = process.env.NODE_ENV === 'dev';
 
-module.exports = {
+var config = {
   entry: {
     main: './src/app.js',
     about: './src/about.js',
     contact: './src/contact.js',
     hireme: './src/hireme.js',
-    articles: './src/articles.js'
+    articles: './src/articles.js',
+    article: './src/article.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -64,7 +66,6 @@ module.exports = {
       template: './src/index.html',
       chunks: ['main']
     }),
-    new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
       {from: 'assets', to: 'assets'},
       {from: 'webroot', to: ''}
@@ -75,6 +76,14 @@ module.exports = {
     historyApiFallback: true,
     publicPath: '/'
   }
+}
+
+if (dev) {
+  config.devtool = 'eval-source-map';
+} else {
+  config.plugins.push(new CleanWebpackPlugin(['dist']));
+}
+
+module.exports = config;
   /*,
   devtool: 'eval-source-map'*/
-}

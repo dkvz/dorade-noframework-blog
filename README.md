@@ -26,8 +26,9 @@ I just removed the createElement thingy and replaced it with a getElementById.
 ## TODO
 
 * The backend has to be able to save comments using the articleId as well as the URL.
-* Does the backend really remove HTML from comments? Got to check that.
 * All the direct calls to materialize.toast can be made to app.toast.
+* I sometime use the ternary operator to set something as true or false, this is redundant...
+* When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
 * If you're loading something and move to another page it will create an error.
 * By clicking a menu multiple time, do we proc the routing function multiple times?
 * Disable the source maps in production or check that the -p flag does that.
@@ -41,6 +42,8 @@ I just removed the createElement thingy and replaced it with a getElementById.
 * My URL encoded tag links have spaces in them. I don't think they had spaces on the older blog.
 * List style is better but maybe could be better in articles.
 * I need to pick the images for the mobile menu.
+* Disable the save comment button while saving is in progress.
+* Routing without hash bangs actually has a hard browser version limit I think.
 * There is a serious FOUC going on, I need to inject the materialize CSS in the head using the HTML plugin, not know how yet.
 * Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
 * In the fragments array, spinner-card should be called spinnerCard.
