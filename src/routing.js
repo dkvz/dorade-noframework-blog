@@ -84,16 +84,17 @@ page('/breves', function() {
   app.showArticlesPage();
 
 });
-page('/breves/:id', function() {
+page('/breves/:id', function(data) {
   // This is almost identical to the 
   // articles/article_url page.
   // Could be refactored.
+  app.previousArticle = '';
   app.currentPage = 'article';
   app.loadedCount = 0;
   app.showSpinner();
   app.setMainContent('article', function() {
     app.hideSpinner();
-    app.loadArticle(data.params.id, data.params.ToBottom);
+    app.loadArticle(data.params.id, data.hash);
   });
 });
 page('/articles', function() {
@@ -103,16 +104,21 @@ page('/articles', function() {
   app.showArticlesPage();
 });
 page('/articles/:name/:toBottom?', function(data) {
-  app.currentPage = 'article';
-  app.loadedCount = 0;
-  app.showSpinner();
-  app.setMainContent('article', function() {
-    // I'm not sure if I can just pass what a function
-    // that has to be lazy loaded as a callback...
-    // Don't think so.
-    app.hideSpinner();
-    app.loadArticle(data.params.name, data.params.ToBottom, true);
-  });
+  if (app.currentPage !== 'article' || 
+    app.previousArticle !== data.params.name) {
+    app.currentPage = 'article';
+    app.loadedCount = 0;
+    app.showSpinner();
+    app.setMainContent('article', function() {
+      // Save current article URL in the context:
+      app.previousArticle = data.params.name;
+      // I'm not sure if I can just pass what a function
+      // that has to be lazy loaded as a callback...
+      // Don't think so.
+      app.hideSpinner();
+      app.loadArticle(data.params.name, data.hash, true);
+    });
+  }
 });
 page('/contact', function() {
   page.redirect('/pages/contact');

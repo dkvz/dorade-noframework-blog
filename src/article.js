@@ -118,7 +118,7 @@ app.getCurrentArticleId = function() {
   return '';
 };
 
-app.loadArticle = function(articleId, scrollToBottom, toc) {
+app.loadArticle = function(articleId, hash, toc) {
   // To call after "setMainContent"
   app.bottomReached = true;
   app.showOtherSpinner('articleSpinner');
@@ -149,10 +149,6 @@ app.loadArticle = function(articleId, scrollToBottom, toc) {
       docFrag.appendChild(app.createElementFromText(
         app.parseTemplate('articleContent', data)
       ));
-      // Scroll to bottom if it was required:
-      if (scrollToBottom) {
-        location.hash = '#commentsA';
-      }
       // Enable infinite scrolling:
       app.enableInfiniteScrolling();
     } else {
@@ -168,6 +164,10 @@ app.loadArticle = function(articleId, scrollToBottom, toc) {
     // If setMainContent wasn't erasing everything when we change
     // article, we'd have to clear the content node here.
     document.getElementById('article').appendChild(docFrag);
+    // Scroll to bottom if it was required:
+    if (hash && hash !== '') {
+      location.hash = hash;
+    }
     app.fragments.article.initPage();
   });
 };
@@ -230,7 +230,7 @@ app.addTOC = function(contentObj, lvl, maxLvl, start, end, lvlStr) {
       //contentObj.toc += '<li><a onclick="app.scrollToItem(\'' + addLvlStrPartial + '\')">' +
       //  title + '</a></li>\n';
       // With h element we can just use their id as an anchor:
-      contentObj.toc += '<li><a href="#' + addLvlStrPartial + '">' +
+      contentObj.toc += '<li><a href="#' + addLvlStrPartial + '" rel="external">' +
         title + '</a></li>\n';
       // Add the anchor, will look like this:
       // We need to add an id to the Hx element that we're working with here.

@@ -165,6 +165,7 @@ var app = {
   bottomReached: false,
   orderDesc: true,
   previousDiff: 0,
+  previousArticle: '',
   toast: function(text) {
     Materialize.toast(text, 4000);
   },
