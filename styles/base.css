@@ -78,26 +78,32 @@ nav .nav-background {
 
 .article-card h1 {
   font-size: 2.8rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .article-card h2 {
   font-size: 2.3rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .article-card h3 {
   font-size: 2.0rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .article-card h4 {
   font-size: 1.8rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .article-card h5 {
   font-size: 1.7rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .article-card h6 {
   font-size: 1.6rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .row-flex {
@@ -105,6 +111,13 @@ nav .nav-background {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+#articleContent {
+  font-family: medium-content-serif-font, Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-size: 1.3em;
+  line-height: 1.3em;
+  padding-bottom: 30px;
 }
 
 @media (max-width: 600px) {
@@ -118,6 +131,11 @@ nav .nav-background {
   }
   #randomQuote {
     font-size: 0.8em;
+  }
+  #articleContent {
+    font-size: 1.14em;
+    line-height: 1.3em;
+    padding-bottom: 20px;
   }
 }
 

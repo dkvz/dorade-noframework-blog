@@ -52,29 +52,22 @@ I just removed the createElement thingy and replaced it with a getElementById.
 
 ## TODO
 
-* The backend has to be able to save comments using the articleId as well as the URL.
-* All the direct calls to materialize.toast can be made to app.toast.
-* I sometime use the ternary operator to set something as true or false, this is redundant...
 * When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
-* If you're loading something and move to another page it will create an error.
-* By clicking a menu multiple time, do we proc the routing function multiple times?
-* Disable the source maps in production or check that the -p flag does that.
-* I need to put my robot / IE loadmore button.
-* Layout info for articles and shorts could be a variable.
-* The infinite scrolling pages could use a fab that goes to the top. SHouldn't be too hard to do.
+* If you're loading something and move to another page it won't work until the content is loaded. I might put some kind of abort flag in the app object to abort a loading operation earlier.
+* The infinite scrolling pages could use a fab that goes to the top. Shouldn't be too hard to do. Although you have to prevent routing to do that. Maybe only make it visible for desktop and tablets?
 * All the initialization stuff might have to be put in a "document ready" bloc. Not sure.
 * I NEED THE MANIFEST PLUGIN and use that to load my fragments with their right hashes.
 * The mobile menu has weird bottom margin issues.
 * Pagejs requires html5 history api, I think it doesn't work on IE 8 (to check) - There is a polyfill.
-* My URL encoded tag links have spaces in them. I don't think they had spaces on the older blog.
 * List style is better but maybe could be better in articles.
-* I need to pick the images for the mobile menu.
-* Disable the save comment button while saving is in progress.
-* Routing without hash bangs actually has a hard browser version limit I think.
+* Test on mobile and tablets, the infinite scrolling might not work on there.
+* Use the SASS CSS from materialize. If I do that, I need to replace mentions to Roboto in my css file and replace that with the SASS variable used for the base font family.
+* It looks like on some articles, going to the bottom using the comments link doesn't proc the infinite scrolling.
+* I need to put my robot / IE loadmore button.
 * There is a serious FOUC going on, I need to inject the materialize CSS in the head using the HTML plugin, not know how yet.
 * Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
 * In the fragments array, spinner-card should be called spinnerCard.
-* I often use checks to !== undefined, especially for callbacks. I can probably just use if (callback) or event better, something like (callback && callback())  -> To check.
+* I often use checks to !== undefined, especially for callbacks. I can probably just use if (callback) or even better, something like (callback && callback())  -> To check.
 * We could delcare a contructor for the app object and call new somehwere. I think react works like that.
   * Check how cookie clicker does it. I like it because the code of cookie clicker is super dirty.
 * Technically if we're already on the articles page, we don't have to reload it entirely if we click a tag, we just need to refresh the loaded articles.

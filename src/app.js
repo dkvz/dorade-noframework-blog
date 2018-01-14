@@ -180,6 +180,11 @@ var app = {
       return div.firstChild;
     }
   },
+  goToTop: function() {
+    // Won't work unless the router is instructed to
+    // not re-create pages when you change the hash.
+    location.hash = this.mainEl.id;
+  },
   lazyLoadPage: function(fragment, callback, args) {
     // I use this function to lazy-load JS that
     // also has HTML stringified into it.
@@ -249,11 +254,11 @@ var app = {
     document.getElementById('randomQuote').innerText = this.randomQuote();
   },
   show404: function()  {
-    Materialize.toast('Page introuvable' + 
-      '. Vous avez été redirigé vers la page d\'accueil.', 4000);
+    this.toast('Page introuvable' + 
+      '. Vous avez été redirigé vers la page d\'accueil.');
   },
   showArticle404: function(articleId) {
-    Materialize.toast('L\'article identifié comme "' + articleId 
+    this.toast('L\'article identifié comme "' + articleId 
       + '" n\'existe pas ou plus.');
   },
   /**
@@ -453,7 +458,7 @@ var app = {
         + xhr.status);
       // We could hide or change the nature of what is normally
       // the tag menu.
-      Materialize.toast(
+      this.toast(
         'Le chargement des catégories a échoué. C\'est pas super normal.'
       );
     });

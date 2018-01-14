@@ -82,7 +82,7 @@ page('/breves', function() {
   app.currentTags = [];
   app.currentPage = 'breves';
   app.showArticlesPage();
-
+  // The showArticlesPage function sets the active menu.
 });
 page('/breves/:id', function(data) {
   // This is almost identical to the 
@@ -91,6 +91,7 @@ page('/breves/:id', function(data) {
   app.previousArticle = '';
   app.currentPage = 'article';
   app.loadedCount = 0;
+  app.setMenuItemActive('shortsL');
   app.showSpinner();
   app.setMainContent('article', function() {
     app.hideSpinner();
@@ -104,11 +105,15 @@ page('/articles', function() {
   app.showArticlesPage();
 });
 page('/articles/:name/:toBottom?', function(data) {
+  // The toBottom thing is a legacy from the older
+  // blog, it's not being used and will not make
+  // anything go to any bottom.
   if (app.currentPage !== 'article' || 
     app.previousArticle !== data.params.name) {
     app.currentPage = 'article';
     app.loadedCount = 0;
     app.showSpinner();
+    app.setMenuItemActive('articlesL');
     app.setMainContent('article', function() {
       // Save current article URL in the context:
       app.previousArticle = data.params.name;

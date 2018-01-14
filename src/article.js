@@ -48,6 +48,9 @@ app.simpleHtmlStrip = function(text) {
 };
 
 app.sendComment = function() {
+  // Disable the save button:
+  var subm = document.getElementById('submitComment');
+  subm.disabled = 'disabled';
   // Get the articleId from the hidden input:
   var articleId = app.getCurrentArticleId();
   var numericId = parseInt(articleId, 10);
@@ -81,6 +84,8 @@ app.sendComment = function() {
           // We need to load more comments here:
           app.showSpinner();
           app.bottomReached = true;
+          // Collapse the form (has to use jQuery):
+          $('#commentForm').collapsible('close', 0);
           app.loadComments(app.loadedCount, app.maxComments, function() {
             app.hideSpinner();
             app.bottomReached = false;
@@ -108,6 +113,7 @@ app.sendComment = function() {
       'des opérateurs mathétmatiques.');
     quest.classList.add('invalid');
   }
+  subm.disabled = '';
 };
 
 app.getCurrentArticleId = function() {
