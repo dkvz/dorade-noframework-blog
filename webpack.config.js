@@ -2,6 +2,8 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 var dev = process.env.NODE_ENV === 'dev';
 
 var config = {
@@ -21,12 +23,22 @@ var config = {
   },
   module: {
     loaders: [
-      {
+      // This loader will inline CSS in the JS.
+      // Reduces the amount of required requests
+      // but creates a big FOUC.
+      /*{
         test: /\.css$/,
         loaders: [
           'style-loader',
           'css-loader'
         ]
+      },*/
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/i,
@@ -69,7 +81,8 @@ var config = {
     new CopyWebpackPlugin([
       {from: 'assets', to: 'assets'},
       {from: 'webroot', to: ''}
-    ])
+    ]),
+    new ExtractTextPlugin("styles/[name].[contenthash].css")
   ],
   devServer: {
     port: 8080,

@@ -50,11 +50,54 @@ app.hideSpinner = function() {
 ```
 I just removed the createElement thingy and replaced it with a getElementById.
 
+## Optimize CSS
+I think I should use this:
+```
+    // Compress extracted CSS. We are using this plugin so that possible
+    // duplicated CSS from different components can be deduped.
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: config.build.productionSourceMap
+        ? { safe: true, map: { inline: false } }
+        : { safe: true }
+    }),
+```
+Detecting duplicate CSS seems interesting.
+
+## The FOUC issue
+I think I need the extract text plugin to solve the FOUC issue. HtmlWebpackPlugin is supposed to add the CSS to head automatically if using extract text plugin.
+
+Let's see how I can make this work... I'll test some of this stuff in my test project.
+
+OK so we need to install the plugin:
+```
+npm install --save-dev extract-text-webpack-plugin
+```
+
+Import in the config:
+```
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+```
+
+The CSS test should look like this:
+```
+{
+  test: /\.css$/,
+  use: ExtractTextPlugin.extract({
+    fallback: "style-loader",
+    use: "css-loader"
+  })
+},
+```
+
+And declare the plugin in your plugins section.
+
+Then that's it, FOUC issue solved.
+
 ## TODO
 
 * When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
 * If you're loading something and move to another page it won't work until the content is loaded. I might put some kind of abort flag in the app object to abort a loading operation earlier.
-* The infinite scrolling pages could use a fab that goes to the top. Shouldn't be too hard to do. Although you have to prevent routing to do that. Maybe only make it visible for desktop and tablets?
+* The other infinite scrolling pages could use a go to top fab like the article page.
 * All the initialization stuff might have to be put in a "document ready" bloc. Not sure.
 * I NEED THE MANIFEST PLUGIN and use that to load my fragments with their right hashes.
 * The mobile menu has weird bottom margin issues.
@@ -64,7 +107,6 @@ I just removed the createElement thingy and replaced it with a getElementById.
 * Use the SASS CSS from materialize. If I do that, I need to replace mentions to Roboto in my css file and replace that with the SASS variable used for the base font family.
 * It looks like on some articles, going to the bottom using the comments link doesn't proc the infinite scrolling.
 * I need to put my robot / IE loadmore button.
-* There is a serious FOUC going on, I need to inject the materialize CSS in the head using the HTML plugin, not know how yet.
 * Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
 * In the fragments array, spinner-card should be called spinnerCard.
 * I often use checks to !== undefined, especially for callbacks. I can probably just use if (callback) or even better, something like (callback && callback())  -> To check.
