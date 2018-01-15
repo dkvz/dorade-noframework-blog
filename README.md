@@ -95,10 +95,9 @@ Then that's it, FOUC issue solved.
 
 ## TODO
 
-* After implementing caching nodes, going to bottom no longer works.
-  * Actually this problem has always been there and only happens on Chrome.
+* Going to bottom was not working on Chrome (now does), I think I need to test that on all major browsers.
 * When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
-* I don't need to add the circle image if thumbImage is not set. Or maybe I could hide it with display none?
+* Try the new image code on the old blog in a hidden article.
 * If you're loading something and move to another page it won't work until the content is loaded. I might put some kind of abort flag in the app object to abort a loading operation earlier.
 * The other infinite scrolling pages could use a go to top fab like the article page.
 * All the initialization stuff might have to be put in a "document ready" bloc. Not sure.
@@ -109,7 +108,7 @@ Then that's it, FOUC issue solved.
 * List style is better but maybe could be better in articles.
 * Test on mobile and tablets, the infinite scrolling might not work on there.
 * Use the SASS CSS from materialize. If I do that, I need to replace mentions to Roboto in my css file and replace that with the SASS variable used for the base font family.
-* It looks like on some articles, going to the bottom using the comments link doesn't proc the infinite scrolling.
+* It looks like on some articles + some computer sometimes, going to the bottom using the comments link doesn't proc the infinite scrolling.
 * I need to put my robot / IE loadmore button.
 * Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
 * In the fragments array, spinner-card should be called spinnerCard.

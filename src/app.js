@@ -53,6 +53,7 @@ var app = {
       filename: '_articleCard.html',
       properties: [
         {name: 'thumbImage'},
+        {name: 'hideThumbImage'},
         {name: 'title'},
         {name: 'summary'},
         {name: 'layout'},
@@ -379,6 +380,11 @@ var app = {
         app.loadedCount += data.length;
         for (var d = 0; d < data.length; d++) {
           data[d].layout = layout;
+          if (data[d].thumbImage) {
+            data[d].hideThumbImage = '';
+          } else {
+            data[d].hideThumbImage = 'hide';
+          }
         }
       }
       callback(data);
@@ -454,7 +460,7 @@ var app = {
       // I'd have to get into something recursive otherwise.
       var value;
       if (cur.process !== undefined) {
-        value = cur.process(data[cur.name]);
+        value = cur.process(data[cur.name], data);
       } else {
         value = data[cur.name];
       }
@@ -586,7 +592,7 @@ var app = {
     if ($(document).width() >= 1300) {
       thres = 550;
     } else {
-      thres = 250;
+      thres = 265;
     }
     var curDiff = window.pageYOffset - inner;
     if (Math.abs(curDiff) < thres && 
