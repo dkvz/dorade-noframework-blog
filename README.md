@@ -95,10 +95,14 @@ Then that's it, FOUC issue solved.
 
 ## TODO
 
+* After implementing caching nodes, going to bottom no longer works.
+  * Actually this problem has always been there and only happens on Chrome.
 * When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
+* I don't need to add the circle image if thumbImage is not set. Or maybe I could hide it with display none?
 * If you're loading something and move to another page it won't work until the content is loaded. I might put some kind of abort flag in the app object to abort a loading operation earlier.
 * The other infinite scrolling pages could use a go to top fab like the article page.
 * All the initialization stuff might have to be put in a "document ready" bloc. Not sure.
+* I need to test the infinite scrolling on a huge resolution.
 * I NEED THE MANIFEST PLUGIN and use that to load my fragments with their right hashes.
 * The mobile menu has weird bottom margin issues.
 * Pagejs requires html5 history api, I think it doesn't work on IE 8 (to check) - There is a polyfill.
@@ -117,7 +121,8 @@ Then that's it, FOUC issue solved.
     * We would just be keeping the document fragment.
      * I'm probably going to have to do this for performances reasons.
 * Theme color in the manifest.json is wrong.
-* The styles folder should be inside src.
+* The styles folder should be inside src. I mean that is arguable.
 * Add "exit page" callbacks in routing to unregister event listeners on some pages.
   * Removing nodes also GCs the listeners, but not very effectively on old IE versions (as in IE 8).
   * So this is very low priority.
+* npm run dev doesn't work on windows. I made another command: npm run dev-win. But that is more like a hack. I'm also not 100% sure it even works. Or if it doesn't set the env to dev forever after it ran once.

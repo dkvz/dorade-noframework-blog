@@ -50,7 +50,6 @@ page('/', function() {
       app.loadedCount = 0;
     }
   );
-
 });
 page('/pages/:name', function(data) {
   document.title = (data.params.name.charAt(0).toUpperCase() +

@@ -128,6 +128,14 @@ app.loadArticle = function(articleId, hash, toc) {
   // To call after "setMainContent"
   app.bottomReached = true;
   app.showOtherSpinner('articleSpinner');
+  // If setMainContent wasn't erasing everything when we change
+  // article, we'd have to clear the content node here.
+  // Actually now that I'm caching nodes I have to clear the content node.
+  // Problem is, the spinner is a child of it as well.
+  // So we could always just leave one child active.
+  // Instead I'm going to move the spinner outside...
+  var artsEl = document.getElementById('article');
+  app.removeContentFromNode(artsEl);
   // Let's make the request:
   this.getArticle(articleId, function(data) {
     var docFrag = document.createDocumentFragment();
@@ -165,16 +173,15 @@ app.loadArticle = function(articleId, hash, toc) {
       ));
       document.title = app.titleBase;
     }
-    app.bottomReached = false;
     app.hideOtherSpinner('articleSpinner');
-    // If setMainContent wasn't erasing everything when we change
-    // article, we'd have to clear the content node here.
-    document.getElementById('article').appendChild(docFrag);
-    // Scroll to bottom if it was required:
+    artsEl.appendChild(docFrag);
+    // Scroll to bottom if it was required:s
     if (hash && hash !== '') {
+      location.hash = '';
       location.hash = hash;
     }
     app.fragments.article.initPage();
+    app.bottomReached = false;
   });
 };
 

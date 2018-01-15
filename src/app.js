@@ -166,6 +166,7 @@ var app = {
   orderDesc: true,
   previousDiff: 0,
   previousArticle: '',
+  cacheNodes: true,
   toast: function(text) {
     Materialize.toast(text, 4000);
   },
@@ -195,7 +196,7 @@ var app = {
     // I could use bind() to keep my 'this' context in this onload
     // but it turns out bind() is not supported by IE 9.
     s.onload = function() {
-      app._replaceMainContent(app.fragments[fragment].template, args);
+      app._replaceMainContent(fragment, args);
       // We don't hide the spinner here, it's supposed to be done in
       // the callback (or not if you don't want to).
       if (callback !== undefined) callback();
@@ -261,6 +262,28 @@ var app = {
     this.toast('L\'article identifié comme "' + articleId 
       + '" n\'existe pas ou plus.');
   },
+  _hashString(val) {
+    // I'm using the code from this link:
+    // https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript-jquery
+    var hash = 0, i, chr;
+    for (i = 0; i < val.length; i++) {
+      chr = val.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  },
+  _hashArgs(args) {
+    // I use the result of this function to compare args 
+    // arrays passed to pages.
+    var str = '';
+    if (args && args.constructor === Array) {
+      for (var i = 0; i < args.length; i++) {
+        str += args[i].name + args[i].value;
+      }
+    }
+    return this._hashString(str);
+  },
   /**
    * args in an array of objects with keys name and value.
    * Will replace these keys by the values in the template.
@@ -269,7 +292,7 @@ var app = {
     if (this.fragments[fragment] !== undefined) {
       // Check if we got the template:
       if (this.fragments[fragment].template !== undefined) {
-        this._replaceMainContent(this.fragments[fragment].template, args);
+        this._replaceMainContent(fragment, args);
         // we need to call the provided callback:
         if (callback !== undefined) callback();
       } else {
@@ -283,23 +306,47 @@ var app = {
       this.show404();
     }
   },
-  _replaceMainContent: function(fragmentText, args) {
-    // Place the "args" into the template:
-    if (args && args.constructor === Array) {
-      for (var a = 0; a < args.length; a++) {
-        var reg = new RegExp('\{\{' + args[a].name + '\}\}', 'g');
-        fragmentText = fragmentText.replace(reg, args[a].value);
+  _replaceMainContent: function(fragment, args) {
+    // This function is supposed to happen strictly after any
+    // lazy loading.
+    // Check the cache to see if we got a version of this:
+    var el;
+    if (this.cacheNodes && this.fragments[fragment].cache) {
+      var argsHash = this._hashArgs(args);
+      for (var i = 0; i < this.fragments[fragment].cache.length; i++) {
+        if (this.fragments[fragment].cache[i].args === argsHash) {
+          // Found cached nodes.
+          el = this.fragments[fragment].cache[i].nodes;
+          break;
+        }
       }
     }
-    // I actually use the id "content" no and not mainEl.
-    // Just remove everything from it and add the new content.
-    while (this.contentEl.firstChild) {
-      this.contentEl.removeChild(this.contentEl.firstChild);
+    if (!el) {
+      var fragmentText = this.fragments[fragment].template;
+      // Place the "args" into the template:
+      if (args && args.constructor === Array) {
+        for (var a = 0; a < args.length; a++) {
+          var reg = new RegExp('\{\{' + args[a].name + '\}\}', 'g');
+          fragmentText = fragmentText.replace(reg, args[a].value);
+        }
+      }
+      // Create the node and cache it if cache is enabled:
+      el = this.createElementFromText(fragmentText);
+      if (this.cacheNodes) {
+        if (!this.fragments[fragment].cache) {
+          this.fragments[fragment].cache = [];
+        }
+        this.fragments[fragment].cache.push(
+          {args: this._hashArgs(args), nodes: el}
+        );
+      }
     }
+    // I actually use the id "contentEl" no and not mainEl.
+    // Just remove everything from it and add the new content.
+    this.removeContentFromNode(this.contentEl);
     // We should ues Modernizr to check if browser is animation capable.
     // Or not I guess it still works if not animation capable.
-    var el = this._animateElement(this.createElementFromText(fragmentText), 'trans-left');
-    this.contentEl.appendChild(el);
+    this.contentEl.appendChild(this._animateElement(el, 'trans-left'));
   },
   removeContentFromNode: function(node) {
     while (node.firstChild) {
@@ -347,6 +394,8 @@ var app = {
     // This is ugly but IE doesn't support classList.
     // I don't know which IE and I don't care.
     // Actually some of my stuff doesn't even work in IE 8 anyway.
+    // I also think the return is probably useless as 
+    // the node is supposed to be passed by reference.
     if (element.className.length > 0) {
       element.className += ' ' + animation;
     } else {
@@ -384,6 +433,10 @@ var app = {
           docFrag.appendChild(
             app._animateElement(app.createElementFromText(parsedArt), 'scale-up')
           );
+        }
+        if (start === 0) {
+          // Cleanup the element content
+          app.removeContentFromNode(el);
         }
         el.appendChild(docFrag);
       } else {
@@ -529,8 +582,14 @@ var app = {
     // I could use window.innerHeight without jQuery but
     // it's IE 9+ only.
     var inner = $('#mainEl').innerHeight();
+    var thres;
+    if ($(document).width() >= 1300) {
+      thres = 550;
+    } else {
+      thres = 250;
+    }
     var curDiff = window.pageYOffset - inner;
-    if (Math.abs(curDiff) < 250 && 
+    if (Math.abs(curDiff) < thres && 
       Math.abs(curDiff) >= app.previousDiff) {
       app.previousDiff = Math.abs(curDiff) - 20;
       app.loadMoreContentOnpage(app.currentPage);          
@@ -564,7 +623,7 @@ var app = {
       this.setMenuItemActive('articlesL');
       this.setMainContent('articles', function() {
         // The initialization code is lazy loaded.
-        if (app.fragments.articles.initPage !== undefined)
+        if (app.fragments.articles.initPage)
           app.fragments.articles.initPage();
         app.loadArticlesOrShorts(
           0, 
