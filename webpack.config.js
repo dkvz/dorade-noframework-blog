@@ -80,7 +80,8 @@ var config = {
     }),
     new CopyWebpackPlugin([
       {from: 'assets', to: 'assets'},
-      {from: 'webroot', to: ''}
+      {from: 'webroot', to: ''},
+      //{from: 'wp-content', to: 'wp-content'}
     ]),
     new ExtractTextPlugin("styles/[name].[contenthash].css")
   ],

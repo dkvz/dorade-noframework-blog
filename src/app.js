@@ -611,7 +611,6 @@ var app = {
       app.previousDiff = Math.abs(curDiff) - 20;
       app.loadMoreContentOnpage(app.currentPage);          
     }
-
     /* var inner = window.innerHeight;
     var curDiff = window.pageYOffset - inner;
     console.log('Current scroll diff: ' + curDiff);

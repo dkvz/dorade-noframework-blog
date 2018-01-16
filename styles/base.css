@@ -242,6 +242,10 @@ nav .nav-background {
   justify-content: space-around;
 }
 
+.card-content {
+  overflow: auto;
+}
+
 .article-card .card-content p {
   margin-top: 12px;
   margin-bottom: 12px;
