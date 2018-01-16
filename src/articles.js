@@ -2,11 +2,11 @@
 app.fragments.articles.template = require('./fragments/articles.html');
 
 app.fragments.articles.initPage = function() {
+  document.getElementById('checkboxSort').checked = app.orderDesc;
   // If we cache nodes we might already have the listeners attached. Don't attach twice.
   if (!app.cacheNodes || 
     !app.fragments.articles.initialized || 
     !app.fragments.articles.initialized[app.currentPage]) {
-    document.getElementById('checkboxSort').checked = app.orderDesc;
     document.getElementById('checkboxSort').addEventListener(
       'change',
       function() {

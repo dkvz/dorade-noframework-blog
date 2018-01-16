@@ -10,8 +10,13 @@ page('*', function(data, next) {
   // Gets called before any routing happens.
   // Reset anything that would've been loaded before.
   // This is just a design choice but an easy and effective one.
-  app.changeRandomQuote();
-  next();
+  // The following check is what makes anchor links work on pages.
+  if (app.previousPath !== data.path || data.hash === '') {
+    app.changeRandomQuote();
+    app.previousPath = data.path;
+    app.goToTop();
+    next();
+  }
 });
 page('/', function() {
   app.currentPage = 'home';
@@ -19,6 +24,7 @@ page('/', function() {
   app.setMenuItemActive('homeL');
   // We need to load the articles and shorts in the callback:
   app.setMainContent('home');
+  app.disableInfiniteScrolling();
   //var element = app.contentEl.querySelector('#lastArticles');
   // If mainContent is loaded we can hide the main spinner here:
   app.hideSpinner();
@@ -65,6 +71,11 @@ page('/pages/:name', function(data) {
     default:
       document.title = app.titleBase;
       app.show404();
+      // We don't need to remove the infinite scrolling
+      // because the redirect to home will do it.
+      // Without redirect to home, we'd need to disable
+      // the infinite scrolling.
+      page.redirect('/');
   }
 });
 page('/tag/:name', function(data) {
@@ -98,6 +109,7 @@ page('/breves/:id', function(data) {
   });
 });
 page('/articles', function() {
+  // The page has a go to top button.
   // Reset tags:
   app.currentTags = [];
   app.currentPage = 'articles';
@@ -107,22 +119,19 @@ page('/articles/:name/:toBottom?', function(data) {
   // The toBottom thing is a legacy from the older
   // blog, it's not being used and will not make
   // anything go to any bottom.
-  if (app.currentPage !== 'article' || 
-    app.previousArticle !== data.params.name) {
-    app.currentPage = 'article';
-    app.loadedCount = 0;
-    app.showSpinner();
-    app.setMenuItemActive('articlesL');
-    app.setMainContent('article', function() {
-      // Save current article URL in the context:
-      app.previousArticle = data.params.name;
-      // I'm not sure if I can just pass what a function
-      // that has to be lazy loaded as a callback...
-      // Don't think so.
-      app.hideSpinner();
-      app.loadArticle(data.params.name, data.hash, true);
-    });
-  }
+  app.currentPage = 'article';
+  app.loadedCount = 0;
+  app.showSpinner();
+  app.setMenuItemActive('articlesL');
+  app.setMainContent('article', function() {
+    // Save current article URL in the context:
+    app.previousArticle = data.params.name;
+    // I'm not sure if I can just pass what a function
+    // that has to be lazy loaded as a callback...
+    // Don't think so.
+    app.hideSpinner();
+    app.loadArticle(data.params.name, data.hash, true);
+  });
 });
 page('/contact', function() {
   page.redirect('/pages/contact');

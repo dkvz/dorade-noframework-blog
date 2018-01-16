@@ -95,24 +95,26 @@ Then that's it, FOUC issue solved.
 
 ## TODO
 
-* Going to bottom was not working on Chrome (now does), I think I need to test that on all major browsers.
-* When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
+* To gototop button should be on the main template. Just show it when required.
+* Add the unsupported browsers thingy.
+* I NEED THE MANIFEST PLUGIN and use that to load my fragments with their right hashes.
 * Try the new image code on the old blog in a hidden article.
-* If you're loading something and move to another page it won't work until the content is loaded. I might put some kind of abort flag in the app object to abort a loading operation earlier.
-* The other infinite scrolling pages could use a go to top fab like the article page.
 * All the initialization stuff might have to be put in a "document ready" bloc. Not sure.
 * I need to test the infinite scrolling on a huge resolution.
-* I NEED THE MANIFEST PLUGIN and use that to load my fragments with their right hashes.
 * The mobile menu has weird bottom margin issues.
+  * Not really on Chrome.
 * Pagejs requires html5 history api, I think it doesn't work on IE 8 (to check) - There is a polyfill.
 * List style is better but maybe could be better in articles.
 * Test on mobile and tablets, the infinite scrolling might not work on there.
 * Use the SASS CSS from materialize. If I do that, I need to replace mentions to Roboto in my css file and replace that with the SASS variable used for the base font family.
 * It looks like on some articles + some computer sometimes, going to the bottom using the comments link doesn't proc the infinite scrolling.
+  * I think I may have fixed that through resetting previousDiff while enabling infinite scrolling.
 * I need to put my robot / IE loadmore button.
 * Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
-* In the fragments array, spinner-card should be called spinnerCard.
+* The webpack config could be more homogeneous and cleaned up.
+* I think app.previousArticle is now unused. To check.
 * I often use checks to !== undefined, especially for callbacks. I can probably just use if (callback) or even better, something like (callback && callback())  -> To check.
+* When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
 * We could delcare a contructor for the app object and call new somehwere. I think react works like that.
   * Check how cookie clicker does it. I like it because the code of cookie clicker is super dirty.
 * Technically if we're already on the articles page, we don't have to reload it entirely if we click a tag, we just need to refresh the loaded articles.

@@ -177,8 +177,9 @@ app.loadArticle = function(articleId, hash, toc) {
     artsEl.appendChild(docFrag);
     // Scroll to bottom if it was required:s
     if (hash && hash !== '') {
-      location.hash = '';
-      location.hash = hash;
+      //location.hash = '';
+      //location.hash = hash;
+      location.href = '#' + hash;
     }
     app.fragments.article.initPage();
     app.bottomReached = false;

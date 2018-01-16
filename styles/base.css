@@ -1,5 +1,5 @@
 body {
-  background-image: url('../assets/patgpibgray.jpg');
+  background-image: url('../assets/patpull.jpg');
   background-repeat: repeat;
   background-position: top left;
   background-attachment: fixed;
@@ -120,6 +120,12 @@ nav .nav-background {
   padding-bottom: 30px;
 }
 
+#article {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width: 600px) {
   .row-flex {
     display: flex;
@@ -136,6 +142,15 @@ nav .nav-background {
     font-size: 1.14em;
     line-height: 1.3em;
     padding-bottom: 20px;
+  }
+  #article {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1380px) {
+  #article {
+    width: 80%;
   }
 }
 
@@ -230,6 +245,11 @@ nav .nav-background {
 .article-card .card-content p {
   margin-top: 12px;
   margin-bottom: 12px;
+}
+
+.article-card .card-content h1,
+.article-card .card-content h2 {
+  font-size: 1.4em;
 }
 
 @-webkit-keyframes zomg {

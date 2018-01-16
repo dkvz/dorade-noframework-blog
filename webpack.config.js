@@ -8,7 +8,7 @@ var dev = process.env.NODE_ENV === 'dev';
 
 var config = {
   entry: {
-    main: './src/app.js',
+    app: './src/app.js',
     about: './src/about.js',
     contact: './src/contact.js',
     hireme: './src/hireme.js',
@@ -76,7 +76,7 @@ var config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      chunks: ['main']
+      chunks: ['app']
     }),
     new CopyWebpackPlugin([
       {from: 'assets', to: 'assets'},
@@ -98,5 +98,4 @@ if (dev) {
 }
 
 module.exports = config;
-  /*,
-  devtool: 'eval-source-map'*/
+

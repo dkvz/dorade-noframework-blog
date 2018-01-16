@@ -153,7 +153,6 @@ var app = {
     'contactL',
     'hiremeL'
   ],
-  scrollTres: 200,
   loadedCount: 0,
   tags: [],
   currentTags: [],
@@ -167,6 +166,7 @@ var app = {
   orderDesc: true,
   previousDiff: 0,
   previousArticle: '',
+  previousPath: '',
   cacheNodes: true,
   toast: function(text) {
     Materialize.toast(text, 4000);
@@ -185,7 +185,17 @@ var app = {
   goToTop: function() {
     // Won't work unless the router is instructed to
     // not re-create pages when you change the hash.
-    location.hash = this.mainEl.id;
+    // Setting the hash to '' is necessary for Chrome.
+    // No idea why.
+    //location.hash = '';
+    //location.hash = this.mainEl.id;
+    // Because the Chrome hack was making routing proc twice
+    // (once for the hash '' and once for the other) I had
+    // to use location.href instead. It works on Firefox and
+    // webkit based browsers. Also works on Edge.
+    //location.href = '#' + this.mainEl.id;
+    // OK actually I can just use scrollTo. Yeah.
+    window.scrollTo(0,0);
   },
   lazyLoadPage: function(fragment, callback, args) {
     // I use this function to lazy-load JS that
@@ -525,6 +535,7 @@ var app = {
   loadStaticPage: function(page) {
     this.setMenuItemActive(page + 'L');
     this.showSpinner();
+    this.disableInfiniteScrolling();
     this.setMainContent(page, function() {
       app.hideSpinner();
     });
@@ -613,6 +624,8 @@ var app = {
     // I need to handle multiple listeners for scroll possibly
     // on the same element, because my fixed navbar thingy uses
     // a scroll listener.
+    // Reset previousDiff:
+    this.previousDiff = 0;
     window.addEventListener('scroll', app.inifinteScrollCallback);
   },
   disableInfiniteScrolling: function() {
@@ -624,6 +637,7 @@ var app = {
     // Prevent one extra loading from the infinite
     // scrolling thingy:
     this.bottomReached = true;
+    this.orderDesc = true;
     this.showSpinner();
     if (this.currentPage === 'articles') {
       this.setMenuItemActive('articlesL');
@@ -701,7 +715,7 @@ app.fragments.home.template = require('./fragments/home.html');
 app.spinner = document.getElementById('spinnerCard');
 app.showSpinner();  // This line is currently useless.
 // Enable the stuff from Materialize (can only be done with jQuery):
-$('.button-collapse').sideNav();
+$('.button-collapse').sideNav({closeOnClick: true});
 $('.dropdown-button').dropdown();
 app.mainEl = document.getElementById('mainEl');
 app.contentEl = document.getElementById('contentEl');
