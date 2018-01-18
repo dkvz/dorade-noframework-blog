@@ -3,3 +3,4 @@ node_modules
 wp-content
 stuff
 npm-debug.log
+dist.zip

@@ -168,6 +168,9 @@ var app = {
   previousArticle: '',
   previousPath: '',
   cacheNodes: true,
+  homeLayoutA: 'col s12',
+  homeLayoutS: 'col l6 m6 s12',
+  layoutS: 'col l4 m6 s12',
   toast: function(text) {
     Materialize.toast(text, 4000);
   },
@@ -273,7 +276,7 @@ var app = {
     this.toast('L\'article identifié comme "' + articleId 
       + '" n\'existe pas ou plus.');
   },
-  _hashString(val) {
+  _hashString: function(val) {
     // I'm using the code from this link:
     // https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript-jquery
     var hash = 0, i, chr;
@@ -284,7 +287,7 @@ var app = {
     }
     return hash;
   },
-  _hashArgs(args) {
+  _hashArgs: function(args) {
     // I use the result of this function to compare args 
     // arrays passed to pages.
     var str = '';
@@ -389,7 +392,7 @@ var app = {
       if (data && data.length) {
         app.loadedCount += data.length;
         for (var d = 0; d < data.length; d++) {
-          data[d].layout = layout;
+          data[d].layout = '"' + layout + '"';
           if (data[d].thumbImage) {
             data[d].hideThumbImage = '';
           } else {
@@ -553,7 +556,7 @@ var app = {
             false,
             app.orderDesc ? 'desc' : 'asc',
             'articles',
-            'col s12',
+            app.homeLayoutA,
             function() {
               app.hideSpinner();
               app.bottomReached = false;
@@ -581,7 +584,7 @@ var app = {
             true,
             app.orderDesc ? 'desc' : 'asc',
             'articles',
-            'col l4 m6 s12',
+            app.layoutS,
             function() {
               app.hideSpinner();
               app.bottomReached = false;
@@ -650,7 +653,7 @@ var app = {
           false,
           app.orderDesc ? 'desc' : 'asc',
           'articles',
-          'col s12',
+          app.homeLayoutA,
           function() {
             app.hideSpinner();
             app.bottomReached = false;
@@ -669,7 +672,7 @@ var app = {
           true,
           app.orderDesc ? 'desc' : 'asc',
           'articles',
-          'col l4 m6 s12',
+          app.layoutS,
           function() {
             app.hideSpinner();
             app.bottomReached = false;

@@ -29,6 +29,7 @@ page('/', function() {
   // If mainContent is loaded we can hide the main spinner here:
   app.hideSpinner();
   app.showOtherSpinner('articlesSpinner');
+  app.currentTags = [];
   // We always load frm 0 on the home page.
   app.loadArticlesOrShorts(
     0, 
@@ -36,7 +37,7 @@ page('/', function() {
     false,
     'desc',
     'lastArticles',
-    'col s12',
+    app.homeLayoutA,
     function() {
       app.hideOtherSpinner('articlesSpinner');
       // app.loadedCount is only used in the articles
@@ -50,7 +51,7 @@ page('/', function() {
     true,
     'desc',
     'lastShorts',
-    'col l6 m6 s12',
+    app.homeLayoutS,
     function() {
       app.hideOtherSpinner('shortsSpinner');
       app.loadedCount = 0;

@@ -205,6 +205,13 @@ nav .nav-background {
   clear: both;
 }
 
+div.article-image.left {
+  margin-right: 14px;
+}
+div.article-image.right {
+  margin-left: 14px;
+}
+
 .image-legend {
   padding: 8px;
 }

@@ -26,7 +26,7 @@ app.fragments.articles.initPage = function() {
             false,
             app.orderDesc ? 'desc' : 'asc',
             'articles',
-            'col s12',
+            app.homeLayoutA,
             function() {
               app.hideSpinner();
               app.bottomReached = false;
@@ -39,7 +39,7 @@ app.fragments.articles.initPage = function() {
             true,
             app.orderDesc ? 'desc' : 'asc',
             'articles',
-            'col l4 m6 s12',
+            app.layoutS,
             function() {
               app.hideSpinner();
               app.bottomReached = false;
