@@ -604,7 +604,7 @@ var app = {
     var inner = $('#mainEl').innerHeight();
     var thres;
     if ($(document).width() >= 1300) {
-      thres = 550;
+      thres = 580;
     } else {
       thres = 265;
     }

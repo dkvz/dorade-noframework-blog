@@ -95,6 +95,8 @@ Then that's it, FOUC issue solved.
 
 ## TODO
 
+* There is no table style or it's wrong in my articles.
+* In beves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
 * Isn't there something better than using margin-left and margin-right to make my float elements no stick too close to the text?
 * To gototop button should be on the main template. Just show it when required.
 * Add the unsupported browsers thingy.
