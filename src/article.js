@@ -159,6 +159,13 @@ app.loadArticle = function(articleId, hash, toc) {
         // memory effective thing ever):
         data.content = contObj.toc + contObj.content;
       }
+      // Need to encode the names of the tags:
+      if (data.tags && data.tags.length > 0) {
+        for (var t = 0; t < data.tags.length; t++) {
+          data.tags[t].nameEncoded = 
+            encodeURIComponent(data.tags[t].name);
+        }
+      }
       // Here We could process other things like images.
       docFrag.appendChild(app.createElementFromText(
         app.parseTemplate('articleContent', data)

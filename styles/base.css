@@ -70,6 +70,7 @@ nav .nav-background {
 
 .article-card ul {
   padding-left: 34px;
+  overflow: hidden;
 }
 
 .article-card ul > li {
@@ -122,6 +123,7 @@ nav .nav-background {
 
 #article {
   width: 100%;
+  overflow: auto;
   margin-left: auto;
   margin-right: auto;
 }
@@ -136,7 +138,7 @@ nav .nav-background {
     width: 100%;
   }
   #randomQuote {
-    font-size: 0.8em;
+    font-size: 0.65em;
   }
   #articleContent {
     font-size: 1.14em;
@@ -145,6 +147,10 @@ nav .nav-background {
   }
   #article {
     width: 100%;
+  }
+  .mobile-hack {
+    width: 100%;
+    margin: 0 !important;
   }
 }
 
