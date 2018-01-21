@@ -92,6 +92,8 @@ page('/tag/:name', function(data) {
 page('/breves', function() {
   app.currentTags = [];
   app.currentPage = 'breves';
+  app.setMenuItemActive('shortsL');
+  app.setActiveMenuTag();
   app.showArticlesPage();
   // The showArticlesPage function sets the active menu.
 });
@@ -114,6 +116,8 @@ page('/articles', function() {
   // Reset tags:
   app.currentTags = [];
   app.currentPage = 'articles';
+  app.setMenuItemActive('articlesL');
+  app.setActiveMenuTag();
   app.showArticlesPage();
 });
 page('/articles/:name/:toBottom?', function(data) {

@@ -239,13 +239,23 @@ var app = {
     return this.quotes[Math.floor(Math.random() * this.quotes.length)];
   },
   setActiveMenuTag: function(tagName) {
-    for (var i = 0; i < this.tags.length; i++) {
-      if (this.tags[i].name === tagName || this.tags[i].nameEncoded === tagName) {
-        document.getElementById('menuTagL' + this.tags[i].id).className = 'active';
-        document.getElementById('menuTagM' + this.tags[i].id).className = 'active';
-      } else {
+    // Stuff here could be refactored.
+    if (!tagName) {
+      document.getElementById('menuTagAll').className = 'active';
+      for (var i = 0; i < this.tags.length; i++) {
         document.getElementById('menuTagL' + this.tags[i].id).className = '';
         document.getElementById('menuTagM' + this.tags[i].id).className = '';
+      }
+    } else {
+      for (var i = 0; i < this.tags.length; i++) {
+        document.getElementById('menuTagAll').className = '';
+        if (this.tags[i].name === tagName || this.tags[i].nameEncoded === tagName) {
+          document.getElementById('menuTagL' + this.tags[i].id).className = 'active';
+          document.getElementById('menuTagM' + this.tags[i].id).className = 'active';
+        } else {
+          document.getElementById('menuTagL' + this.tags[i].id).className = '';
+          document.getElementById('menuTagM' + this.tags[i].id).className = '';
+        }
       }
     }
   },
@@ -543,59 +553,62 @@ var app = {
       app.hideSpinner();
     });
   },
+  resetBottomReached: function() {
+    setTimeout(function() {
+      app.bottomReached = false;
+    }, 300);
+  },
   loadMoreContentOnpage: function(page) {
-    if (!app.bottomReached) {
-      console.log('Loading more data...');
-      app.bottomReached = true;
-      switch(page) {
-        case 'articles':
-          app.showSpinner();
-          app.loadArticlesOrShorts(
-            app.loadedCount, 
-            app.maxArticles,
-            false,
-            app.orderDesc ? 'desc' : 'asc',
-            'articles',
-            app.homeLayoutA,
-            function() {
-              app.hideSpinner();
-              app.bottomReached = false;
-            }
-          );
-          break;
-        case 'article':
-          console.log('Loading comments...');
-          app.showSpinner();
-          app.loadComments(
-            app.loadedCount, 
-            app.maxComments,
-            function() {
-              app.hideSpinner();
-              app.bottomReached = false;
-            }
-          );
-          break;
-        case 'breves':
-          console.log('Loading more shorts...');
-          app.showSpinner();
-          app.loadArticlesOrShorts(
-            app.loadedCount, 
-            app.maxShorts,
-            true,
-            app.orderDesc ? 'desc' : 'asc',
-            'articles',
-            app.layoutS,
-            function() {
-              app.hideSpinner();
-              app.bottomReached = false;
-            }
-          );
-          break;
-        default:
-          // Remove the listener, we're not on a
-          // supported page.
-          app.disableInfiniteScrolling();
-      }
+    console.log('Loading more data...');
+    app.bottomReached = true;
+    switch(page) {
+      case 'articles':
+        app.showSpinner();
+        app.loadArticlesOrShorts(
+          app.loadedCount, 
+          app.maxArticles,
+          false,
+          app.orderDesc ? 'desc' : 'asc',
+          'articles',
+          app.homeLayoutA,
+          function() {
+            app.hideSpinner();
+            app.resetBottomReached();
+          }
+        );
+        break;
+      case 'article':
+        console.log('Loading comments...');
+        app.showSpinner();
+        app.loadComments(
+          app.loadedCount, 
+          app.maxComments,
+          function() {
+            app.hideSpinner();
+            app.resetBottomReached();
+          }
+        );
+        break;
+      case 'breves':
+        console.log('Loading more shorts...');
+        app.showSpinner();
+        app.loadArticlesOrShorts(
+          app.loadedCount, 
+          app.maxShorts,
+          true,
+          app.orderDesc ? 'desc' : 'asc',
+          'articles',
+          app.layoutS,
+          function() {
+            app.hideSpinner();
+            app.resetBottomReached();
+          }
+        );
+        break;
+      default:
+        // Remove the listener, we're not on a
+        // supported page.
+        app.disableInfiniteScrolling();
     }
   },
   inifinteScrollCallback: function() {
@@ -603,7 +616,9 @@ var app = {
     // it's IE 9+ only.
     var inner = $('#mainEl').innerHeight();
     var thres;
-    if ($(document).width() >= 1300) {
+    if ($(document).width() > 2000) {
+      thres = 900;
+    } else if ($(document).width() >= 1300) {
       thres = 580;
     } else {
       thres = 265;
@@ -611,8 +626,10 @@ var app = {
     var curDiff = window.pageYOffset - inner;
     if (Math.abs(curDiff) < thres && 
       Math.abs(curDiff) >= app.previousDiff) {
-      app.previousDiff = Math.abs(curDiff) - 20;
-      app.loadMoreContentOnpage(app.currentPage);          
+      if (!app.bottomReached) {
+        app.previousDiff = Math.abs(curDiff) - 20;
+        app.loadMoreContentOnpage(app.currentPage);
+      }
     }
     /* var inner = window.innerHeight;
     var curDiff = window.pageYOffset - inner;

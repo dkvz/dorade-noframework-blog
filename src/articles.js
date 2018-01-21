@@ -19,6 +19,7 @@ app.fragments.articles.initPage = function() {
         while (artEl.firstChild) {
           artEl.removeChild(artEl.firstChild);
         }
+        app.loadedCount = 0;
         if (app.currentPage === 'articles') {
           app.loadArticlesOrShorts(
             0, 

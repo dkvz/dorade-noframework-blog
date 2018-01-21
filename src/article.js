@@ -186,7 +186,13 @@ app.loadArticle = function(articleId, hash, toc) {
     if (hash && hash !== '') {
       //location.hash = '';
       //location.hash = hash;
-      location.href = '#' + hash;
+      // My images don't have height, so they cause
+      // a big reflow when loading which makes going
+      // to a specific anchor too fast unreliable.
+      // Hence the 1 second timeout here:
+      setTimeout(function() {
+        location.href = '#' + hash;
+      }, 1000);
     }
     app.fragments.article.initPage();
     app.bottomReached = false;
