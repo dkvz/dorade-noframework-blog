@@ -10,8 +10,12 @@ require('../styles/base.css');
 * Initialize the global app object
 * This could be put in a separate file and
 * included with the rest of the JS below.
+*
+* app.version is injected by Webpack (or defaults to empty string).
+*
 */
 var app = {
+  version: VERSION || '',
   titleBase: 'Blog des gens compliqués',
   apiUrl: 'https://api.dkvz.eu',
   jsDir: 'scripts',
@@ -78,11 +82,11 @@ var app = {
     },
     articles: {
       filename: 'articles.html',
-      script: 'articles.js'
+      script: 'articles'
     },
     article: {
       filename: 'article.html',
-      script: 'article.js'
+      script: 'article'
     },
     articleContent: {
       filename: '_articleContent.html',
@@ -117,15 +121,15 @@ var app = {
     home: {filename: 'home.html'},
     about: {
       filename: 'about.html',
-      script: 'about.js'
+      script: 'about'
     },
     contact: {
       filename: 'contact.html',
-      script: 'contact.js'
+      script: 'contact'
     },
     hireme: {
       filename: 'hireme.html',
-      script: 'hireme.js'
+      script: 'hireme'
     },
     menuTag: {
       filename: '_menuTag.html',
@@ -206,7 +210,8 @@ var app = {
     this.showSpinner();
     var s = document.createElement("script");
     s.type = "text/javascript";
-    s.src = '/scripts/' + this.fragments[fragment].script;
+    s.src = '/scripts/' + this.fragments[fragment].script + 
+      this.version + '.js';
     // I could use bind() to keep my 'this' context in this onload
     // but it turns out bind() is not supported by IE 9.
     s.onload = function() {
@@ -759,4 +764,5 @@ window.addEventListener('scroll', pinNavbar);
 */
 require('./routing.js');
 
-console.log('App started');
+console.log('App started, version ' + app.version);
+

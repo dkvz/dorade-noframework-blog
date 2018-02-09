@@ -1,7 +1,9 @@
 # JS Blog Engine
 This project is an experiment producing a blog engine similar to one I made using Polymer 1.0 but with no frameworks.
 
-I do use Webpack, the Javascript router Page.js and the MaterializeCSS project. The site could live without Webpack although it would take some work to put everything together manually. One of my requirements was that this had to survive a hypothetical global apocalypse in which someone issues a `rm -rf node_modules` that affects all the computers in the world, until the end of times.
+I do use Webpack, the Javascript router Page.js and the MaterializeCSS project (which uses jQuery, so I sparingly do as well).
+
+The site could live without Webpack although it would take some work to put everything together manually. One of my requirements was that this had to survive a hypothetical global apocalypse in which someone issues a `rm -rf node_modules` that affects all the computers in the world, until the end of times.
 
 I'm a weird person.
 
@@ -35,6 +37,8 @@ npm run prod
 ```
 Which will remove then create the 'dist' folder.
 
+To use the cache busting capabilities you need to increment the version in package.json. I can't use hashes like everyone else for the JS because of many reasons related to Webpack and my manual lazy-loading antics. I do use hashes for the CSS.
+
 To serve the website on Apache, Nginx or others you'll need to use a fallback resource to index.html or a rewrite that has the same effect.
 
 ## Supported browsers
@@ -45,6 +49,49 @@ The pinned toolbar on scrolling might also not work on IE 8, same with the infin
 We're not providing a polyfill for the routing, which uses HTML 5 pushstate API. I think only IE 10 supports it but I might be wrong on that.
 
 I need to write Modernizr code and create a page for non-supported browsers.
+
+## FAQ nobody asked for
+
+### Why are you not using ES6?
+I started doing JS seriously somewhat recently. I thought I might as well get to know the "old ways" before the new.
+
+It's true that things like Promises would look much better in some parts of my code where I have callbacks inside other callbacks but I wanted to limit polyfills (even though I have this useless addEventListener one :D) and avoid using Babel.
+
+But why? Everybody and their mom are using Babel! Well, yes. It's just a feeling I have that not using it gives me more control. I might be wrong as Babel could very well produce code that is more compatible than what I'm doing but a big part of it is that I want to know how "old" JS works.
+
+Also, not using Babel is part of my requirement of the site having to be easy to adapt and still be working in case of a NodeJS apocalype. Which I don't really believe will happen ever but I like trying to work with less requirements and added software if I can and I think we all had the occasional npm package update breaking EVERYTHING. Not a fan of that even if it's easily fixed most of the time.
+
+### Wait you don't even use "bind"?
+Nope. I tried to stay away from stuff that doesn't work on browsers < IE 9 even if technically the site doesn't work on IE < 11. This is again an exercise as to feel how to write the most compatible JS with no transpiling or using libraries like jQuery.
+
+I also tried to not use CSS properties like "classList" but I ended up doing it anyway in some parts of the code.
+
+### But you're using jQuery
+I had to include it because Materlize requires it to be present. It's true that while I was at it I used it for Ajax and to get properties like scroll positions. But I want to be able to remove it somewhat easily if possible, so I strived to use jQuery sparingly, even though it's got some most of the "compatibility" code I've re-written already. I just want to try doing it myself.
+
+### You're storing your main object in window
+Yes this is a possible problem for testing. I also have tons of references to document everywhere.
+
+I have very little experience in testing, expecially testing with Node. This is an exercise I'm going to have to look into at some point.
+
+Due to the way I'm using Webpack, trying to avoid their lazy loading solution (which uses promises), I can't really pass or inject global variables. If you're using their way of lazy loading, you probably can (I don't actually know) require an object at multiple places in your code and it should retain its values.
+
+### Why are you doing lazy loading manually?
+The Webpack-way of doing lazy loading uses promises. I don't want to polyfill promises.
+
+Don't take this as a good practice. You should polyfill promises, promises are great. I'm trying to learn how to do most things manually on purpose.
+
+### You're using a Play project as backend, why isn't it serving the files from this project?
+I like to completely split my frontend and backend code. Might look like a weird choice, especially since I could do some server side rendering and get more flexibility otherwise, but this exercise also includes learning different backend technologies.
+
+My point is, "normal" people would probably combine this project with the Play framework backend (or any other backend like Flask or Symphony/Laravel, ...) and use some kind of "watch" with Webpack rather than the full dev server, which should be provided by your backend tech.
+
+### Dude where are the tests?
+I seem to really not like JS frameworks, and I don't, but they do have the advantage of having testing mostly covered in that everything is supposed to have been thought out for easy testing later on. Depending on who you ask, this is a gigantic advantage to using a framework, and could be the only reason needed do it.
+
+Many devs including myself do not always realize that some really weird design choices for apps and frameworks were made for the sole reason of testing.
+
+I want to learn testing practices from zero anyway so I'll eventually think about ways to write good tests for my app, which may have huge consequences on how the code is written.
 
 ## DONT READ THIS
 This readme is currently mostly a todo list an a project notepad. I'll write the sections on how to run the site later.
@@ -138,7 +185,6 @@ Then that's it, FOUC issue solved.
 
 ### TODO
 
-
 * In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
 * When loading article cards the console is saying Roboto from the materialize website has been blocked because it's not using HTTPS. Why is it trying to download Roboto from there? What does this even mean?
 * Try to add the thing that compresses images with webpack. Low priority.
@@ -170,6 +216,7 @@ Then that's it, FOUC issue solved.
   * Removing nodes also GCs the listeners, but not very effectively on old IE versions (as in IE 8).
   * So this is very low priority.
 * npm run dev doesn't work on windows. I made another command: npm run dev-win. But that is more like a hack. I'm also not 100% sure it even works. Or if it doesn't set the env to dev forever after it ran once.
+* Move to using yarn instead of npm. Why not.
 
 ### Historical
 * Scrolling to comments doesn't work anymore. It kinda does but then I think the repaint due to some images is causing the scroll position to be wrong.
