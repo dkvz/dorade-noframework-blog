@@ -1,10 +1,16 @@
 var path = require('path');
+var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var dev = process.env.NODE_ENV === 'dev';
+
+// I use this variable for my weird version-based
+// cache-busting mechanism.
+var vers = require("./package.json").version.replace(/\./g, "_");
+var quotedVers = "'" + vers + "'";
 
 var config = {
   entry: {
@@ -17,7 +23,7 @@ var config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'scripts/[name].js',
+    filename: 'scripts/[name]' + vers + '.js',
     chunkFilename: 'fragments/[name][hash].js',
     publicPath: '/'
   },
@@ -83,7 +89,10 @@ var config = {
       {from: 'webroot', to: ''},
       //{from: 'wp-content', to: 'wp-content'}
     ]),
-    new ExtractTextPlugin("styles/[name].[contenthash].css")
+    new ExtractTextPlugin("styles/[name][contenthash].css"),
+    new webpack.DefinePlugin({
+      VERSION: quotedVers
+    })
   ],
   devServer: {
     port: 8080,
