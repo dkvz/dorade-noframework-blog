@@ -82,6 +82,13 @@ var config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
       chunks: ['app']
     }),
     new CopyWebpackPlugin([
