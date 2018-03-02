@@ -183,6 +183,42 @@ And declare the plugin in your plugins section.
 
 Then that's it, FOUC issue solved.
 
+### Gradients experiments
+I think there may be too many cats going on on my site.
+
+Let's have an alternative gradient background.
+
+I was using this tool: http://www.colorzilla.com/gradient-editor/
+
+Things I tried:
+```
+/*background: linear-gradient(to bottom, rgba(69,90,100,1) 0%,rgba(0,0,0,0) 100%);*/
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#607d8b+20,455a64+50,607d8b+80&0+0,0.8+15,1+19,1+81,0.8+85,0+100 */
+background: -moz-linear-gradient(top, rgba(96,125,139,0) 0%, rgba(96,125,139,0.8) 15%, rgba(96,125,139,1) 19%, rgba(96,125,139,1) 20%, rgba(69,90,100,1) 50%, rgba(96,125,139,1) 80%, rgba(96,125,139,1) 81%, rgba(96,125,139,0.8) 85%, rgba(96,125,139,0) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(96,125,139,0) 0%,rgba(96,125,139,0.8) 15%,rgba(96,125,139,1) 19%,rgba(96,125,139,1) 20%,rgba(69,90,100,1) 50%,rgba(96,125,139,1) 80%,rgba(96,125,139,1) 81%,rgba(96,125,139,0.8) 85%,rgba(96,125,139,0) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(96,125,139,0) 0%,rgba(96,125,139,0.8) 15%,rgba(96,125,139,1) 19%,rgba(96,125,139,1) 20%,rgba(69,90,100,1) 50%,rgba(96,125,139,1) 80%,rgba(96,125,139,1) 81%,rgba(96,125,139,0.8) 85%,rgba(96,125,139,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00607d8b', endColorstr='#00607d8b',GradientType=0 ); /* IE6-9 */
+```
+
+This one is better with a single mid point:
+```
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,607d8b+50,ffffff+100&0.75+0,0.75+100 */
+background: -moz-linear-gradient(top, rgba(255,255,255,0.75) 0%, rgba(96,125,139,0.75) 50%, rgba(255,255,255,0.75) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(255,255,255,0.75) 0%,rgba(96,125,139,0.75) 50%,rgba(255,255,255,0.75) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(255,255,255,0.75) 0%,rgba(96,125,139,0.75) 50%,rgba(255,255,255,0.75) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfffffff', endColorstr='#bfffffff',GradientType=0 ); /* IE6-9 */
+```
+
+I'm going to start with this one:
+```
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#607d8b+0,ffffff+50,607d8b+100&0.9+0,0.9+100 */
+background: -moz-linear-gradient(top, rgba(69,90,100,0.9) 0%, rgba(255,255,255,0.9) 50%, rgba(69,90,100,0.9) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(69,90,100,0.9) 0%,rgba(255,255,255,0.9) 50%,rgba(69,90,100,0.9) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(69,90,100,0.9) 0%,rgba(255,255,255,0.9) 50%,rgba(69,90,100,0.9) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', endColorstr='#e6607d8b',GradientType=0 ); /* IE6-9 */
+```
+
+
 ### TODO
 
 * In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.

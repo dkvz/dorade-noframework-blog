@@ -702,6 +702,15 @@ var app = {
         );
       }, [{name: 'title', value: 'Brèves'}]);
     }
+  },
+  switchBackground: function() {
+    if (app.bodyEl) {
+      if (app.bodyEl.className.indexOf('gradient') >= 0) {
+        app.bodyEl.className = 'pattern-bg';
+      } else {
+        app.bodyEl.className = 'gradient-bg';
+      }
+    }
   }
 };
 window.app = app;
@@ -743,6 +752,7 @@ $('.button-collapse').sideNav({closeOnClick: true});
 $('.dropdown-button').dropdown();
 app.mainEl = document.getElementById('mainEl');
 app.contentEl = document.getElementById('contentEl');
+app.bodyEl = document.getElementById('bodyEl');
 // Load tags only once in here:
 app.loadTags();
 // We always need the fixed toolbar thingy.
@@ -758,6 +768,12 @@ function pinNavbar() {
   }
 }
 window.addEventListener('scroll', pinNavbar);
+// Enable the background switching thingy:
+var checkboxBg = document.getElementById('checkboxBg');
+if (checkboxBg) {
+  checkboxBg.addEventListener('click', app.switchBackground);
+  checkboxBg.checked = false;
+}
 
 /*
 * Start routing:
