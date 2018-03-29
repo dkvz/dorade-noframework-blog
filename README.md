@@ -228,7 +228,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', e
 * Isn't there something better than using margin-left and margin-right to make my float elements no stick too close to the text?
 * To gototop button should be on the main template. Just show it when required.
 * Add the unsupported browsers thingy.
-* I NEED THE MANIFEST PLUGIN and use that to load my fragments with their right hashes.
 * I need to test the infinite scrolling on a huge resolution.
 * The mobile menu has weird bottom margin issues.
   * Not really on Chrome.
