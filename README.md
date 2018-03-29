@@ -221,6 +221,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', e
 
 ### TODO
 
+* In reading mode (Firefox feature) the top level anchor links do not seem to work.
 * In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
 * When loading article cards the console is saying Roboto from the materialize website has been blocked because it's not using HTTPS. Why is it trying to download Roboto from there? What does this even mean?
 * Try to add the thing that compresses images with webpack. Low priority.
