@@ -140,7 +140,7 @@ app.hideSpinner = function() {
 ```
 I just removed the createElement thingy and replaced it with a getElementById.
 
-### Optimize CSS
+#### Optimize CSS
 I think I should use this:
 ```
     // Compress extracted CSS. We are using this plugin so that possible
@@ -153,7 +153,7 @@ I think I should use this:
 ```
 Detecting duplicate CSS seems interesting.
 
-### The FOUC issue
+#### The FOUC issue
 I think I need the extract text plugin to solve the FOUC issue. HtmlWebpackPlugin is supposed to add the CSS to head automatically if using extract text plugin.
 
 Let's see how I can make this work... I'll test some of this stuff in my test project.
@@ -183,7 +183,7 @@ And declare the plugin in your plugins section.
 
 Then that's it, FOUC issue solved.
 
-### Gradients experiments
+#### Gradients experiments
 I think there may be too many cats going on on my site.
 
 Let's have an alternative gradient background.
@@ -222,6 +222,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', e
 ### TODO
 
 * In reading mode (Firefox feature) the top level anchor links do not seem to work.
+  * Actually reading mode doesn't really work either. It works when linked from the homepage, but doesn't work when you refresh the page.
 * In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
 * When loading article cards the console is saying Roboto from the materialize website has been blocked because it's not using HTTPS. Why is it trying to download Roboto from there? What does this even mean?
 * Try to add the thing that compresses images with webpack. Low priority.
@@ -244,8 +245,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', e
 * I think app.previousArticle is now unused. To check.
 * I often use checks to !== undefined, especially for callbacks. I can probably just use if (callback) or even better, something like (callback && callback())  -> To check.
 * When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
-* We could delcare a contructor for the app object and call new somehwere. I think react works like that.
-  * Check how cookie clicker does it. I like it because the code of cookie clicker is super dirty.
 * Theme color in the manifest.json is wrong.
 * The styles folder should be inside src. I mean that is arguable.
 * Add "exit page" callbacks in routing to unregister event listeners on some pages.

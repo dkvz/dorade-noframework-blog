@@ -331,7 +331,7 @@ div.article-image.right {
 }
 
 @keyframes transLeft {
-  0% {transform: translate3d(-60vw, 0, 0);}
+  0% {transform: translate3d(-20vw, 0, 0);}
   100% {transform: translate3d(0, 0, 0);}
 }
 /* End page transition I'm using */

@@ -110,9 +110,9 @@ var config = {
 
 if (dev) {
   config.devtool = 'eval-source-map';
+  //config.plugins[0].minify = false;
 } else {
   config.plugins.push(new CleanWebpackPlugin(['dist']));
 }
 
 module.exports = config;
-
