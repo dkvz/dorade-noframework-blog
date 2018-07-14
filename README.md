@@ -61,6 +61,11 @@ But why? Everybody and their mom are using Babel! Well, yes. It's just a feeling
 
 Also, not using Babel is part of my requirement of the site having to be easy to adapt and still be working in case of a NodeJS apocalype. Which I don't really believe will happen ever but I like trying to work with less requirements and added software if I can and I think we all had the occasional npm package update breaking EVERYTHING. Not a fan of that even if it's easily fixed most of the time.
 
+### Your "app" object is referencing itself expecting to be in the global context
+Yeah, in some functions and especially in callbacks. It is ugly, I'm working on ways to make this whole thing more testable.
+
+I'm far from being a Javascript expert.
+
 ### Wait you don't even use "bind"?
 Nope. I tried to stay away from stuff that doesn't work on browsers < IE 9 even if technically the site doesn't work on IE < 11. This is again an exercise as to feel how to write the most compatible JS with no transpiling or using libraries like jQuery.
 
@@ -125,6 +130,15 @@ The router data passed to the callback has a "hash" property. I think we need to
 ### Staggering the animations
 Mostly things I need to remember:
 * When changing page I need to remove any existing scroll listener bound to the staggered animations control.
+
+Let's review the items to animate.
+
+Items are currently receiving the scale-up class in `loadArticlesOrShorts`.
+
+-> Instead of that, we have to add the items in a queue of elements to animate.
+Just add it to a new list right before after adding it to the document fragment. This has to be some sort of temp-list or we also have to lock down the animation scroll thingy event if it exists.
+
+Let's go for the temp list.
 
 ### Old stuff
 
@@ -229,6 +243,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', e
   * Actually reading mode doesn't really work either. It works when linked from the homepage, but doesn't work when you refresh the page.
 * In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
   * This is probably due to minification.
+* To make uses of app. or this. in app itself more homogeneous I could use the old trick to assign "this" to a variable (called self, for instance) and that would work for callbacks. It woudn't work if a function from app is given as a parameter for something (like an event listener).
 * When loading article cards the console is saying Roboto from the materialize website has been blocked because it's not using HTTPS. Why is it trying to download Roboto from there? What does this even mean?
 * Try to add the thing that compresses images with webpack. Low priority.
 * Isn't there something better than using margin-left and margin-right to make my float elements no stick too close to the text?

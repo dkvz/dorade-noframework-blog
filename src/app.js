@@ -175,6 +175,7 @@ var app = {
   homeLayoutA: 'col s12',
   homeLayoutS: 'col l6 m6 s12',
   layoutS: 'col l4 m6 s12',
+  toAnimate: [],
   toast: function(text) {
     Materialize.toast(text, 4000);
   },
@@ -450,6 +451,7 @@ var app = {
         // only one reflow instead of a lot of them.
         // I think Materialize doesn't support IE 7 anyway.
         var docFrag = document.createDocumentFragment();
+        var toAnimateFrag = [];
         for (var i = 0; i < data.length; i++) {
           // If on articles we need to add a field to tags.
           // We could also fetch it from the general tags array
@@ -463,16 +465,27 @@ var app = {
           var parsedArt = app.parseTemplate(
             short ? 'short': 'articleCard', data[i]
           );
+          var newEl = app.createElementFromText(parsedArt);
+          docFrag.appendChild(newEl);
+          toAnimateFrag.push(newEl);
           //var el = document.querySelector('#' + element);
-          docFrag.appendChild(
+          /*docFrag.appendChild(
             app._animateElement(app.createElementFromText(parsedArt), 'scale-up')
-          );
+          );*/
         }
         if (start === 0) {
           // Cleanup the element content
           app.removeContentFromNode(el);
         }
         el.appendChild(docFrag);
+        // I could use concet() or something but I have this hunch it's bad
+        // to re-assign an array.
+        for (var y = 0; y < toAnimateFrag.length; y++) {
+          app.toAnimate.push(toAnimateFrag[y]);
+        }
+        // Now we should enable the scroll event listener thingy and call it once.
+        // TODO
+        
       } else {
         console.log('Got no data or an undefined element to add the data to.')
       }
@@ -711,6 +724,45 @@ var app = {
         app.bodyEl.className = 'gradient-bg';
       }
     }
+  },
+  // I stole this code from somewhere.
+  // Apparently my source also stole it from somewhere else.
+  // :3
+  getViewportH: function () {
+    var client = document.documentElement.clientHeight,
+      inner = window.innerHeight;
+    if (client < inner)
+      return inner;
+    else
+      return client;
+  },
+  // http://stackoverflow.com/a/5598797/989439
+  getOffset: function (el) {
+    var offsetTop = 0, offsetLeft = 0;
+    do {
+      if (!isNaN(el.offsetTop)) {
+        offsetTop += el.offsetTop;
+      }
+      if (!isNaN(el.offsetLeft)) {
+        offsetLeft += el.offsetLeft;
+      }
+    } while (el = el.offsetParent)
+    return {
+      top: offsetTop,
+      left: offsetLeft
+    }
+  },
+  isInViewport: function (el, h) {
+    var elH = el.offsetHeight,
+      scrolled = window.pageYOffset || document.documentElement.scrollTop,
+      viewed = scrolled + this.getViewportH(),
+      elTop = this.getOffset(el).top,
+      elBottom = elTop + elH,
+      // if 0, the element is considered in the viewport as soon as it enters.
+      // if 1, the element is considered in the viewport only when it's fully inside
+      // value in percentage (1 >= h >= 0)
+      h = h || 0;
+    return (elTop + elH * h) <= viewed && (elBottom - elH * h) >= scrolled;
   }
 };
 window.app = app;
