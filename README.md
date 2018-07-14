@@ -122,6 +122,10 @@ The router data passed to the callback has a "hash" property. I think we need to
 
 => Problem solved by preventing the routing callback to do anything in case of hash on the same page.
 
+### Staggering the animations
+Mostly things I need to remember:
+* When changing page I need to remove any existing scroll listener bound to the staggered animations control.
+
 ### Old stuff
 
 #### Previous spinner injection
@@ -224,6 +228,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', e
 * In reading mode (Firefox feature) the top level anchor links do not seem to work.
   * Actually reading mode doesn't really work either. It works when linked from the homepage, but doesn't work when you refresh the page.
 * In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
+  * This is probably due to minification.
 * When loading article cards the console is saying Roboto from the materialize website has been blocked because it's not using HTTPS. Why is it trying to download Roboto from there? What does this even mean?
 * Try to add the thing that compresses images with webpack. Low priority.
 * Isn't there something better than using margin-left and margin-right to make my float elements no stick too close to the text?

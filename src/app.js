@@ -4,7 +4,7 @@
 */
 require('materialize-css/dist/css/materialize.min.css');
 // I could split my CSS and load it in the page-specific scripts.
-require('../styles/base.css');
+require('./styles/base.css');
 
 /*
 * Initialize the global app object
@@ -162,7 +162,7 @@ var app = {
   currentTags: [],
   currentPage: '',
   maxArticlesHome: 3,
-  maxShortsHome: 10,
+  maxShortsHome: 8,
   maxArticles: 5,
   maxShorts: 20,
   maxComments: 10,
@@ -202,7 +202,7 @@ var app = {
     // webkit based browsers. Also works on Edge.
     //location.href = '#' + this.mainEl.id;
     // OK actually I can just use scrollTo. Yeah.
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   },
   lazyLoadPage: function(fragment, callback, args) {
     // I use this function to lazy-load JS that
