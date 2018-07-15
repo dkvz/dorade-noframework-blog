@@ -452,7 +452,7 @@ var app = {
         // only one reflow instead of a lot of them.
         // I think Materialize doesn't support IE 7 anyway.
         var docFrag = document.createDocumentFragment();
-        var toAnimateFrag = [];
+        app.pauseRevealAnimations = true;
         for (var i = 0; i < data.length; i++) {
           // If on articles we need to add a field to tags.
           // We could also fetch it from the general tags array
@@ -468,7 +468,7 @@ var app = {
           );
           var newEl = app.createElementFromText(parsedArt);
           docFrag.appendChild(newEl);
-          toAnimateFrag.push(newEl);
+          app.toAnimate.push(newEl);
           //var el = document.querySelector('#' + element);
           /*docFrag.appendChild(
             app._animateElement(app.createElementFromText(parsedArt), 'scale-up')
@@ -479,12 +479,8 @@ var app = {
           app.removeContentFromNode(el);
         }
         el.appendChild(docFrag);
-        // I could use concet() or something but I have this hunch it's bad
-        // to re-assign an array.
-        for (var y = 0; y < toAnimateFrag.length; y++) {
-          app.toAnimate.push(toAnimateFrag[y]);
-        }
         // Now we should enable the scroll event listener thingy and call it once.
+        app.pauseRevealAnimations = false;
         app.revealScrollCallback();
       } else {
         console.log('Got no data or an undefined element to add the data to.')
@@ -675,8 +671,6 @@ var app = {
       var inViewCount = 0;
       for (var i = 0; i < app.toAnimate.length; i++) {
         // Check if that element is in view:
-        // TODO: Adjust the second parameter: percentage of
-        // how much the element is in view.
         if (app.isInViewport(app.toAnimate[i], 0.05)) {
           // Add the scale-up class and change the animation
           // delay:
@@ -685,6 +679,7 @@ var app = {
           inViewCount++;
           // Remove the element from toAnimate:
           app.toAnimate.splice(i, 1);
+          i--;
         }
       }
       app.pauseRevealAnimations = false;

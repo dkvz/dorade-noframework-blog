@@ -143,7 +143,16 @@ Let's go for the temp list.
 The callback will be called `revealScrollCallback`.
 
 In fact I think I need to empty toAnimate when I leave pages with elements to animate.
-Maybe when disabling the listener?
+
+I made it so the listener is actually always enabled. Hope this isn't an issue for performance or mobile batteries.
+
+#### Issues
+
+The first problem is that on a first load or refresh it seems to not apply the animation to all elements in viewport but every 1 out of 2 gets it.
+
+-> First thing I'll try: lock the listener while adding to toAnimate.
+It didn't fix anything. I'll leave the code like that though.
+
 
 ### Old stuff
 
