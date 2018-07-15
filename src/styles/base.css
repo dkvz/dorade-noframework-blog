@@ -272,7 +272,7 @@ div.article-image.right {
 }
 
 .card-content {
-  overflow: auto;
+  overflow: hidden;
 }
 
 .article-card .card-content p {

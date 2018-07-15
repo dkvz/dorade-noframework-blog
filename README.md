@@ -153,6 +153,16 @@ The first problem is that on a first load or refresh it seems to not apply the a
 -> First thing I'll try: lock the listener while adding to toAnimate.
 It didn't fix anything. I'll leave the code like that though.
 
+OK found the issue. I needed to decrement my iteration variable after removing an element from toAnimate.
+
+### Overflow issue for article cards
+While I'm at it, there is a horizontal overflow issue for my article cards, only on Chromium apparently, and only for the latest version of the code.
+
+This is weird.
+
+The class card-content is what gets overflow: auto. I'm going to try other values.
+
+-> Fixed by using `overflow: hidden` on card-content.
 
 ### Old stuff
 
