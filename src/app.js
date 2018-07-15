@@ -176,6 +176,7 @@ var app = {
   homeLayoutS: 'col l6 m6 s12',
   layoutS: 'col l4 m6 s12',
   toAnimate: [],
+  pauseRevealAnimations: false,
   toast: function(text) {
     Materialize.toast(text, 4000);
   },
@@ -484,8 +485,7 @@ var app = {
           app.toAnimate.push(toAnimateFrag[y]);
         }
         // Now we should enable the scroll event listener thingy and call it once.
-        // TODO
-        
+        app.revealScrollCallback();
       } else {
         console.log('Got no data or an undefined element to add the data to.')
       }
@@ -629,7 +629,7 @@ var app = {
         app.disableInfiniteScrolling();
     }
   },
-  inifinteScrollCallback: function() {
+  infiniteScrollCallback: function() {
     // I could use window.innerHeight without jQuery but
     // it's IE 9+ only.
     var inner = $('#mainEl').innerHeight();
@@ -663,10 +663,43 @@ var app = {
     // a scroll listener.
     // Reset previousDiff:
     this.previousDiff = 0;
-    window.addEventListener('scroll', app.inifinteScrollCallback);
+    window.addEventListener('scroll', app.infiniteScrollCallback);
   },
   disableInfiniteScrolling: function() {
-    window.removeEventListener('scroll', app.inifinteScrollCallback);
+    window.removeEventListener('scroll', app.infiniteScrollCallback);
+  },
+  revealScrollCallback: function() {    
+    if (!app.pauseRevealAnimations &&
+      (app.toAnimate && app.toAnimate.length > 0)) {
+      app.pauseRevealAnimations = true;
+      var inViewCount = 0;
+      for (var i = 0; i < app.toAnimate.length; i++) {
+        // Check if that element is in view:
+        // TODO: Adjust the second parameter: percentage of
+        // how much the element is in view.
+        if (app.isInViewport(app.toAnimate[i], 0.05)) {
+          // Add the scale-up class and change the animation
+          // delay:
+          app.toAnimate[i].className += ' scale-up';
+          app.toAnimate[i].style.animationDelay = (inViewCount * 0.15) + 's';
+          inViewCount++;
+          // Remove the element from toAnimate:
+          app.toAnimate.splice(i, 1);
+        }
+      }
+      app.pauseRevealAnimations = false;
+    }
+  },
+  enableRevealOnScroll: function() {
+    window.addEventListener('scroll', app.revealScrollCallback);
+  },
+  disableRevealOnScroll: function() {
+    window.removeEventListener('scroll', app.revealScrollCallback);
+  },
+  resetRevealOnScroll: function() {
+    this.pauseRevealAnimations = false;
+    // Empty toAnimate:
+    this.toAnimate.splice(0, this.toAnimate.length);
   },
   showArticlesPage: function() {
     document.title = this.titleBase;
@@ -826,6 +859,9 @@ if (checkboxBg) {
   checkboxBg.addEventListener('click', app.switchBackground);
   checkboxBg.checked = false;
 }
+
+// Always enable the reveal scroll listener:
+app.enableRevealOnScroll();
 
 /*
 * Start routing:

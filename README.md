@@ -140,6 +140,11 @@ Just add it to a new list right before after adding it to the document fragment.
 
 Let's go for the temp list.
 
+The callback will be called `revealScrollCallback`.
+
+In fact I think I need to empty toAnimate when I leave pages with elements to animate.
+Maybe when disabling the listener?
+
 ### Old stuff
 
 #### Previous spinner injection

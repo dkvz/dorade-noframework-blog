@@ -14,6 +14,7 @@ page('*', function(data, next) {
   if (app.previousPath !== data.path || data.hash === '') {
     app.changeRandomQuote();
     app.previousPath = data.path;
+    app.resetRevealOnScroll();
     app.goToTop();
     next();
   }
@@ -62,6 +63,7 @@ page('/pages/:name', function(data) {
   document.title = (data.params.name.charAt(0).toUpperCase() +
     data.params.name.slice(1)).replace('-', ' ') + ' | ' 
     + app.titleBase;
+  // loadStaticPage disables all the scrolling listeners.
   switch(data.params.name) {
     case 'about':
     case 'contact':
