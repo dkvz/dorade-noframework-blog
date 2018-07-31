@@ -633,9 +633,9 @@ var app = {
     if ($(document).width() > 2000) {
       thres = 900;
     } else if ($(document).width() >= 1300) {
-      thres = 580;
+      thres = 650;
     } else {
-      thres = 265;
+      thres = 430;
     }
     var curDiff = window.pageYOffset - inner;
     if (Math.abs(curDiff) < thres && 
