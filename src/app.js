@@ -641,7 +641,12 @@ var app = {
     if (Math.abs(curDiff) < thres && 
       Math.abs(curDiff) >= app.previousDiff) {
       if (!app.bottomReached) {
-        app.previousDiff = Math.abs(curDiff) - 20;
+        // The parameter in the difference here is very
+        // important for the infinite scrolling to trigger
+        // correctly.
+        // Increasing it basically causes the loading to
+        // proc sooner.
+        app.previousDiff = Math.abs(curDiff) - 200;
         app.loadMoreContentOnpage(app.currentPage);
       }
     }
