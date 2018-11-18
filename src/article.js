@@ -113,8 +113,9 @@ app.sendComment = function() {
       author.classList.add('invalid');
     }
   } else {
-    app.toast('Veuillez revoir les règles de priorité ' +
-      'des opérateurs mathétmatiques.');
+    app.toast(
+      'Veuillez revoir les règles de priorité des opérateurs mathématiques.'
+    );
     quest.classList.add('invalid');
   }
   subm.disabled = '';

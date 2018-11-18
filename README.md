@@ -295,10 +295,12 @@ M.toast({html: 'I am a toast!'});
 ```
 
 ##### The header and navbar are ruined
-I think a lot of class names have changed here.
+Some classes and attributes have changed, nothing too crazy.
 
-##### Todo before releasing to prod
-* Make a side by side comparison with current running app and dev version, I think some things like shadow depths have changed.
+-> Clicking a link in the mobile nav menu doesn't cause the menu to close.
+
+It says in the doc you should have to add the `sidenav-close``class to any link (or any element I guess) that should close the menu on click. This is useless if a link causes a full page refresh, but my links don't.
+I also had to add the class to the fragment menuTagMobile.html.
 
 
 ### TODO
