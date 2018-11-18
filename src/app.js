@@ -637,9 +637,11 @@ var app = {
     } else if ($(document).width() >= 1300) {
       thres = 650;
     } else {
-      thres = 430;
+      thres = 500;
     }
     var curDiff = window.pageYOffset - inner;
+    // Uncomment following line for top secret debugging:
+    //console.log(`Current diff: ${curDiff} - Current thres: ${thres}`);
     if (Math.abs(curDiff) < thres && 
       Math.abs(curDiff) >= app.previousDiff) {
       if (!app.bottomReached) {
@@ -652,13 +654,6 @@ var app = {
         app.loadMoreContentOnpage(app.currentPage);
       }
     }
-    /* var inner = window.innerHeight;
-    var curDiff = window.pageYOffset - inner;
-    console.log('Current scroll diff: ' + curDiff);
-    if (curDiff > 250 && curDiff >= app.previousDiff) {
-      app.previousDiff = curDiff - 20;
-      app.loadMoreContentOnpage(app.currentPage);          
-    } */
   },
   enableInfiniteScrolling: function() {
     // I need to handle multiple listeners for scroll possibly

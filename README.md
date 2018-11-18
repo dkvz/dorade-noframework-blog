@@ -42,20 +42,18 @@ To use the cache busting capabilities you need to increment the version in packa
 To serve the website on Apache, Nginx or others you'll need to use a fallback resource to index.html or a rewrite that has the same effect.
 
 ## Supported browsers
-The polyfill for addEventListener and removeEventListener is acutally useless since Materialize is not supposed to be supported below IE 11 and I also use classList at some point.
+The polyfill for addEventListener and removeEventListener is acutally useless since Materialize is not supposed to be supported below IE 11 and I also use classList at some point. I removed it at some point.
 
 The pinned toolbar on scrolling might also not work on IE 8, same with the infinite scrolling (which might even not work on IE 9).
 
 We're not providing a polyfill for the routing, which uses HTML 5 pushstate API. I think only IE 10 supports it but I might be wrong on that.
-
-I need to write Modernizr code and create a page for non-supported browsers.
 
 ## FAQ nobody asked for
 
 ### Why are you not using ES6?
 I started doing JS seriously somewhat recently. I thought I might as well get to know the "old ways" before the new.
 
-It's true that things like Promises would look much better in some parts of my code where I have callbacks inside other callbacks but I wanted to limit polyfills (even though I have this useless addEventListener one :D) and avoid using Babel.
+It's true that things like Promises would look much better in some parts of my code where I have callbacks inside other callbacks but I wanted to limit polyfills and avoid using Babel.
 
 But why? Everybody and their mom are using Babel! Well, yes. It's just a feeling I have that not using it gives me more control. I might be wrong as Babel could very well produce code that is more compatible than what I'm doing but a big part of it is that I want to know how "old" JS works.
 
@@ -73,6 +71,8 @@ I also tried to not use CSS properties like "classList" but I ended up doing it 
 
 ### But you're using jQuery
 I had to include it because Materlize requires it to be present. It's true that while I was at it I used it for Ajax and to get properties like scroll positions. But I want to be able to remove it somewhat easily if possible, so I strived to use jQuery sparingly, even though it's got some most of the "compatibility" code I've re-written already. I just want to try doing it myself.
+
+**NB**: MaterializeCSS is now divorced from jQuery. I already removed it from the Materialize-related stuff, now I have to update all of my uses of it.
 
 ### You're storing your main object in window
 Yes this is a possible problem for testing. I also have tons of references to document everywhere.
@@ -305,45 +305,42 @@ I also had to add the class to the fragment menuTagMobile.html.
 ##### The font has changed
 Not sure if I consider this an issue, gotta check.
 
+-> I think Roboto wasn't getting loaded before because the link used regular HTTP. Check if the prod build also has the new font.
+
 ##### Some paddings have changed
 Go to responsive design mode, use a mobile phone format and go to the articles list page: the article elements are too small.
 
+I added a new media media query on card-panel for mobile devices with reduced margin values.
 
 ### TODO
-
+* scroll-behavior: smooth on the body element doesn't seem to work on Chromium 70. It works on Firefox. Maybe it has to be added to html element? Actually smooth scrolling doesn't work in my test codepen either.
+* Completely ditch jQuery.
 * In reading mode (Firefox feature) the top level anchor links do not seem to work.
   * Actually reading mode doesn't really work either. It works when linked from the homepage, but doesn't work when you refresh the page.
 * In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
-  * This is probably due to minification.
-* To make uses of app. or this. in app itself more homogeneous I could use the old trick to assign "this" to a variable (called self, for instance) and that would work for callbacks. It woudn't work if a function from app is given as a parameter for something (like an event listener).
+  * This is probably due to minification -> I may have removed the quote-removal minification option: check if the quotes are present or not in articleCard.
 * When loading article cards the console is saying Roboto from the materialize website has been blocked because it's not using HTTPS. Why is it trying to download Roboto from there? What does this even mean?
 * Try to add the thing that compresses images with webpack. Low priority.
 * Isn't there something better than using margin-left and margin-right to make my float elements no stick too close to the text?
 * To gototop button should be on the main template. Just show it when required.
 * Add the unsupported browsers thingy.
 * I need to test the infinite scrolling on a huge resolution.
-* The mobile menu has weird bottom margin issues.
-  * Not really on Chrome.
 * Pagejs requires html5 history api, I think it doesn't work on IE 8 (to check) - There is a polyfill.
 * What is the CSS style text-size-adjust?
 * List style is better but maybe could be better in articles.
 * Test on mobile and tablets, the infinite scrolling might not work on there.
 * Use the SASS CSS from materialize. If I do that, I need to replace mentions to Roboto in my css file and replace that with the SASS variable used for the base font family.
-* It looks like on some articles + some computer sometimes, going to the bottom using the comments link doesn't proc the infinite scrolling.
-  * I think I may have fixed that through resetting previousDiff while enabling infinite scrolling.
 * I need to put my robot / IE loadmore button.
 * Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
 * The webpack config could be more homogeneous and cleaned up.
 * I think app.previousArticle is now unused. To check.
-* I often use checks to !== undefined, especially for callbacks. I can probably just use if (callback) or even better, something like (callback && callback())  -> To check.
 * When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
 * Theme color in the manifest.json is wrong.
-* The styles folder should be inside src. I mean that is arguable.
 * Add "exit page" callbacks in routing to unregister event listeners on some pages.
   * Removing nodes also GCs the listeners, but not very effectively on old IE versions (as in IE 8).
   * So this is very low priority.
+    * I will never do this.
 * npm run dev doesn't work on windows. I made another command: npm run dev-win. But that is more like a hack. I'm also not 100% sure it even works. Or if it doesn't set the env to dev forever after it ran once.
-* Move to using yarn instead of npm. Why not.
 
 ### Historical
 * Scrolling to comments doesn't work anymore. It kinda does but then I think the repaint due to some images is causing the scroll position to be wrong.
