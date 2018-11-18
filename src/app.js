@@ -803,14 +803,14 @@ window.app = app;
 /*
 * Including the JS and polyfills
 */
-//window.$ = require('jquery');
+window.$ = require('jquery');
 //$ = window.$;
 // The min build seems to include jQuery with a NodeJS require.
 // Leaving the jQuery import is not an issue though,
 // Webpack won't import it twice.
 // ---
 // I don't know why I bother with this polyfill:
-require('./polyfills/event-listeners.js');
+//require('./polyfills/event-listeners.js');
 require('materialize-css/dist/js/materialize.min.js');
 
 /*
@@ -832,9 +832,15 @@ app.fragments.home.template = require('./fragments/home.html');
 // shown:
 app.spinner = document.getElementById('spinnerCard');
 app.showSpinner();  // This line is currently useless.
-// Enable the stuff from Materialize (can only be done with jQuery):
-$('.button-collapse').sideNav({closeOnClick: true});
-$('.dropdown-button').dropdown();
+
+// Enable the stuff from Materialize.
+// Used to require jQuery, now not really.
+//$('.button-collapse').sidenav({closeOnClick: true});
+var instances = M.Sidenav.init(document.querySelectorAll('.sidenav'));
+M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
+//$('.dropdown-button').dropdown();
+
+
 app.mainEl = document.getElementById('mainEl');
 app.contentEl = document.getElementById('contentEl');
 app.bodyEl = document.getElementById('bodyEl');

@@ -260,6 +260,37 @@ background: linear-gradient(to bottom, rgba(69,90,100,0.9) 0%,rgba(255,255,255,0
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', endColorstr='#e6607d8b',GradientType=0 ); /* IE6-9 */
 ```
 
+#### Materialize update
+At some point Materialize stopped using jQuery. I think I'm still going to use it for a while since I need it for the scroll event and AJAX calls.
+
+However I'm probably going to remove it for all the nav and collapsable stuff initializations. Which I'll have to look for in the entire code.
+
+This is what they recommend using to enable the navbar now:
+```
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, options);
+});
+
+// Or with jQuery
+
+$(document).ready(function(){
+  $('.sidenav').sidenav();
+});
+```
+
+They seem to have added an AutoInit function which should initialize everything materialize uses coat-hanger style: https://materializecss.com/auto-init.html
+
+Now for the dropown menu I use in the desktop navbar, I found explanations here: https://materializecss.com/dropdown.html
+I had to change class names around or it wouldn't work anymore.
+
+Finally there's the collapsible in the article view (for comments).
+
+
+
+##### The header and navbar are ruined
+I think a lot of class names have changed here.
+
 
 ### TODO
 
