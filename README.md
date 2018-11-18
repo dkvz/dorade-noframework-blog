@@ -302,6 +302,12 @@ Some classes and attributes have changed, nothing too crazy.
 It says in the doc you should have to add the `sidenav-close``class to any link (or any element I guess) that should close the menu on click. This is useless if a link causes a full page refresh, but my links don't.
 I also had to add the class to the fragment menuTagMobile.html.
 
+##### The font has changed
+Not sure if I consider this an issue, gotta check.
+
+##### Some paddings have changed
+Go to responsive design mode, use a mobile phone format and go to the articles list page: the article elements are too small.
+
 
 ### TODO
 

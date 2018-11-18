@@ -2,6 +2,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  scroll-behavior: smooth;
 }
 .gradient-bg {
   background-color: #455A64;
@@ -39,7 +40,6 @@ nav .categories-container {
   position: relative;
 }
 nav .nav-background {
-  /*overflow: hidden;*/
   position: absolute;
   top: 0;
   left: 0;
@@ -163,6 +163,9 @@ nav .nav-background {
   }
   #article {
     width: 100%;
+  }
+  .card-panel {
+    padding: 24px 4px 24px 4px;
   }
   .mobile-hack {
     width: 100%;
