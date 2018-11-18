@@ -284,12 +284,21 @@ They seem to have added an AutoInit function which should initialize everything 
 Now for the dropown menu I use in the desktop navbar, I found explanations here: https://materializecss.com/dropdown.html
 I had to change class names around or it wouldn't work anymore.
 
-Finally there's the collapsible in the article view (for comments).
+Finally there's the collapsible in the article view (for comments). Seems to be fixed by just using their document.querySelectorAll method.
 
+It seems to work with just querySelector if you have a single element to consider (like I do) so I used querySelector everywhere, just keep that in mind when adding more of these elements (lol I'll never keep that in mind).
 
+##### Toasts aren't working anymore
+Toasts are now called as such:
+```
+M.toast({html: 'I am a toast!'});
+```
 
 ##### The header and navbar are ruined
 I think a lot of class names have changed here.
+
+##### Todo before releasing to prod
+* Make a side by side comparison with current running app and dev version, I think some things like shadow depths have changed.
 
 
 ### TODO

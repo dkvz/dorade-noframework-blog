@@ -178,7 +178,9 @@ var app = {
   toAnimate: [],
   pauseRevealAnimations: false,
   toast: function(text) {
-    Materialize.toast(text, 4000);
+    //Materialize.toast(text, 4000);
+    // Materialize v1.0.0+ now has a new way to toast:
+    M.toast({html: text});
   },
   createElementFromText: function(text) {
     // This weird stuff is required to work with some
@@ -836,8 +838,8 @@ app.showSpinner();  // This line is currently useless.
 // Enable the stuff from Materialize.
 // Used to require jQuery, now not really.
 //$('.button-collapse').sidenav({closeOnClick: true});
-var instances = M.Sidenav.init(document.querySelectorAll('.sidenav'));
-M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
+var instances = M.Sidenav.init(document.querySelector('.sidenav'));
+M.Dropdown.init(document.querySelector('.dropdown-trigger'));
 //$('.dropdown-button').dropdown();
 
 

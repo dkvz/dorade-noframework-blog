@@ -7,7 +7,8 @@ app.fragments.article404.template = require('./fragments/_article404.html');
 app.fragments.article.initPage = function() {
   // If I add event listeners here and keep the nodes intact 
   // in some variable, the listeners should stick around.
-  $('.collapsible').collapsible();
+  M.Collapsible.init(document.querySelector('.collapsible'));
+  //$('.collapsible').collapsible();
 };
 
 app.loadComments = function(start, count, callback) {
@@ -85,7 +86,10 @@ app.sendComment = function() {
           app.showSpinner();
           app.bottomReached = true;
           // Collapse the form (has to use jQuery):
-          $('#commentForm').collapsible('close', 0);
+          //$('#commentForm').collapsible('close', 0);
+          // Updated materialize has another way to do this:
+          M.Collapsible
+            .getInstance(document.getElementById('commentForm')).close();
           app.loadComments(app.loadedCount, app.maxComments, function() {
             app.hideSpinner();
             app.bottomReached = false;
