@@ -84,12 +84,12 @@ nav .nav-background {
   margin-left: 6px;
 }
 
-.article-card ul {
+.article-card ul, .normal-ul ul {
   padding-left: 34px;
   overflow: hidden;
 }
 
-.article-card ul > li {
+.article-card ul > li, .normal-ul ul > li {
   list-style: disc outside none;
 }
 
