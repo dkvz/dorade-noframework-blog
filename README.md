@@ -310,7 +310,14 @@ Not sure if I consider this an issue, gotta check.
 ##### Some paddings have changed
 Go to responsive design mode, use a mobile phone format and go to the articles list page: the article elements are too small.
 
-I added a new media media query on card-panel for mobile devices with reduced margin values.
+I added a new media media query on card-panel for mobile devices with reduced margin values:
+```
+.card-panel {
+  padding: 24px 4px 24px 4px;
+}
+```
+
+-> This broke other views because card-panel is used everywhere. I have to add another class specific to the articles and shorts list.
 
 ### TODO
 * scroll-behavior: smooth on the body element doesn't seem to work on Chromium 70. It works on Firefox. Maybe it has to be added to html element? Actually smooth scrolling doesn't work in my test codepen either.
