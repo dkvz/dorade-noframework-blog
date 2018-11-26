@@ -347,3 +347,6 @@ div.article-image.right {
 }
 /* End page transition I'm using */
 
+.aligned-icon {
+  vertical-align: bottom;
+}
