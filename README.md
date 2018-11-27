@@ -188,6 +188,26 @@ The loader doesn't do anything by default (lol). To make it minify stuff we need
 ```
 I'm going to remove the SVG one and add a condition to see if we're doing the prod build.
 
+Now to manually optimize what's in assets (for instance), there is a cli for Imagemin:
+```
+npm install --global imagemin-cli imagemin-gifsicle imagemin-mozjpeg imagemin-pngquant
+```
+I thought of installing it locally and use npx but it doesn't appear to work. Might be me not using npx right.
+
+Using imagemin on an PNG and piping it to output gave me very minimal gains. I think you have to specify plugins for it to be effective.
+
+Now I can compress PNG like so:
+```
+imagemin --plugin=pngquant shorts_crapic2.png > shorts_crapic2_comp.png
+```
+I'm going to do this manually for the moment.
+
+For JPGs:
+```
+imagemin --plugin=mozjpeg source.jpg > source_comp.jpg
+```
+You should check the output after every run because the default option do degrade quality significantly depending on the source image.
+
 #### Issues
 
 The first problem is that on a first load or refresh it seems to not apply the animation to all elements in viewport but every 1 out of 2 gets it.
@@ -368,8 +388,6 @@ I added a new media media query on card-panel for mobile devices with reduced ma
   * Actually reading mode doesn't really work either. It works when linked from the homepage, but doesn't work when you refresh the page.
 * In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
   * This is probably due to minification -> I may have removed the quote-removal minification option: check if the quotes are present or not in articleCard.
-* When loading article cards the console is saying Roboto from the materialize website has been blocked because it's not using HTTPS. Why is it trying to download Roboto from there? What does this even mean?
-* Try to add the thing that compresses images with webpack. Low priority.
 * Isn't there something better than using margin-left and margin-right to make my float elements no stick too close to the text?
 * To gototop button should be on the main template. Just show it when required.
 * Add the unsupported browsers thingy.
