@@ -392,6 +392,7 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 -> This broke other views because card-panel is used everywhere. I have to add another class specific to the articles and shorts list.
 
 ### TODO
+* Rework the navbar background. Try a jpg version without the transparency, make it smaller.
 * scroll-behavior: smooth on the body element doesn't seem to work on Chromium 70. It works on Firefox. Maybe it has to be added to html element? Actually smooth scrolling doesn't work in my test codepen either.
 * Completely ditch jQuery.
 * In reading mode (Firefox feature) the top level anchor links do not seem to work.

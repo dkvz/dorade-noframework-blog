@@ -68,8 +68,8 @@ var config = {
                   arithmetic: false
                 }),
                 require('imagemin-pngquant')({
-                  quality: '70-90',
-                  speed: 2
+                  quality: '75-90',
+                  speed: 1
                 })
               ]
             }

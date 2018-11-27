@@ -49,7 +49,7 @@ nav .nav-background {
   background-color: inherit;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center center;
+  background-position: center 10%;
   opacity: '';
 }
 .pinned {
@@ -145,6 +145,9 @@ nav .nav-background {
 }
 
 @media (max-width: 600px) {
+  nav .nav-background {
+    background-position: center center;
+  }
   .row-flex {
     display: flex;
     flex-direction: column;
