@@ -68,7 +68,7 @@ var config = {
                   arithmetic: false
                 }),
                 require('imagemin-pngquant')({
-                  floyd: 0.5,
+                  quality: '70-90',
                   speed: 2
                 })
               ]
