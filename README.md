@@ -146,6 +146,16 @@ In fact I think I need to empty toAnimate when I leave pages with elements to an
 
 I made it so the listener is actually always enabled. Hope this isn't an issue for performance or mobile batteries.
 
+### Bypassing page.js
+The pushstate listener of page.js will intercept everything on the current domain. I had this issue with my RSS file, but I've also had it before when directly linking stuff.
+
+Links that have one of the following traits will be ignored by page.js and thus allow being downloaded or linked directly:
+* Links that are not of the same origin
+* Links with the download attribute
+* Links with the target attribute
+* Links with the rel="external" attribute
+
+
 ### Image minification
 There is a plugin that doesn't appear to work and two loaders.
 
