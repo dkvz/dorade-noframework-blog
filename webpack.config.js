@@ -52,8 +52,26 @@ var config = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10000,
+              limit: 4500,
               name: './img/[name][hash:7].[ext]'
+            }
+          },
+          {
+            loader: 'img-loader',
+            options: {
+              plugins: dev || [
+                require('imagemin-gifsicle')({
+                  interlaced: false
+                }),
+                require('imagemin-mozjpeg')({
+                  progressive: true,
+                  arithmetic: false
+                }),
+                require('imagemin-pngquant')({
+                  floyd: 0.5,
+                  speed: 2
+                })
+              ]
             }
           }
         ]

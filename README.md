@@ -146,6 +146,48 @@ In fact I think I need to empty toAnimate when I leave pages with elements to an
 
 I made it so the listener is actually always enabled. Hope this isn't an issue for performance or mobile batteries.
 
+### Image minification
+There is a plugin that doesn't appear to work and two loaders.
+
+I'm using this one:
+```
+npm install img-loader --save-dev
+```
+
+Also install the plugins you want to use (I omit the svg one):
+```
+npm install -D imagemin imagemin-gifsicle imagemin-mozjpeg imagemin-pngquant
+```
+
+The loader doesn't do anything by default (lol). To make it minify stuff we need to pass in a plugins array as in this example:
+```
+{
+  loader: 'img-loader',
+  options: {
+    plugins: [
+      require('imagemin-gifsicle')({
+        interlaced: false
+      }),
+      require('imagemin-mozjpeg')({
+        progressive: true,
+        arithmetic: false
+      }),
+      require('imagemin-pngquant')({
+        floyd: 0.5,
+        speed: 2
+      }),
+      require('imagemin-svgo')({
+        plugins: [
+          { removeTitle: true },
+          { convertPathData: false }
+        ]
+      })
+    ]
+  }
+}
+```
+I'm going to remove the SVG one and add a condition to see if we're doing the prod build.
+
 #### Issues
 
 The first problem is that on a first load or refresh it seems to not apply the animation to all elements in viewport but every 1 out of 2 gets it.
