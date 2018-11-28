@@ -218,6 +218,28 @@ imagemin --plugin=mozjpeg source.jpg > source_comp.jpg
 ```
 You should check the output after every run because the default option do degrade quality significantly depending on the source image.
 
+### Navbar overhaul
+CSS I was using before:
+```
+nav .nav-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/gillesplusmini.png');
+  background-color: inherit;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 10%;
+  opacity: '';
+}
+```
+
+I removed the weird opacity thing but maybe it was fixing something for some browser. Since I don't remember anything I'll assume I was just drunk when I added that part.
+
+Because I need to combine the gradients on a single line I don't think I can use prefixes. Doesn't seem to work.
+
 #### Issues
 
 The first problem is that on a first load or refresh it seems to not apply the animation to all elements in viewport but every 1 out of 2 gets it.
@@ -332,6 +354,12 @@ background: linear-gradient(to bottom, rgba(69,90,100,0.9) 0%,rgba(255,255,255,0
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', endColorstr='#e6607d8b',GradientType=0 ); /* IE6-9 */
 ```
 
+#### Cool drop shadow
+Saw this on a codepen. I'm afraid it's going to crash phones by virute of having too much to render so I'm not using it.
+```
+drop-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+```
+
 #### Materialize update
 At some point Materialize stopped using jQuery. I think I'm still going to use it for a while since I need it for the scroll event and AJAX calls.
 
@@ -392,7 +420,6 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 -> This broke other views because card-panel is used everywhere. I have to add another class specific to the articles and shorts list.
 
 ### TODO
-* Rework the navbar background. Try a jpg version without the transparency, make it smaller.
 * scroll-behavior: smooth on the body element doesn't seem to work on Chromium 70. It works on Firefox. Maybe it has to be added to html element? Actually smooth scrolling doesn't work in my test codepen either.
 * Completely ditch jQuery.
 * In reading mode (Firefox feature) the top level anchor links do not seem to work.
@@ -421,6 +448,7 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 * npm run dev doesn't work on windows. I made another command: npm run dev-win. But that is more like a hack. I'm also not 100% sure it even works. Or if it doesn't set the env to dev forever after it ran once.
 
 ### Historical
+* Rework the navbar background. Try a jpg version without the transparency, make it smaller.
 * Scrolling to comments doesn't work anymore. It kinda does but then I think the repaint due to some images is causing the scroll position to be wrong.
   * I've put a setTimeout of 1s before scrolling. Won't be enough for slow connections.
 * There is no table style or it's wrong in my articles.
