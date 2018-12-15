@@ -262,7 +262,7 @@ app.addTOC = function(contentObj, lvl, maxLvl, start, end, lvlStr) {
       //contentObj.toc += '<li><a onclick="app.scrollToItem(\'' + addLvlStrPartial + '\')">' +
       //  title + '</a></li>\n';
       // With h element we can just use their id as an anchor:
-      contentObj.toc += '<li><a href="#' + addLvlStrPartial + '" rel="external">' +
+      contentObj.toc += '<li><a href="#' + addLvlStrPartial + '" target="_self">' +
         title + '</a></li>\n';
       // Add the anchor, will look like this:
       // We need to add an id to the Hx element that we're working with here.
