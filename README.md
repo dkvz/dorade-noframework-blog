@@ -346,12 +346,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfffffff', e
 ```
 
 I'm going to start with this one:
-```
+```css
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#607d8b+0,ffffff+50,607d8b+100&0.9+0,0.9+100 */
 background: -moz-linear-gradient(top, rgba(69,90,100,0.9) 0%, rgba(255,255,255,0.9) 50%, rgba(69,90,100,0.9) 100%); /* FF3.6-15 */
 background: -webkit-linear-gradient(top, rgba(69,90,100,0.9) 0%,rgba(255,255,255,0.9) 50%,rgba(69,90,100,0.9) 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(to bottom, rgba(69,90,100,0.9) 0%,rgba(255,255,255,0.9) 50%,rgba(69,90,100,0.9) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6607d8b', endColorstr='#e6607d8b',GradientType=0 ); /* IE6-9 */
+```
+
+New gradient starting with white:
+```css
+background: -moz-linear-gradient(top, rgba(220,220,220,0.9) 0%,rgba(69,90,100,0.9) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(220,220,220,0.9) 0%,rgba(69,90,100,0.9) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(220,220,220,0.9) 0%,rgba(69,90,100,0.9) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6607d8b',GradientType=0 ); /* IE6-9 */
 ```
 
 #### Cool drop shadow
