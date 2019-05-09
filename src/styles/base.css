@@ -165,12 +165,60 @@ nav .nav-background {
   text-shadow: 0px 0px 8px rgba(80, 80, 80, 0.5);
 }
 
+
+.search-control {
+  width: 100%;
+  border: 2px solid #26a69a;
+  padding: 0 !important;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.search-control i {
+  font-size: 2.4rem;
+  background-color: #26a69a;
+  color: #fff;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  line-height: 46px;
+}
+
+.search-control input[type="text"], 
+.search-control input[type="text"]:focus {
+  border-bottom: none !important;
+  box-shadow: none !important;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin: 0;
+}
+
+.cta-row {
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 22px;
+  margin-bottom: 22px;
+}
+
 @media (max-width: 600px) {
   nav .nav-background {
     background: url('../../assets/gillescut_300.png'), linear-gradient(to bottom, #085678 0%, #455a64 115%);
     background-position: 90% bottom;
     background-size: contain;
     background-repeat: no-repeat;
+  }
+  .cta-row {
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+  }
+  .cta-row > * {
+    width: 100%;
+    margin-bottom: 14px;
   }
   .row-flex {
     display: flex;
