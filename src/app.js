@@ -176,7 +176,9 @@ var app = {
   homeLayoutS: 'col l6 m6 s12',
   layoutS: 'col l4 m6 s12',
   toAnimate: [],
+  transitioning: false,
   pauseRevealAnimations: false,
+  homeSearchMode: false,
   toast: function(text) {
     //Materialize.toast(text, 4000);
     // Materialize v1.0.0+ now has a new way to toast:
@@ -793,6 +795,48 @@ var app = {
       // value in percentage (1 >= h >= 0)
       h = h || 0;
     return (elTop + elH * h) <= viewed && (elBottom - elH * h) >= scrolled;
+  },
+  ctaSearchMode: function(searchMode, el) {
+    el.style.transform = 'scaleY(0)';
+    app.homeSearchMode = searchMode;
+    for (var i = 0; i < el.children.length; i++) {
+      if (el.children[i].id !== 'searchPanel') {
+        //el.removeChild(el.children[i]);
+        el.children[i].style.display = searchMode ? 'none' : '';
+        //i--;
+      }
+    }
+    setTimeout(function() {
+      el.style.transform = 'scaleY(1)';
+    }, 200);
+  },
+  searchFromHome: function(e) {
+    // Check if we're transitioning:
+    if (!app.transitioning) {
+      // Run the transition:
+      app.transitioning = true;
+      app.router('/articles');
+      var cta = document.getElementById('cta');
+      app.ctaSearchMode(true, cta);
+      app.contentEl.firstChild.removeChild(
+        document.getElementById('homeContent')
+      );
+      // Add the search results partial:
+      /* app.contentEl.appendChild(
+        app.createElementFromText(
+          app.fragments.searchResults.template
+        )
+      ); */
+      // Remove current event listener:
+      e.currentTarget.removeEventListener('input', app.searchFromHome);
+      e.currentTarget.addEventListener('input', app.searchEvent);
+      app.searchEvent({currentTarget: e.currentTarget, target: e.target});
+      app.transitioning = false;
+    }
+  },
+  searchEvent: function(e) {
+    console.log('Search event triggered ', e);
+
   }
 };
 window.app = app;

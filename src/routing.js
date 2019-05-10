@@ -23,14 +23,29 @@ page('/', function() {
   app.currentPage = 'home';
   document.title = app.titleBase;
   app.setMenuItemActive('homeL');
+  var resetCacheNodes = false;
+  if (app.homeSearchMode && app.cacheNodes) {
+    // We need to reload the nodes while ignoring the cache:
+    app.cacheNodes = false;
+    app.homeSearchMode = false;
+    resetCacheNodes = true;
+  }
   // We need to load the articles and shorts in the callback:
   app.setMainContent('home');
+  if (resetCacheNodes) app.cacheNodes = true;
   app.disableInfiniteScrolling();
   //var element = app.contentEl.querySelector('#lastArticles');
   // If mainContent is loaded we can hide the main spinner here:
   app.hideSpinner();
   app.showOtherSpinner('articlesSpinner');
   app.currentTags = [];
+  // Register the search field listener.
+  // oninput is IE9+ but so is addEventListener.
+  app.transitioning = false;
+  document.getElementById('searchInput').addEventListener(
+    'input',
+    app.searchFromHome
+  );
   // We always load frm 0 on the home page.
   app.loadArticlesOrShorts(
     0, 
@@ -113,14 +128,16 @@ page('/breves/:id', function(data) {
     app.loadArticle(data.params.id, data.hash);
   });
 });
-page('/articles', function() {
+page('/articles/:search?', function() {
   // The page has a go to top button.
   // Reset tags:
   app.currentTags = [];
   app.currentPage = 'articles';
   app.setMenuItemActive('articlesL');
   app.setActiveMenuTag();
-  app.showArticlesPage();
+  if (!app.transitioning) {
+    app.showArticlesPage();
+  }
 });
 page('/articles/:name/:toBottom?', function(data) {
   // The toBottom thing is a legacy from the older
@@ -152,3 +169,5 @@ page('*', function() {
 });
 
 page();
+
+app.router = page;

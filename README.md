@@ -428,32 +428,31 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 -> This broke other views because card-panel is used everywhere. I have to add another class specific to the articles and shorts list.
 
 ### TODO
-* scroll-behavior: smooth on the body element doesn't seem to work on Chromium 70. It works on Firefox. Maybe it has to be added to html element? Actually smooth scrolling doesn't work in my test codepen either.
-* Completely ditch jQuery.
-* In reading mode (Firefox feature) the top level anchor links do not seem to work.
+- [ ] When we go to home, make a search and go back to home, does the event listener on the search field get added twice?
+- [ ] Do I still need app.transitioning?
+- [ ] scroll-behavior: smooth - Check that it works on Chrome.
+- [ ] Completely ditch jQuery.
+- [ ] In reading mode (Firefox feature) the top level anchor links do not seem to work.
   * Actually reading mode doesn't really work either. It works when linked from the homepage, but doesn't work when you refresh the page.
-* In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
+- [ ] In breves and articleCard I had to remove the quotes around "layout" and add them in the JS code because otherwise uglify would remove the quotes from the template. I don't know if that's a bug with Uglify or if I'm missing something.
   * This is probably due to minification -> I may have removed the quote-removal minification option: check if the quotes are present or not in articleCard.
-* Isn't there something better than using margin-left and margin-right to make my float elements no stick too close to the text?
-* To gototop button should be on the main template. Just show it when required.
-* Add the unsupported browsers thingy.
-* I need to test the infinite scrolling on a huge resolution.
-* Pagejs requires html5 history api, I think it doesn't work on IE 8 (to check) - There is a polyfill.
-* What is the CSS style text-size-adjust?
-* List style is better but maybe could be better in articles.
-* Test on mobile and tablets, the infinite scrolling might not work on there.
-* Use the SASS CSS from materialize. If I do that, I need to replace mentions to Roboto in my css file and replace that with the SASS variable used for the base font family.
-* I need to put my robot / IE loadmore button.
-* Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
-* The webpack config could be more homogeneous and cleaned up.
-* I think app.previousArticle is now unused. To check.
-* When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
-* Theme color in the manifest.json is wrong.
-* Add "exit page" callbacks in routing to unregister event listeners on some pages.
+- [ ] To gototop button should be on the main template. Just show it when required.
+- [ ] Add the unsupported browsers thingy.
+- [ ] I need to test the infinite scrolling on a huge resolution.
+- [ ] What is the CSS style text-size-adjust?
+- [ ] Test on mobile and tablets, the infinite scrolling might not work on there.
+- [ ] Use the SASS CSS from materialize. If I do that, I need to replace mentions to Roboto in my css file and replace that with the SASS variable used for the base font family.
+- [ ] I need to put my robot / IE loadmore button.
+- [ ] Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
+- [ ] The webpack config could be more homogeneous and cleaned up.
+- [ ] I think app.previousArticle is now unused. To check.
+- [ ] When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
+- [ ] Theme color in the manifest.json is wrong.
+- [ ] Add "exit page" callbacks in routing to unregister event listeners on some pages.
   * Removing nodes also GCs the listeners, but not very effectively on old IE versions (as in IE 8).
   * So this is very low priority.
     * I will never do this.
-* npm run dev doesn't work on windows. I made another command: npm run dev-win. But that is more like a hack. I'm also not 100% sure it even works. Or if it doesn't set the env to dev forever after it ran once.
+- [ ] npm run dev doesn't work on windows. I made another command: npm run dev-win. But that is more like a hack. I'm also not 100% sure it even works. Or if it doesn't set the env to dev forever after it ran once.
 
 ### Historical
 * Rework the navbar background. Try a jpg version without the transparency, make it smaller.

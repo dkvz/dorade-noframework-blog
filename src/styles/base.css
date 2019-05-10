@@ -449,3 +449,7 @@ div.article-image.right {
   0% { transform: scaleX(0); }
   100% { transform: scaleX(55); }
 }
+
+.transition-container {
+  transition: all 1s ease-out;
+}

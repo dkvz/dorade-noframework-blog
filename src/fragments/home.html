@@ -1,21 +1,21 @@
 <div class="row mobile-hack">
-  <div class="card-panel transp-box col s12">
+  <div class="card-panel transp-box col s12 transition-container" id="cta">
     <h3 class="center blue-grey-text text-darken-2 blog-title drop-anim">Le Blog des Articles Beaucoup Trop Longs</h3>
     <hr class="blue-grey super-divider" />
     <div class="cta-row">
         <a class="waves-effect waves-light btn-large hero-button" href="/articles"><i class="material-icons left">create</i>Lire mes articles</a>
         <a class="waves-effect waves-light btn-large hero-button" href="/breves"><i class="material-icons left">chat_bubble</i>Lire mes brèves</a>
     </div>
-    <div class="cta-row">
+    <div class="cta-row" id="searchPanel">
       <label class="search-control z-depth-1">
         <i class="material-icons" aria-hidden="true">search</i>
-        <input type="text" placeholder="Rechercher" aria-label="Rechercher" />
+        <input type="text" id="searchInput" placeholder="Rechercher" aria-label="Rechercher" />
       </label>
     </div>
   </div>
 </div>
     
-<div class="row mobile-hack">
+<div class="row mobile-hack" id="homeContent">
   <div class="transp-box col l6 m12 s12">
     <div class="section">
       <h4 class="blue-grey-text">Dernières Brèves</h4>
