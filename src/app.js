@@ -82,7 +82,10 @@ var app = {
     },
     articles: {
       filename: 'articles.html',
-      script: 'articles'
+      script: 'articles',
+      properties: [
+        {name: 'title'}
+      ]
     },
     article: {
       filename: 'article.html',
@@ -822,11 +825,14 @@ var app = {
         document.getElementById('homeContent')
       );
       // Add the search results partial:
-      /* app.contentEl.appendChild(
+      app.contentEl.appendChild(
         app.createElementFromText(
-          app.fragments.searchResults.template
+          app.parseTemplate(
+            'articles', 
+            {title: 'Rechercher'}
+          )
         )
-      ); */
+      );
       // Remove current event listener:
       e.currentTarget.removeEventListener('input', app.searchFromHome);
       e.currentTarget.addEventListener('input', app.searchEvent);
@@ -836,6 +842,7 @@ var app = {
   },
   searchEvent: function(e) {
     console.log('Search event triggered ', e);
+    // Hide the #orderSwitch element if still visible.
 
   }
 };
