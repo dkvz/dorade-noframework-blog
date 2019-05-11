@@ -80,6 +80,15 @@ var app = {
         {name: 'commentsCount'}
       ]
     },
+    searchCard: {
+      filename: '_searchCard.html',
+      properties: [
+        {name: 'title'},
+        {name: 'summary'},
+        {name: 'layout'},
+        {name: 'articleURL'}
+      ]
+    },
     articles: {
       filename: 'articles.html',
       script: 'articles'
@@ -852,6 +861,37 @@ var app = {
     // Hide the #orderSwitch element if still visible.
     app.articlesPageSearchMode(true);
 
+  },
+  loadSearchResults: function(query, layout, element, callback) {
+    // Transform query into array of words.
+    this._fetchSearch(
+      query.split(' '),
+      function(data) {
+        // I NEED TO COPY PASTE WHAT'S IN loadArticlesOrShort
+
+
+        // Add the layout and other template properties to data:
+        for (var i = 0; i < data.length; i++) {
+          data[i].layout = layout;
+        }
+
+        callback && callback(data);
+      }
+    );
+  },
+  _fetchSearch: function(termsArray, callback) {
+    // We need to post the JSON.
+    $.ajax({
+      url: this.apiUrl + '/articles/search',
+      type: 'post',
+      dataType: 'json',
+      contentType: 'application/json',
+      success: callback(data),
+      error: function(err) {
+        console.log('Error trying to fetch search results');
+      },
+      data: JSON.stringify({include: termsArray})
+    });
   }
 };
 window.app = app;
@@ -878,6 +918,7 @@ app.fragments.menuTag.template = require('./fragments/_menuTag.html');
 app.fragments.menuTagMobile.template = require('./fragments/_menuTagMobile.html');
 app.fragments.home.template = require('./fragments/home.html');
 app.fragments.searchResults.template = require('./fragments/_searchResults.html');
+app.fragments.searchCard.template = require('./fragments/_searchCard.html');
 
 /*
 * Page initialization - listeners

@@ -428,8 +428,10 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 -> This broke other views because card-panel is used everywhere. I have to add another class specific to the articles and shorts list.
 
 ### TODO
+- [ ] Disable infinite scrolling on the search page.
 - [ ] When we go to home, make a search and go back to home, does the event listener on the search field get added twice?
 - [ ] Do I still need app.transitioning?
+- [ ] The code in setMenuActiveTag etc. is horrible.
 - [ ] scroll-behavior: smooth - Check that it works on Chrome.
 - [ ] Completely ditch jQuery.
 - [ ] In reading mode (Firefox feature) the top level anchor links do not seem to work.
