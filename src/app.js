@@ -82,7 +82,10 @@ var app = {
     },
     articles: {
       filename: 'articles.html',
-      script: 'articles',
+      script: 'articles'
+    },
+    searchResults: {
+      filename: '_searchResults.html',
       properties: [
         {name: 'title'}
       ]
@@ -814,6 +817,7 @@ var app = {
     }, 200);
   },
   searchFromHome: function(e) {
+    console.log('Search from home event fired');
     // Check if we're transitioning:
     if (!app.transitioning) {
       // Run the transition:
@@ -828,7 +832,7 @@ var app = {
       app.contentEl.appendChild(
         app.createElementFromText(
           app.parseTemplate(
-            'articles', 
+            'searchResults', 
             {title: 'Rechercher'}
           )
         )
@@ -840,9 +844,13 @@ var app = {
       app.transitioning = false;
     }
   },
+  articlesPageSearchMode: function(searchMode) {
+    var orderSwitch = document.getElementById('orderSwitch');
+    if (orderSwitch) orderSwitch.style.display = searchMode ? 'none' : '';
+  },
   searchEvent: function(e) {
-    console.log('Search event triggered ', e);
     // Hide the #orderSwitch element if still visible.
+    app.articlesPageSearchMode(true);
 
   }
 };
@@ -871,6 +879,7 @@ app.fragments.tag.template = require('./fragments/_tag.html');
 app.fragments.menuTag.template = require('./fragments/_menuTag.html');
 app.fragments.menuTagMobile.template = require('./fragments/_menuTagMobile.html');
 app.fragments.home.template = require('./fragments/home.html');
+app.fragments.searchResults.template = require('./fragments/_searchResults.html');
 
 /*
 * Page initialization - listeners

@@ -136,6 +136,7 @@ page('/articles/:search?', function() {
   app.setMenuItemActive('articlesL');
   app.setActiveMenuTag();
   if (!app.transitioning) {
+    app.articlesPageSearchMode(false);
     app.showArticlesPage();
   }
 });
