@@ -864,9 +864,7 @@ window.$ = require('jquery');
 // The min build seems to include jQuery with a NodeJS require.
 // Leaving the jQuery import is not an issue though,
 // Webpack won't import it twice.
-// ---
-// I don't know why I bother with this polyfill:
-//require('./polyfills/event-listeners.js');
+
 require('materialize-css/dist/js/materialize.min.js');
 
 /*
