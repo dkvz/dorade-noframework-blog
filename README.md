@@ -428,6 +428,8 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 -> This broke other views because card-panel is used everywhere. I have to add another class specific to the articles and shorts list.
 
 ### TODO
+- [ ] Add a card to mention nothing was found when the search did not yield anything.
+- [ ] Check that the title is correct when searching, after coming from an article page.
 - [ ] Disable infinite scrolling on the search page.
 - [ ] When we go to home, make a search and go back to home, does the event listener on the search field get added twice?
 - [ ] Do I still need app.transitioning?

@@ -128,7 +128,7 @@ page('/breves/:id', function(data) {
     app.loadArticle(data.params.id, data.hash);
   });
 });
-page('/articles/:search?', function() {
+page('/articles', function() {
   // The page has a go to top button.
   // Reset tags:
   app.currentTags = [];

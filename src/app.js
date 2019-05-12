@@ -37,56 +37,60 @@ var app = {
     short: {
       filename: '_breve.html',
       properties: [
-        {name: 'thumbImage'},
-        {name: 'title'},
-        {name: 'summary'},
-        {name: 'date', process: function(val) {
-          // My dates are weird strings that can't be used
-          // in the Date constructor.
-          if (val !== undefined && val.length > 10) {
-            return val.substr(0, 10);
+        { name: 'thumbImage' },
+        { name: 'title' },
+        { name: 'summary' },
+        {
+          name: 'date', process: function (val) {
+            // My dates are weird strings that can't be used
+            // in the Date constructor.
+            if (val !== undefined && val.length > 10) {
+              return val.substr(0, 10);
+            }
+            return '';
           }
-          return '';
-        }},
-        {name: 'content'},
-        {name: 'id'},
-        {name: 'layout'}
+        },
+        { name: 'content' },
+        { name: 'id' },
+        { name: 'layout' }
       ]
     },
     articleCard: {
       filename: '_articleCard.html',
       properties: [
-        {name: 'thumbImage'},
-        {name: 'hideThumbImage'},
-        {name: 'title'},
-        {name: 'summary'},
-        {name: 'layout'},
+        { name: 'thumbImage' },
+        { name: 'hideThumbImage' },
+        { name: 'title' },
+        { name: 'summary' },
+        { name: 'layout' },
         {
-          name: 'tags', 
-          template: 'tag', 
+          name: 'tags',
+          template: 'tag',
           properties: [
-            {name: 'id'},
-            {name: 'name'},
-            {name: 'nameEncoded'}
+            { name: 'id' },
+            { name: 'name' },
+            { name: 'nameEncoded' }
           ]
         },
-        {name: 'date', process: function(val) {
-          // I'll have to do something about the date
-          // format one day.
-          return val;
-        }},
-        {name: 'author'},
-        {name: 'articleURL'},
-        {name: 'commentsCount'}
+        {
+          name: 'date', process: function (val) {
+            // I'll have to do something about the date
+            // format one day.
+            return val;
+          }
+        },
+        { name: 'author' },
+        { name: 'articleURL' },
+        { name: 'commentsCount' }
       ]
     },
     searchCard: {
       filename: '_searchCard.html',
       properties: [
-        {name: 'title'},
-        {name: 'summary'},
-        {name: 'layout'},
-        {name: 'articleURL'}
+        { name: 'title' },
+        { name: 'snippet' },
+        { name: 'layout' },
+        { name: 'articleURL' }
       ]
     },
     articles: {
@@ -96,7 +100,7 @@ var app = {
     searchResults: {
       filename: '_searchResults.html',
       properties: [
-        {name: 'title'}
+        { name: 'title' }
       ]
     },
     article: {
@@ -106,19 +110,19 @@ var app = {
     articleContent: {
       filename: '_articleContent.html',
       properties: [
-        {name: 'title'},
-        {name: 'author'},
-        {name: 'date'},
-        {name: 'author'},
-        {name: 'content'},
-        {name: 'id'},
+        { name: 'title' },
+        { name: 'author' },
+        { name: 'date' },
+        { name: 'author' },
+        { name: 'content' },
+        { name: 'id' },
         {
-          name: 'tags', 
-          template: 'tag', 
+          name: 'tags',
+          template: 'tag',
           properties: [
-            {name: 'id'},
-            {name: 'name'},
-            {name: 'nameEncoded'}
+            { name: 'id' },
+            { name: 'name' },
+            { name: 'nameEncoded' }
           ]
         }
       ]
@@ -126,14 +130,14 @@ var app = {
     comment: {
       filename: '_comment.html',
       properties: [
-        {name: 'number'},
-        {name: 'author'},
-        {name: 'date'},
-        {name: 'comment'}
+        { name: 'number' },
+        { name: 'author' },
+        { name: 'date' },
+        { name: 'comment' }
       ]
     },
-    tag: {filename: '_tag.html'},
-    home: {filename: 'home.html'},
+    tag: { filename: '_tag.html' },
+    home: { filename: 'home.html' },
     about: {
       filename: 'about.html',
       script: 'about'
@@ -149,20 +153,20 @@ var app = {
     menuTag: {
       filename: '_menuTag.html',
       properties: [
-        {name: 'name'},
-        {name: 'nameEncoded'},
-        {name: 'id'}
+        { name: 'name' },
+        { name: 'nameEncoded' },
+        { name: 'id' }
       ]
     },
     menuTagMobile: {
       filename: '_menuTagMobile.html',
       properties: [
-        {name: 'name'},
-        {name: 'nameEncoded'},
-        {name: 'id'}
+        { name: 'name' },
+        { name: 'nameEncoded' },
+        { name: 'id' }
       ]
     },
-    article404: {filename: '_article404.html'}
+    article404: { filename: '_article404.html' }
   },
   menuItems: [
     'homeL',
@@ -194,12 +198,12 @@ var app = {
   transitioning: false,
   pauseRevealAnimations: false,
   homeSearchMode: false,
-  toast: function(text) {
+  toast: function (text) {
     //Materialize.toast(text, 4000);
     // Materialize v1.0.0+ now has a new way to toast:
-    M.toast({html: text});
+    M.toast({ html: text });
   },
-  createElementFromText: function(text) {
+  createElementFromText: function (text) {
     // This weird stuff is required to work with some
     // of the IE versions.
     var div = document.createElement('div');
@@ -210,7 +214,7 @@ var app = {
       return div.firstChild;
     }
   },
-  goToTop: function() {
+  goToTop: function () {
     // Won't work unless the router is instructed to
     // not re-create pages when you change the hash.
     // Setting the hash to '' is necessary for Chrome.
@@ -225,17 +229,17 @@ var app = {
     // OK actually I can just use scrollTo. Yeah.
     window.scrollTo(0, 0);
   },
-  lazyLoadPage: function(fragment, callback, args) {
+  lazyLoadPage: function (fragment, callback, args) {
     // I use this function to lazy-load JS that
     // also has HTML stringified into it.
     this.showSpinner();
     var s = document.createElement("script");
     s.type = "text/javascript";
-    s.src = '/scripts/' + this.fragments[fragment].script + 
+    s.src = '/scripts/' + this.fragments[fragment].script +
       this.version + '.js';
     // I could use bind() to keep my 'this' context in this onload
     // but it turns out bind() is not supported by IE 9.
-    s.onload = function() {
+    s.onload = function () {
       app._replaceMainContent(fragment, args);
       // We don't hide the spinner here, it's supposed to be done in
       // the callback (or not if you don't want to).
@@ -243,28 +247,28 @@ var app = {
     };
     document.body.appendChild(s);
   },
-  showSpinner: function() {
+  showSpinner: function () {
     this.spinner.style.display = '';
   },
-  hideSpinner: function() {
+  hideSpinner: function () {
     this.spinner.style.display = 'none';
   },
-  showOtherSpinner: function(id) {
+  showOtherSpinner: function (id) {
     var spin = document.getElementById(id);
     if (spin) {
       spin.style.display = '';
     }
   },
-  hideOtherSpinner: function(id) {
+  hideOtherSpinner: function (id) {
     var spin = document.getElementById(id);
     if (spin) {
       spin.style.display = 'none';
     }
   },
-  randomQuote: function() {
+  randomQuote: function () {
     return this.quotes[Math.floor(Math.random() * this.quotes.length)];
   },
-  setActiveMenuTag: function(tagName) {
+  setActiveMenuTag: function (tagName) {
     // Stuff here could be refactored.
     if (!tagName) {
       document.getElementById('menuTagAll').className = 'active';
@@ -285,7 +289,7 @@ var app = {
       }
     }
   },
-  setMenuItemActive: function(menuId) {
+  setMenuItemActive: function (menuId) {
     for (var i = 0; i < this.menuItems.length; i++) {
       // If my link li elements had more than one class
       // this would NOT work.
@@ -301,18 +305,18 @@ var app = {
       }
     }
   },
-  changeRandomQuote: function() {
+  changeRandomQuote: function () {
     document.getElementById('randomQuote').innerText = this.randomQuote();
   },
-  show404: function()  {
-    this.toast('Page introuvable' + 
+  show404: function () {
+    this.toast('Page introuvable' +
       '. Vous avez été redirigé vers la page d\'accueil.');
   },
-  showArticle404: function(articleId) {
-    this.toast('L\'article identifié comme "' + articleId 
+  showArticle404: function (articleId) {
+    this.toast('L\'article identifié comme "' + articleId
       + '" n\'existe pas ou plus.');
   },
-  _hashString: function(val) {
+  _hashString: function (val) {
     // I'm using the code from this link:
     // https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript-jquery
     var hash = 0, i, chr;
@@ -323,7 +327,7 @@ var app = {
     }
     return hash;
   },
-  _hashArgs: function(args) {
+  _hashArgs: function (args) {
     // I use the result of this function to compare args 
     // arrays passed to pages.
     var str = '';
@@ -338,7 +342,7 @@ var app = {
    * args in an array of objects with keys name and value.
    * Will replace these keys by the values in the template.
    */
-  setMainContent: function(fragment, callback, args) {
+  setMainContent: function (fragment, callback, args) {
     if (this.fragments[fragment] !== undefined) {
       // Check if we got the template:
       if (this.fragments[fragment].template !== undefined) {
@@ -356,7 +360,7 @@ var app = {
       this.show404();
     }
   },
-  _replaceMainContent: function(fragment, args) {
+  _replaceMainContent: function (fragment, args) {
     // This function is supposed to happen strictly after any
     // lazy loading.
     // Check the cache to see if we got a version of this:
@@ -387,7 +391,7 @@ var app = {
           this.fragments[fragment].cache = [];
         }
         this.fragments[fragment].cache.push(
-          {args: this._hashArgs(args), nodes: el}
+          { args: this._hashArgs(args), nodes: el }
         );
       }
     }
@@ -398,12 +402,12 @@ var app = {
     // Or not I guess it still works if not animation capable.
     this.contentEl.appendChild(this._animateElement(el, 'trans-left'));
   },
-  removeContentFromNode: function(node) {
+  removeContentFromNode: function (node) {
     while (node.firstChild) {
       node.removeChild(node.firstChild);
     }
   },
-  _fetchArticlesOrShorts: function(start, count, short, order, layout, callback) {
+  _fetchArticlesOrShorts: function (start, count, short, order, layout, callback) {
     // If short is defined we load shorts.
     // I'm using the jQuery AJAX stuff since I have jQuery anyway.
     var url = this.apiUrl + (short ? '/shorts-starting-from/' : '/articles-starting-from/') +
@@ -423,7 +427,7 @@ var app = {
         url += encodeURIComponent(this.currentTags[i]);
       }
     }
-    $.getJSON(url, function(data) {
+    $.getJSON(url, function (data) {
       // Set ret with the data.
       if (data && data.length) {
         app.loadedCount += data.length;
@@ -437,15 +441,15 @@ var app = {
         }
       }
       callback(data);
-    }).fail(function(xhr, errorText) {
+    }).fail(function (xhr, errorText) {
       // If we get a 404 it's no use trying to load more articles.
       // or shorts.
-      console.log('HTTP error in fetching articles or shorts - ' 
+      console.log('HTTP error in fetching articles or shorts - '
         + xhr.status);
       callback(null);
     });
   },
-  _animateElement: function(element, animation) {
+  _animateElement: function (element, animation) {
     // This is ugly but IE doesn't support classList.
     // I don't know which IE and I don't care.
     // Actually some of my stuff doesn't even work in IE 8 anyway.
@@ -458,13 +462,13 @@ var app = {
     }
     return element;
   },
-  loadArticlesOrShorts: function(start, count, short, order, element, layout, callback) {
+  loadArticlesOrShorts: function (start, count, short, order, element, layout, callback) {
     // We use the callback here usually to reset a 
     // specific spinner (usually).
     // Check if not undefined before calling it.
     // The spinner to reset is not the same on the home
     // page as compared to the articles page.
-    this._fetchArticlesOrShorts(start, count, short, order, layout, function(data) {
+    this._fetchArticlesOrShorts(start, count, short, order, layout, function (data) {
       var el = document.getElementById(element);
       if (data !== null && data.length && el) {
         // Let's use a document fragment. We ditch IE 7 but we get
@@ -478,12 +482,12 @@ var app = {
           // that the app fetched to generate the tag menus.
           if (!short && data[i].tags && data[i].tags.length > 0) {
             for (var t = 0; t < data[i].tags.length; t++) {
-              data[i].tags[t].nameEncoded = 
+              data[i].tags[t].nameEncoded =
                 encodeURIComponent(data[i].tags[t].name);
             }
           }
           var parsedArt = app.parseTemplate(
-            short ? 'short': 'articleCard', data[i]
+            short ? 'short' : 'articleCard', data[i]
           );
           var newEl = app.createElementFromText(parsedArt);
           docFrag.appendChild(newEl);
@@ -507,7 +511,7 @@ var app = {
       if (callback !== undefined) callback();
     });
   },
-  parseTemplate: function(fragment, data) {
+  parseTemplate: function (fragment, data) {
     var mainTpl = this.fragments[fragment].template;
     for (var i = 0; i < this.fragments[fragment].properties.length; i++) {
       var cur = this.fragments[fragment].properties[i];
@@ -543,9 +547,9 @@ var app = {
     }
     return mainTpl;
   },
-  loadTags: function() {
+  loadTags: function () {
     // This is supposed to be called only once.
-    $.getJSON(this.apiUrl + '/tags', function(data) {
+    $.getJSON(this.apiUrl + '/tags', function (data) {
       if (data && data.length) {
         var docFragL = document.createDocumentFragment();
         var docFragM = document.createDocumentFragment();
@@ -568,8 +572,8 @@ var app = {
         document.getElementById('dropdownTags').appendChild(docFragL);
         document.getElementById('nav-mobile').appendChild(docFragM);
       }
-    }).fail(function(xhr, errorText) {
-      console.log('HTTP error in fetching tags - ' 
+    }).fail(function (xhr, errorText) {
+      console.log('HTTP error in fetching tags - '
         + xhr.status);
       // We could hide or change the nature of what is normally
       // the tag menu.
@@ -578,33 +582,33 @@ var app = {
       );
     });
   },
-  loadStaticPage: function(page) {
+  loadStaticPage: function (page) {
     this.setMenuItemActive(page + 'L');
     this.showSpinner();
     this.disableInfiniteScrolling();
-    this.setMainContent(page, function() {
+    this.setMainContent(page, function () {
       app.hideSpinner();
     });
   },
-  resetBottomReached: function() {
-    setTimeout(function() {
+  resetBottomReached: function () {
+    setTimeout(function () {
       app.bottomReached = false;
     }, 300);
   },
-  loadMoreContentOnpage: function(page) {
+  loadMoreContentOnpage: function (page) {
     console.log('Loading more data...');
     app.bottomReached = true;
-    switch(page) {
+    switch (page) {
       case 'articles':
         app.showSpinner();
         app.loadArticlesOrShorts(
-          app.loadedCount, 
+          app.loadedCount,
           app.maxArticles,
           false,
           app.orderDesc ? 'desc' : 'asc',
           'articles',
           app.homeLayoutA,
-          function() {
+          function () {
             app.hideSpinner();
             app.resetBottomReached();
           }
@@ -614,9 +618,9 @@ var app = {
         console.log('Loading comments...');
         app.showSpinner();
         app.loadComments(
-          app.loadedCount, 
+          app.loadedCount,
           app.maxComments,
-          function() {
+          function () {
             app.hideSpinner();
             app.resetBottomReached();
           }
@@ -626,13 +630,13 @@ var app = {
         console.log('Loading more shorts...');
         app.showSpinner();
         app.loadArticlesOrShorts(
-          app.loadedCount, 
+          app.loadedCount,
           app.maxShorts,
           true,
           app.orderDesc ? 'desc' : 'asc',
           'articles',
           app.layoutS,
-          function() {
+          function () {
             app.hideSpinner();
             app.resetBottomReached();
           }
@@ -644,7 +648,7 @@ var app = {
         app.disableInfiniteScrolling();
     }
   },
-  infiniteScrollCallback: function() {
+  infiniteScrollCallback: function () {
     // I could use window.innerHeight without jQuery but
     // it's IE 9+ only.
     var inner = $('#mainEl').innerHeight();
@@ -659,7 +663,7 @@ var app = {
     var curDiff = window.pageYOffset - inner;
     // Uncomment following line for top secret debugging:
     //console.log(`Current diff: ${curDiff} - Current thres: ${thres}`);
-    if (Math.abs(curDiff) < thres && 
+    if (Math.abs(curDiff) < thres &&
       Math.abs(curDiff) >= app.previousDiff) {
       if (!app.bottomReached) {
         // The parameter in the difference here is very
@@ -672,7 +676,7 @@ var app = {
       }
     }
   },
-  enableInfiniteScrolling: function() {
+  enableInfiniteScrolling: function () {
     // I need to handle multiple listeners for scroll possibly
     // on the same element, because my fixed navbar thingy uses
     // a scroll listener.
@@ -680,10 +684,10 @@ var app = {
     this.previousDiff = 0;
     window.addEventListener('scroll', app.infiniteScrollCallback);
   },
-  disableInfiniteScrolling: function() {
+  disableInfiniteScrolling: function () {
     window.removeEventListener('scroll', app.infiniteScrollCallback);
   },
-  revealScrollCallback: function() {    
+  revealScrollCallback: function () {
     if (!app.pauseRevealAnimations &&
       (app.toAnimate && app.toAnimate.length > 0)) {
       app.pauseRevealAnimations = true;
@@ -704,18 +708,18 @@ var app = {
       app.pauseRevealAnimations = false;
     }
   },
-  enableRevealOnScroll: function() {
+  enableRevealOnScroll: function () {
     window.addEventListener('scroll', app.revealScrollCallback);
   },
-  disableRevealOnScroll: function() {
+  disableRevealOnScroll: function () {
     window.removeEventListener('scroll', app.revealScrollCallback);
   },
-  resetRevealOnScroll: function() {
+  resetRevealOnScroll: function () {
     this.pauseRevealAnimations = false;
     // Empty toAnimate:
     this.toAnimate.splice(0, this.toAnimate.length);
   },
-  showArticlesPage: function() {
+  showArticlesPage: function () {
     document.title = this.titleBase;
     this.loadedCount = 0;
     // Prevent one extra loading from the infinite
@@ -725,45 +729,45 @@ var app = {
     this.showSpinner();
     if (this.currentPage === 'articles') {
       this.setMenuItemActive('articlesL');
-      this.setMainContent('articles', function() {
+      this.setMainContent('articles', function () {
         // The initialization code is lazy loaded.
         if (app.fragments.articles.initPage)
           app.fragments.articles.initPage();
         app.loadArticlesOrShorts(
-          0, 
+          0,
           app.maxArticles,
           false,
           app.orderDesc ? 'desc' : 'asc',
           'articles',
           app.homeLayoutA,
-          function() {
+          function () {
             app.hideSpinner();
             app.bottomReached = false;
           }
         );
-      }, [{name: 'title', value: 'Articles'}]); 
+      }, [{ name: 'title', value: 'Articles' }]);
     } else {
       this.setMenuItemActive('shortsL');
-      this.setMainContent('articles', function() {
+      this.setMainContent('articles', function () {
         // The initialization code is lazy loaded.
         if (app.fragments.articles.initPage !== undefined)
           app.fragments.articles.initPage();
         app.loadArticlesOrShorts(
-          0, 
+          0,
           app.maxShorts,
           true,
           app.orderDesc ? 'desc' : 'asc',
           'articles',
           app.layoutS,
-          function() {
+          function () {
             app.hideSpinner();
             app.bottomReached = false;
           }
         );
-      }, [{name: 'title', value: 'Brèves'}]);
+      }, [{ name: 'title', value: 'Brèves' }]);
     }
   },
-  switchBackground: function() {
+  switchBackground: function () {
     if (app.bodyEl) {
       if (app.bodyEl.className.indexOf('gradient') >= 0) {
         app.bodyEl.className = 'pattern-bg';
@@ -811,7 +815,7 @@ var app = {
       h = h || 0;
     return (elTop + elH * h) <= viewed && (elBottom - elH * h) >= scrolled;
   },
-  ctaSearchMode: function(searchMode, el) {
+  ctaSearchMode: function (searchMode, el) {
     el.style.transform = 'scaleY(0)';
     app.homeSearchMode = searchMode;
     for (var i = 0; i < el.children.length; i++) {
@@ -821,11 +825,11 @@ var app = {
         //i--;
       }
     }
-    setTimeout(function() {
+    setTimeout(function () {
       el.style.transform = 'scaleY(1)';
     }, 200);
   },
-  searchFromHome: function(e) {
+  searchFromHome: function (e) {
     console.log('Search from home event fired');
     // Check if we're transitioning:
     if (!app.transitioning) {
@@ -841,56 +845,90 @@ var app = {
       app.contentEl.appendChild(
         app.createElementFromText(
           app.parseTemplate(
-            'searchResults', 
-            {title: 'Rechercher'}
+            'searchResults',
+            { title: 'Rechercher' }
           )
         )
       );
       // Remove current event listener:
       e.currentTarget.removeEventListener('input', app.searchFromHome);
       e.currentTarget.addEventListener('input', app.searchEvent);
-      app.searchEvent({currentTarget: e.currentTarget, target: e.target});
+      app.searchEvent({ currentTarget: e.currentTarget, target: e.target });
       app.transitioning = false;
     }
   },
-  articlesPageSearchMode: function(searchMode) {
+  articlesPageSearchMode: function (searchMode) {
     var orderSwitch = document.getElementById('orderSwitch');
     if (orderSwitch) orderSwitch.style.display = searchMode ? 'none' : '';
   },
-  searchEvent: function(e) {
-    // Hide the #orderSwitch element if still visible.
-    app.articlesPageSearchMode(true);
-
+  searchEvent: function (e) {
+    // Check if we entered more than one character:
+    if (e.currentTarget.value.length > 0) {
+      // Hide the #orderSwitch element if still visible.
+      app.articlesPageSearchMode(true);
+      app.showNothingFound(false);
+      app.showSpinner();
+      app.loadSearchResults(
+        e.currentTarget.value,
+        app.homeLayoutA,
+        'articles',
+        function() {
+          app.hideSpinner();
+        }
+      );
+    } else {
+      app.showNothingFound(true);
+      app.removeContentFromNode(document.getElementById('articles'));
+    }
   },
-  loadSearchResults: function(query, layout, element, callback) {
+  showNothingFound: function(show) {
+    var nf = document.getElementById('nothingFound');
+    if (nf) nf.style.display = show ? '' : 'none';
+  },
+  loadSearchResults: function (query, layout, element, callback) {
     // Transform query into array of words.
     this._fetchSearch(
       query.split(' '),
-      function(data) {
-        // I NEED TO COPY PASTE WHAT'S IN loadArticlesOrShort
-
-
-        // Add the layout and other template properties to data:
-        for (var i = 0; i < data.length; i++) {
-          data[i].layout = layout;
+      function (data) {
+        var el = document.getElementById(element);
+        // Cleanup the element content
+        app.removeContentFromNode(el);
+        if (data !== null && data.length && el) {
+          var docFrag = document.createDocumentFragment();
+          app.pauseRevealAnimations = true;
+          for (var i = 0; i < data.length; i++) {
+            // Add the layout and other template properties here:
+            data[i].layout = layout;
+            var parsedArt = app.parseTemplate(
+              'searchCard', data[i]
+            );
+            var newEl = app.createElementFromText(parsedArt);
+            docFrag.appendChild(newEl);
+            app.toAnimate.push(newEl);
+          }
+          el.appendChild(docFrag);
+          // Now we should enable the scroll event listener thingy and call it once.
+          app.pauseRevealAnimations = false;
+          app.revealScrollCallback();
+        } else {
+          app.showNothingFound(true);
         }
-
         callback && callback(data);
       }
     );
   },
-  _fetchSearch: function(termsArray, callback) {
+  _fetchSearch: function (termsArray, callback) {
     // We need to post the JSON.
     $.ajax({
       url: this.apiUrl + '/articles/search',
       type: 'post',
       dataType: 'json',
       contentType: 'application/json',
-      success: callback(data),
-      error: function(err) {
+      success: callback,
+      error: function (err) {
         console.log('Error trying to fetch search results');
       },
-      data: JSON.stringify({include: termsArray})
+      data: JSON.stringify({ include: termsArray })
     });
   }
 };

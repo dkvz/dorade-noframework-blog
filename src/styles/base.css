@@ -453,3 +453,9 @@ div.article-image.right {
 .transition-container {
   transition: all 1s ease-out;
 }
+
+.center-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
