@@ -869,8 +869,8 @@ var app = {
           // Check if we need to focus on the search results:
           app.hideSpinner();
           var scrollVal = document.body.scrollTop || document.documentElement.scrollTop;
-          if (scrollVal <= 200 && document.documentElement.clientWidth <= 650) {
-            window.scrollTo(0, 200);
+          if (scrollVal <= 170 && document.documentElement.clientWidth <= 650) {
+            window.scrollTo(0, 170);
           }
         }
       );
