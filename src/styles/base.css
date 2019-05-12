@@ -252,8 +252,8 @@ nav .nav-background {
   }
 }
 
-@media (max-width: 1036px) {
-  .layout-hack-hide {
+@media (max-width: 1032px) {
+  #searchL {
     display: none;
   }
 }

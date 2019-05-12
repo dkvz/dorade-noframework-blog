@@ -60,9 +60,9 @@ But why? Everybody and their mom are using Babel! Well, yes. It's just a feeling
 Also, not using Babel is part of my requirement of the site having to be easy to adapt and still be working in case of a NodeJS apocalype. Which I don't really believe will happen ever but I like trying to work with less requirements and added software if I can and I think we all had the occasional npm package update breaking EVERYTHING. Not a fan of that even if it's easily fixed most of the time.
 
 ### Your "app" object is referencing itself expecting to be in the global context
-Yeah, in some functions and especially in callbacks. It is ugly, I'm working on ways to make this whole thing more testable.
+Yeah, in some functions and especially in callbacks. It is ugly. I'm far from being a Javascript expert.
 
-I'm far from being a Javascript expert.
+This was an experiment in doing everthing myself, including templating. I later found out many more ways to do the same thing. Which is both good and bad (?).
 
 ### Wait you don't even use "bind"?
 Nope. I tried to stay away from stuff that doesn't work on browsers < IE 9 even if technically the site doesn't work on IE < 11. This is again an exercise as to feel how to write the most compatible JS with no transpiling or using libraries like jQuery.
@@ -430,7 +430,7 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 ### TODO
 - [x] If we click multiple times on the search link, does the input event listener fire multiple times?
 - [x] I can probably remove all the articlesPageSearchMode stuff and related IDs from routing and the corresponding templates.
-- [ ] If the snippet in search cards is too short the card doesn't take the whole width. It should.
+- [x] If the snippet in search cards is too short the card doesn't take the whole width. It should.
 - [x] Add a card to mention nothing was found when the search did not yield anything.
 - [x] Disable infinite scrolling on the search page.
 - [x] When we go to home, make a search and go back to home, does the event listener on the search field get added twice?

@@ -855,7 +855,6 @@ var app = {
     }
   },
   searchEvent: function (e) {
-    console.log('Search event fired');
     // Check if we entered more than one character:
     if (e.currentTarget.value.length > 0) {
       app.showNothingFound(false);
@@ -890,7 +889,7 @@ var app = {
           app.pauseRevealAnimations = true;
           for (var i = 0; i < data.length; i++) {
             // Add the layout and other template properties here:
-            data[i].layout = layout;
+            data[i].layout = '"' + layout + '"';
             var parsedArt = app.parseTemplate(
               'searchCard', data[i]
             );
