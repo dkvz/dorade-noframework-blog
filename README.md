@@ -428,12 +428,15 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 -> This broke other views because card-panel is used everywhere. I have to add another class specific to the articles and shorts list.
 
 ### TODO
+- [x] If we click multiple times on the search link, does the input event listener fire multiple times?
+- [x] I can probably remove all the articlesPageSearchMode stuff and related IDs from routing and the corresponding templates.
+- [ ] If the snippet in search cards is too short the card doesn't take the whole width. It should.
 - [x] Add a card to mention nothing was found when the search did not yield anything.
-- [ ] Check that the title is correct when searching, after coming from an article page.
-- [ ] Disable infinite scrolling on the search page - To check when searching from the articles page!
+- [x] Disable infinite scrolling on the search page.
 - [x] When we go to home, make a search and go back to home, does the event listener on the search field get added twice?
-- [x] Do I still need app.transitioning?
-- [ ] The code in setMenuActiveTag etc. is horrible.
+- [x] Do I still need app.transitioning (-> yes I do).
+- [ ] The code in setMenuActiveTag etc. is horrible. Fix that.
+- [ ] showNothingFound should be a generic method used in other places where we hide an element (thinking spinners).
 - [ ] scroll-behavior: smooth - Check that it works on Chrome.
 - [ ] Completely ditch jQuery.
 - [ ] In reading mode (Firefox feature) the top level anchor links do not seem to work.

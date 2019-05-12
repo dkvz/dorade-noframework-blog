@@ -97,11 +97,8 @@ var app = {
       filename: 'articles.html',
       script: 'articles'
     },
-    searchResults: {
-      filename: '_searchResults.html',
-      properties: [
-        { name: 'title' }
-      ]
+    search: {
+      filename: 'search.html'
     },
     article: {
       filename: 'article.html',
@@ -169,6 +166,7 @@ var app = {
     article404: { filename: '_article404.html' }
   },
   menuItems: [
+    'searchL',
     'homeL',
     'articlesL',
     'shortsL',
@@ -513,7 +511,9 @@ var app = {
   },
   parseTemplate: function (fragment, data) {
     var mainTpl = this.fragments[fragment].template;
-    for (var i = 0; i < this.fragments[fragment].properties.length; i++) {
+    for (var i = 0; 
+      this.fragments[fragment].properties && i < this.fragments[fragment].properties.length; 
+      i++) {
       var cur = this.fragments[fragment].properties[i];
       var reg = new RegExp('\{\{' + cur.name + '\}\}', 'g');
       // I only allow one level of repeating content in a template.
@@ -830,26 +830,23 @@ var app = {
     }, 200);
   },
   searchFromHome: function (e) {
-    console.log('Search from home event fired');
     // Check if we're transitioning:
     if (!app.transitioning) {
       // Run the transition:
       app.transitioning = true;
-      app.router('/articles');
+      app.router('/search');
       var cta = document.getElementById('cta');
       app.ctaSearchMode(true, cta);
       app.contentEl.firstChild.removeChild(
         document.getElementById('homeContent')
       );
       // Add the search results partial:
-      app.contentEl.appendChild(
-        app.createElementFromText(
-          app.parseTemplate(
-            'searchResults',
-            { title: 'Rechercher' }
-          )
-        )
+      var searchPartial = app.createElementFromText(
+        app.parseTemplate('search')
       );
+      // Remove the search box from the partial as we already have it:
+      searchPartial.removeChild(searchPartial.querySelector('#searchBox'));
+      app.contentEl.appendChild(searchPartial);
       // Remove current event listener:
       e.currentTarget.removeEventListener('input', app.searchFromHome);
       e.currentTarget.addEventListener('input', app.searchEvent);
@@ -857,15 +854,10 @@ var app = {
       app.transitioning = false;
     }
   },
-  articlesPageSearchMode: function (searchMode) {
-    var orderSwitch = document.getElementById('orderSwitch');
-    if (orderSwitch) orderSwitch.style.display = searchMode ? 'none' : '';
-  },
   searchEvent: function (e) {
+    console.log('Search event fired');
     // Check if we entered more than one character:
     if (e.currentTarget.value.length > 0) {
-      // Hide the #orderSwitch element if still visible.
-      app.articlesPageSearchMode(true);
       app.showNothingFound(false);
       app.showSpinner();
       app.loadSearchResults(
@@ -955,7 +947,7 @@ app.fragments.tag.template = require('./fragments/_tag.html');
 app.fragments.menuTag.template = require('./fragments/_menuTag.html');
 app.fragments.menuTagMobile.template = require('./fragments/_menuTagMobile.html');
 app.fragments.home.template = require('./fragments/home.html');
-app.fragments.searchResults.template = require('./fragments/_searchResults.html');
+app.fragments.search.template = require('./fragments/search.html');
 app.fragments.searchCard.template = require('./fragments/_searchCard.html');
 
 /*

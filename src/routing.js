@@ -135,9 +135,21 @@ page('/articles', function() {
   app.currentPage = 'articles';
   app.setMenuItemActive('articlesL');
   app.setActiveMenuTag();
+  app.showArticlesPage();
+});
+page('/search', function() {
+  // I chose to have no title change for the
+  // search page.
+  app.setMenuItemActive('searchL');
+  app.disableInfiniteScrolling();
   if (!app.transitioning) {
-    app.articlesPageSearchMode(false);
-    app.showArticlesPage();
+    app.setMainContent('search', function() {
+      document.getElementById('searchInput').addEventListener(
+        'input',
+        app.searchEvent
+      );
+      app.hideSpinner();
+    });
   }
 });
 page('/articles/:name/:toBottom?', function(data) {
