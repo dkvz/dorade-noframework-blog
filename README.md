@@ -170,7 +170,7 @@ npm install -D imagemin imagemin-gifsicle imagemin-mozjpeg imagemin-pngquant
 ```
 
 The loader doesn't do anything by default (lol). To make it minify stuff we need to pass in a plugins array as in this example:
-```
+```js
 {
   loader: 'img-loader',
   options: {
@@ -220,7 +220,7 @@ You should check the output after every run because the default option do degrad
 
 ### Navbar overhaul
 CSS I was using before:
-```
+```css
 nav .nav-background {
   position: absolute;
   top: 0;
@@ -278,7 +278,7 @@ I just removed the createElement thingy and replaced it with a getElementById.
 
 #### Optimize CSS
 I think I should use this:
-```
+```js
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
@@ -300,12 +300,12 @@ npm install --save-dev extract-text-webpack-plugin
 ```
 
 Import in the config:
-```
+```js
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 ```
 
 The CSS test should look like this:
-```
+```js
 {
   test: /\.css$/,
   use: ExtractTextPlugin.extract({
@@ -364,7 +364,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 #### Cool drop shadow
 Saw this on a codepen. I'm afraid it's going to crash phones by virute of having too much to render so I'm not using it.
-```
+```css
 drop-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
 ```
 
@@ -374,7 +374,7 @@ At some point Materialize stopped using jQuery. I think I'm still going to use i
 However I'm probably going to remove it for all the nav and collapsable stuff initializations. Which I'll have to look for in the entire code.
 
 This is what they recommend using to enable the navbar now:
-```
+```js
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
   var instances = M.Sidenav.init(elems, options);
@@ -398,7 +398,7 @@ It seems to work with just querySelector if you have a single element to conside
 
 ##### Toasts aren't working anymore
 Toasts are now called as such:
-```
+```js
 M.toast({html: 'I am a toast!'});
 ```
 
@@ -419,7 +419,7 @@ Not sure if I consider this an issue, gotta check.
 Go to responsive design mode, use a mobile phone format and go to the articles list page: the article elements are too small.
 
 I added a new media media query on card-panel for mobile devices with reduced margin values:
-```
+```css
 .card-panel {
   padding: 24px 4px 24px 4px;
 }
@@ -435,6 +435,7 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 - [x] Disable infinite scrolling on the search page.
 - [x] When we go to home, make a search and go back to home, does the event listener on the search field get added twice?
 - [x] Do I still need app.transitioning (-> yes I do).
+- [ ] The toAnimate reveal on scroll thingy has a weird delay when using the search page multiple times.
 - [ ] The code in setMenuActiveTag etc. is horrible. Fix that.
 - [ ] showNothingFound should be a generic method used in other places where we hide an element (thinking spinners).
 - [ ] scroll-behavior: smooth - Check that it works on Chrome.
