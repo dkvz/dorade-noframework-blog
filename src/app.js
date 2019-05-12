@@ -19,6 +19,7 @@ var app = {
   titleBase: 'Blog des gens compliqués',
   apiUrl: 'https://api.dkvz.eu',
   jsDir: 'scripts',
+  //canScrollIntoView: document.body.scrollIntoView ? true : false,
   quotes: [
     'Vas-y répète le mot trompette dans ta tête',
     'Les SITES INTERNET doivent avoir un sous-titre',
@@ -844,6 +845,7 @@ var app = {
       var searchPartial = app.createElementFromText(
         app.parseTemplate('search')
       );
+      app.searchInput = e.currentTarget;
       // Remove the search box from the partial as we already have it:
       searchPartial.removeChild(searchPartial.querySelector('#searchBox'));
       app.contentEl.appendChild(searchPartial);
@@ -864,7 +866,12 @@ var app = {
         app.homeLayoutA,
         'articles',
         function() {
+          // Check if we need to focus on the search results:
           app.hideSpinner();
+          var scrollVal = document.body.scrollTop || document.documentElement.scrollTop;
+          if (scrollVal <= 200 && document.documentElement.clientWidth <= 650) {
+            window.scrollTo(0, 200);
+          }
         }
       );
     } else {

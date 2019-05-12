@@ -144,7 +144,8 @@ page('/search', function() {
   app.disableInfiniteScrolling();
   if (!app.transitioning) {
     app.setMainContent('search', function() {
-      document.getElementById('searchInput').addEventListener(
+      app.searchInput = document.getElementById('searchInput');
+      app.searchInput.addEventListener(
         'input',
         app.searchEvent
       );
