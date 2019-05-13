@@ -876,6 +876,7 @@ var app = {
       );
     } else {
       app.showNothingFound(true);
+      app.hideSpinner();
       app.removeContentFromNode(document.getElementById('articles'));
     }
   },
@@ -891,6 +892,7 @@ var app = {
         var el = document.getElementById(element);
         // Cleanup the element content
         app.removeContentFromNode(el);
+        app.resetRevealOnScroll();
         if (data !== null && data.length && el) {
           var docFrag = document.createDocumentFragment();
           app.pauseRevealAnimations = true;
