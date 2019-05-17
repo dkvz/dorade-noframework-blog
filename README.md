@@ -1,6 +1,8 @@
 # JS Blog Engine
 This project is an experiment producing a blog engine similar to one I made using Polymer 1.0 but with no frameworks.
 
+The blog: https://dkvz.eu
+
 I do use Webpack, the Javascript router Page.js and the MaterializeCSS project (which uses jQuery, so I sparingly do as well).
 
 The site could live without Webpack although it would take some work to put everything together manually. One of my requirements was that this had to survive a hypothetical global apocalypse in which someone issues a `rm -rf node_modules` that affects all the computers in the world, until the end of times.
@@ -49,6 +51,11 @@ The pinned toolbar on scrolling might also not work on IE 8, same with the infin
 We're not providing a polyfill for the routing, which uses HTML 5 pushstate API. I think only IE 10 supports it but I might be wrong on that.
 
 ## FAQ nobody asked for
+Regardless of any reponse 201X-me had to give here, you should not code your blog like this. Ever. Especially post the instant search feature which got things worse by a lot. It still works great though, I love that ElasticSearch vibe at very little cost.
+
+Learning how to manipulate the DOM is fine, you should look at one of the courses that exist online for that and not at my glorious code.
+
+I'll finish by saying: it works tho.
 
 ### Why are you not using ES6?
 I started doing JS seriously somewhat recently. I thought I might as well get to know the "old ways" before the new.

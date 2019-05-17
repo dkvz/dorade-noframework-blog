@@ -24,15 +24,19 @@ page('/', function() {
   document.title = app.titleBase;
   app.setMenuItemActive('homeL');
   var resetCacheNodes = false;
-  if (app.homeSearchMode && app.cacheNodes) {
-    // We need to reload the nodes while ignoring the cache:
+  if (app.cacheNodes) {
+    // Never cache nodes for homepage.
+    // We have to do this because of strange bugs related
+    // to the search box thingy which I wanted to dissolve
+    // into another view because I thought that would be coool
+    // but it kinda doesn't work with node caching.
     app.cacheNodes = false;
-    app.homeSearchMode = false;
     resetCacheNodes = true;
   }
   // We need to load the articles and shorts in the callback:
-  app.setMainContent('home');
-  if (resetCacheNodes) app.cacheNodes = true;
+  app.setMainContent('home', function() {
+    if (resetCacheNodes) app.cacheNodes = true;
+  });
   app.disableInfiniteScrolling();
   //var element = app.contentEl.querySelector('#lastArticles');
   // If mainContent is loaded we can hide the main spinner here:

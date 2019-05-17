@@ -196,7 +196,6 @@ var app = {
   toAnimate: [],
   transitioning: false,
   pauseRevealAnimations: false,
-  homeSearchMode: false,
   toast: function (text) {
     //Materialize.toast(text, 4000);
     // Materialize v1.0.0+ now has a new way to toast:
@@ -818,7 +817,6 @@ var app = {
   },
   ctaSearchMode: function (searchMode, el) {
     el.style.transform = 'scaleY(0)';
-    app.homeSearchMode = searchMode;
     for (var i = 0; i < el.children.length; i++) {
       if (el.children[i].id !== 'searchPanel') {
         //el.removeChild(el.children[i]);
