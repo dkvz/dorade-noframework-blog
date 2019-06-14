@@ -50,6 +50,10 @@ page('/', function() {
     'input',
     app.searchFromHome
   );
+  document.getElementById('searchForm').addEventListener(
+    'submit',
+    app.submitSearchForm
+  );
   // We always load frm 0 on the home page.
   app.loadArticlesOrShorts(
     0, 
@@ -152,6 +156,10 @@ page('/search', function() {
       app.searchInput.addEventListener(
         'input',
         app.searchEvent
+      );
+      document.getElementById('searchForm').addEventListener(
+        'submit',
+        app.submitSearchForm
       );
       app.hideSpinner();
     });

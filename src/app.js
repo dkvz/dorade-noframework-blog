@@ -928,6 +928,10 @@ var app = {
       },
       data: JSON.stringify({ include: termsArray })
     });
+  },
+  submitSearchForm: function(e) {
+    e.preventDefault();
+    if (app.searchInput) app.searchInput.blur();
   }
 };
 window.app = app;
