@@ -1,0 +1,43 @@
+# Personnal playbook I use to deploy the site.
+# Do not emulate what I do, it's probably bad.
+
+# YOU NEED TO RUN `npm run prod` FIRST
+---
+- hosts: dkvz_eu
+  remote_user: root
+  gather_facts: yes
+  vars:
+    remote_dir: /srv/vhosts/dorade_site
+  tasks:
+    - name: Copy the build to destination
+      copy:
+        src: "dist"
+        dest: "{{ remote_dir }}"
+    - name: Enable maintenance site
+      shell: /root/enable_maintenance_site.sh
+    - name: Backup previous version
+      command: mv "{{ remote_dir }}/httpdocs" "{{ remote_dir }}/httpdocs_{{ ansible_date_time.iso8601 }}"
+    - name: Setup new version
+      command: mv "{{ remote_dir }}/dist" "{{ remote_dir }}/httpdocs"
+    # Create the two assets links:
+    - name: Create the wp-content symlink
+      file:
+        src: "{{ remote_dir }}/wp-content"
+        dest: "{{ remote_dir }}/httpdocs/wp-content"
+        state: link
+    - name: Create the stuff symlink
+      file:
+        src: "{{ remote_dir }}/wp-content/stuff"
+        dest: "{{ remote_dir }}/httpdocs/stuff"
+        state: link
+    - name: Enable prod site
+      shell: /root/enable_prod_site.sh
+    # Recreate the sitemap and rss feed:
+    - name: Download sitemap
+      get_url:
+        url: "http://localhost:9001/gimme-sitemap"
+        dest: "{{ remote_dir }}/httpdocs/sitemap.xml"
+    - name: Download RSS feeds
+      get_url:
+        url: "http://localhost:9001/rss"
+        dest: "{{ remote_dir }}/httpdocs/rss.xml"

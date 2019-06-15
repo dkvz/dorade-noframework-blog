@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test-build": "webpack",
     "dev": "NODE_ENV=dev webpack-dev-server",
+    "dev-bind-all": "MODE_ENV=dev webpack-dev-server --host=0.0.0.0",
     "dev-win": "set NODE_ENV=dev&&webpack-dev-server",
+    "dev-bind-all-win": "set MODE_ENV=dev&&webpack-dev-server --host=0.0.0.0",
     "prod": "webpack -p",
     "start": "npm run dev"
   },
