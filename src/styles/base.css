@@ -122,11 +122,16 @@ nav .nav-background {
   font-family: "Roboto", sans-serif;
 }
 
-.row-flex {
+.row-flex, .image-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.image-row img {
+  height: 150px;
 }
 
 #articleContent {

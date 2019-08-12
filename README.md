@@ -445,7 +445,6 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 - [ ] The toAnimate reveal on scroll thingy has a weird delay when using the search page multiple times.
 - [ ] The code in setMenuActiveTag etc. is horrible. Fix that.
 - [ ] showNothingFound should be a generic method used in other places where we hide an element (thinking spinners).
-- [ ] scroll-behavior: smooth - Check that it works on Chrome.
 - [ ] Completely ditch jQuery.
 - [ ] In reading mode (Firefox feature) the top level anchor links do not seem to work.
   * Actually reading mode doesn't really work either. It works when linked from the homepage, but doesn't work when you refresh the page.
