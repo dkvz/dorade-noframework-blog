@@ -9,7 +9,9 @@ The site could live without Webpack although it would take some work to put ever
 
 I'm a weird person.
 
-The site populates its dynamic content using calls to this other project: [dorade-blog-engine](https://github.com/dkvz/dorade-blog-engine) which was whipped up very quickly so please don't look at the code there.
+The site populates its dynamic content using calls to this other project: [DoradeBlogEngineSpring](https://github.com/dkvz/DoradeBlogEngineSpring) which was whipped up very quickly so please don't look at the code there.
+
+In the history of backends used for these projects we also have a discontinued [Play framework](https://github.com/dkvz/dorade-blog-engine) app.
 
 ## Pre-requisites
 * NodeJS version 6+
