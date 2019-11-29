@@ -444,6 +444,7 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 - [x] Disable infinite scrolling on the search page.
 - [x] When we go to home, make a search and go back to home, does the event listener on the search field get added twice?
 - [x] Do I still need app.transitioning (-> yes I do).
+- [ ] We could add some indicator of how long a short is (same for articles) and display that somewhere.
 - [ ] The toAnimate reveal on scroll thingy has a weird delay when using the search page multiple times.
 - [ ] The code in setMenuActiveTag etc. is horrible. Fix that.
 - [ ] showNothingFound should be a generic method used in other places where we hide an element (thinking spinners).

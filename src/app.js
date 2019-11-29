@@ -51,7 +51,7 @@ var app = {
             return '';
           }
         },
-        { name: 'content' },
+        { name: 'author' },
         { name: 'id' },
         { name: 'layout' }
       ]
@@ -413,6 +413,7 @@ var app = {
     if (order !== undefined) {
       url += '&order=' + order;
     }
+    if (short) url += '&content=false';
     // Currently tags are disabled for shorts. Although they would work in
     // the backend I think.
     if (!short && this.currentTags.length > 0) {
