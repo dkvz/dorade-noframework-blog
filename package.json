@@ -38,7 +38,7 @@
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-pngquant": "^6.0.0",
     "img-loader": "^3.0.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "materialize-css": "^1.0.0",
     "page": "^1.8.6",
     "style-loader": "^0.19.1",
