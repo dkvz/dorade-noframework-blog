@@ -11,6 +11,15 @@ app.fragments.article.initPage = function() {
   //$('.collapsible').collapsible();
 };
 
+app.htmlEntities = function htmlEntities(str) {
+  // Should also .replace(/&/g, '&amp;') to be correct.
+  // But I'm going to fix my server to do it at some point.
+  return String(str)
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+};
+
 app.loadComments = function(start, count, callback) {
   // Get the articleId from the hidden input:
   var articleId = app.getCurrentArticleId();
@@ -26,6 +35,12 @@ app.loadComments = function(start, count, callback) {
         var docFrag = document.createDocumentFragment();
         for (var i = 0; i < data.length; i++) {
           data[i].number = app.loadedCount + (i + 1);
+          // Some escaping that the server should do, this is a 
+          // terrible bandaid DONT LOOK!
+          // (I'm writing a new backend)
+          data[i].comment = app.htmlEntities(data[i].comment);
+          data[i].author = app.htmlEntities(data[i].author);
+          
           docFrag.appendChild(app.createElementFromText(
             app.parseTemplate('comment', data[i])
           ));
