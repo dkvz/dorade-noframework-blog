@@ -909,6 +909,9 @@ var app = {
           // Now we should enable the scroll event listener thingy and call it once.
           app.pauseRevealAnimations = false;
           app.revealScrollCallback();
+          // Double check that we remove the "Nothing found"
+          // as a queued event may have put it back in.
+          app.showNothingFound(false);
         } else {
           app.showNothingFound(true);
         }

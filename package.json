@@ -1,6 +1,6 @@
 {
   "name": "dorade-noframework-blog",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Pure JS, Webpack, and MaterializeCSS (also JQuery because of the latter)",
   "main": "index.html",
   "scripts": {
