@@ -46,6 +46,5 @@
     "url-parse": ">=1.4.3",
     "webpack": "^3.11.0",
     "webpack-dev-server": "2.9.7"
-  },
-  "dependencies": {}
+  }
 }
