@@ -1,6 +1,6 @@
 <div class="fixed-action-btn">
   <a class="btn-floating btn-large waves-effect waves-light blue-grey darken-2" onclick="app.goToTop()">
-    <i class="large material-icons">arrow_upward</i>
+    <i class="large material-icons" aria-hidden="true">arrow_upward</i>
   </a>
 </div>
 
@@ -11,10 +11,10 @@
   </div>
   <div class="article-info">
     <div class="date-author">
-      <i class="material-icons">date_range</i>&nbsp;{{date}}
+      <i class="material-icons" aria-hidden="true">date_range</i>&nbsp;{{date}}
     </div>
     <div class="date-author">
-        <i class="material-icons">account_box</i>&nbsp;Par <b>{{author}}</b>
+      <i class="material-icons" aria-hidden="true">account_box</i>&nbsp;Par <b>{{author}}</b>
     </div>
   </div>
 
@@ -28,7 +28,8 @@
   <h4 class="blue-grey-text text-darken-2" id="commentsA">Commentaires</h4>
   <ul id="commentForm" class="collapsible" data-collapsible="accordion">
     <li>
-      <div class="collapsible-header"><i class="material-icons">comment</i>Ecrire un commentaire</div>
+      <div class="collapsible-header"><i class="material-icons" aria-hidden="true">comment</i>Ecrire un commentaire
+      </div>
       <div class="collapsible-body">
         <div class="row">
           <div class="input-field col s12">
@@ -40,21 +41,19 @@
             <label for="commentInput">Commentaire</label>
           </div>
           <div class="input-field col s12">
-            <i class="material-icons prefix">help</i>
+            <i class="material-icons prefix" aria-hidden="true">help</i>
             <input id="questionInput" type="text" />
             <label for="questionInput">Combien font 2+4x0?</label>
           </div>
           <div class="col s12">
             <input type="hidden" value="{{id}}" id="articleIdInput" />
-            <button class="btn waves-effect waves-light right" 
-              name="action" 
-              onclick="app.sendComment()"
+            <button class="btn waves-effect waves-light right" name="action" onclick="app.sendComment()"
               id="submitComment">
-                Envoyer
-                <i class="material-icons right">send</i>
+              Envoyer
+              <i class="material-icons right" aria-hidden="true">send</i>
             </button>
           </div>
-        </div>  
+        </div>
       </div>
     </li>
   </ul>

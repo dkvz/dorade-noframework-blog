@@ -1,143 +1,158 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8">
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Chrome for Android theme color -->
-    <meta name="theme-color" content="#184160">
-    <!-- Web Application Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    <!-- Tile color for Win8 -->
-    <meta name="msapplication-TileColor" content="#184160">
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="dkvz.eu">
-    <link rel="icon" sizes="192x192" href="/assets/touch/chrome-touch-icon-192x192.png">
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="dkvz.eu">
-    <link rel="apple-touch-icon" href="/assets/touch/apple-touch-icon.png">
-    <!-- Tile icon for Win8 (144x144) -->
-    <meta name="msapplication-TileImage" content="/assets/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="description" content="Blog expérimental d'un humble consultant en progress-bars.">
-    <title>Blog des gens compliqués</title>
-  </head>
 
-  <body class="gradient-bg" id="bodyEl">
-    <!-- Navbar and Header -->
-    <header>
-      <ul id="dropdownTags" class="dropdown-content">
-        <li id="menuTagAll"><a href="/articles">Tous les articles</a></li>
-      </ul>
-      <nav class="nav-extended blue-grey darken-2" id="navbar" role="navigation">
-        <div class="nav-background"></div>
-        <div class="nav-wrapper container">
-          <!--<a href="/pages/demo" class="brand-logo"><i class="material-icons">camera</i></a>-->
-          <span class="nav-title">Blog des gens compliqués</span>
-          <ul class="right hide-on-med-and-down">
-            <li id="searchL"><a href="/search"><i class="material-icons">search</i></a></li>
-            <li id="homeL" class="active"><a href="/">Accueil</a></li>
-            <li id="hiremeL"><a href="/pages/hireme">Engagez-moi</a></li>
-            <li id="aboutL"><a href="/pages/about">A propos</a></li>
+<head>
+  <meta charset="UTF-8">
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#184160">
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Tile color for Win8 -->
+  <meta name="msapplication-TileColor" content="#184160">
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="dkvz.eu">
+  <link rel="icon" sizes="192x192" href="/assets/touch/chrome-touch-icon-192x192.png">
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="dkvz.eu">
+  <link rel="apple-touch-icon" href="/assets/touch/apple-touch-icon.png">
+  <!-- Tile icon for Win8 (144x144) -->
+  <meta name="msapplication-TileImage" content="/assets/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="description" content="Blog expérimental d'un humble consultant en progress-bars.">
+  <title>Blog des gens compliqués</title>
+</head>
+
+<body class="gradient-bg" id="bodyEl">
+  <!-- Navbar and Header -->
+  <header>
+    <ul id="dropdownTags" class="dropdown-content">
+      <li id="menuTagAll"><a href="/articles">Tous les articles</a></li>
+    </ul>
+    <nav class="nav-extended blue-grey darken-2" id="navbar" role="navigation">
+      <div class="nav-background"></div>
+      <div class="nav-wrapper container">
+        <!--<a href="/pages/demo" class="brand-logo"><i class="material-icons">camera</i></a>-->
+        <span class="nav-title">Blog des gens compliqués</span>
+        <ul class="right hide-on-med-and-down">
+          <li id="searchL"><a href="/search"><i class="material-icons" aria-hidden="true">search</i></a></li>
+          <li id="homeL" class="active"><a href="/">Accueil</a></li>
+          <li id="hiremeL"><a href="/pages/hireme">Engagez-moi</a></li>
+          <li id="aboutL"><a href="/pages/about">A propos</a></li>
+        </ul>
+      </div>
+
+      <div class="categories-wrapper">
+        <div class="categories-container">
+          <div class="container">
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons"
+                aria-hidden="true">menu</i></a>
+            <div class="left" id="randomQuote"></div>
+            <ul class="right hide-on-med-and-down">
+              <li id="articlesL"><a class="dropdown-trigger" href="#!" data-target="dropdownTags">Articles<i
+                    class="material-icons right" aria-hidden="true">arrow_drop_down</i></a></li>
+              <li id="shortsL"><a href="/breves">Brèves</a></li>
+              <li id="contactL"><a href="/pages/contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <ul class="sidenav" id="nav-mobile">
+      <li id="homeLM"><a href="/" class="sidenav-close"><i class="material-icons" aria-hidden="true">home</i>Accueil</a>
+      </li>
+      <li id="searchLM"><a href="/search" class="sidenav-close"><i class="material-icons"
+            aria-hidden="true">search</i>Rechercher</a></li>
+      <li id="articlesLM"><a href="/articles" class="sidenav-close"><i class="material-icons"
+            aria-hidden="true">create</i>Articles</a>
+      </li>
+      <li id="shortsLM"><a href="/breves" class="sidenav-close"><i class="material-icons"
+            aria-hidden="true">chat_bubble</i>Brèves</a></li>
+      <li id="aboutLM"><a href="/pages/about" class="sidenav-close"><i class="material-icons"
+            aria-hidden="true">help</i>A propos</a></li>
+      <li id="contactLM"><a href="/pages/contact" class="sidenav-close"><i class="material-icons"
+            aria-hidden="true">contact_mail</i>Contact</a></li>
+      <li id="hiremeLM"><a href="/pages/hireme" class="sidenav-close"><i class="material-icons"
+            aria-hidden="true">euro_symbol</i>Engagez-moi</a></li>
+      <li class="divider"></li>
+      <li><a href="#!"><b>Catégories</b></a></li>
+    </ul>
+  </header>
+
+  <main class="container section" id="mainEl">
+    <div id="contentEl"></div>
+
+    <div class="card-panel white center" id="spinnerCard">
+      <div class="preloader-wrapper active">
+        <div class="spinner-layer">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer blue-grey">
+    <div class="container">
+      <div class="row">
+        <div class="nice-links col l4 s12">
+          <h5 class="white-text">Blog dkvz.eu</h5>
+          <p class="grey-text text-lighten-4">
+            Utilise <a href="http://materializecss.com/" target="_blank" rel="noopener">MaterializeCSS</a> et
+            du JavaScript improbable dans une énorme variable globale.
+          </p>
+          <div class="switch">
+            <label class="white-text">
+              <input id="checkboxBg" type="checkbox" />
+              <span class="lever"></span>
+              Arrière-plan "original"
+            </label>
+          </div>
+        </div>
+        <div class="col l4 s12">
+          <h5 class="white-text">Liens</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="/">Accueil</a></li>
+            <li><a class="grey-text text-lighten-3" href="/pages/about">A propos</a></li>
+            <li><a class="grey-text text-lighten-3" href="/articles">Articles</a></li>
+            <li><a class="grey-text text-lighten-3" href="/breves">Brèves</a></li>
+            <li>
+              <a class="orange-text" href="/rss.xml" target="_blank">
+                <i class="material-icons aligned-icon" aria-hidden="true">rss_feed</i>Flux RSS
+              </a>
+            </li>
           </ul>
         </div>
-      
-        <div class="categories-wrapper">
-          <div class="categories-container">
-            <div class="container">
-              <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-              <div class="left" id="randomQuote"></div>
-              <ul class="right hide-on-med-and-down">
-                <li id="articlesL"><a class="dropdown-trigger" href="#!" data-target="dropdownTags">Articles<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li id="shortsL"><a href="/breves">Brèves</a></li>
-                <li id="contactL"><a href="/pages/contact">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <ul class="sidenav" id="nav-mobile">
-        <li id="homeLM"><a href="/" class="sidenav-close"><i class="material-icons">home</i>Accueil</a></li>
-        <li id="searchLM"><a href="/search" class="sidenav-close"><i class="material-icons">search</i>Rechercher</a></li>
-        <li id="articlesLM"><a href="/articles" class="sidenav-close"><i class="material-icons">create</i>Articles</a></li>
-        <li id="shortsLM"><a href="/breves" class="sidenav-close"><i class="material-icons">chat_bubble</i>Brèves</a></li>
-        <li id="aboutLM"><a href="/pages/about" class="sidenav-close"><i class="material-icons">help</i>A propos</a></li>
-        <li id="contactLM"><a href="/pages/contact" class="sidenav-close"><i class="material-icons">contact_mail</i>Contact</a></li>
-        <li id="hiremeLM"><a href="/pages/hireme" class="sidenav-close"><i class="material-icons">euro_symbol</i>Engagez-moi</a></li>
-        <li class="divider"></li>
-        <li><a href="#!"><b>Catégories</b></a></li>
-      </ul>
-    </header>
-
-    <main class="container section" id="mainEl">
-      <div id="contentEl"></div>
-
-      <div class="card-panel white center" id="spinnerCard">
-        <div class="preloader-wrapper active">
-          <div class="spinner-layer">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div><div class="gap-patch">
-              <div class="circle"></div>
-            </div><div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
-          </div>
+        <div class="col l4 s12">
+          <h5 class="white-text">Social</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="https://twitter.com/MrSausageroll" target="_blank"
+                rel="noopener">Twitter</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://github.com/dkvz" target="_blank"
+                rel="noopener">Github</a></li>
+            <li><a class="grey-text text-lighten-3" href="/pages/contact">Contact</a></li>
+          </ul>
         </div>
       </div>
-    </main>
-
-    <footer class="page-footer blue-grey">
+    </div>
+    <div class="footer-copyright">
       <div class="container">
-        <div class="row">
-          <div class="nice-links col l4 s12">
-            <h5 class="white-text">Blog dkvz.eu</h5>
-            <p class="grey-text text-lighten-4">
-              Utilise <a href="http://materializecss.com/" target="_blank" rel="noopener">MaterializeCSS</a> et 
-              du JavaScript improbable dans une énorme variable globale.
-            </p>
-            <div class="switch">
-              <label class="white-text"> 
-                <input id="checkboxBg" type="checkbox" />
-                <span class="lever"></span>
-                Arrière-plan "original"
-              </label>
-            </div>
-          </div>
-          <div class="col l4 s12">
-            <h5 class="white-text">Liens</h5>
-            <ul>
-              <li><a class="grey-text text-lighten-3" href="/">Accueil</a></li>
-              <li><a class="grey-text text-lighten-3" href="/pages/about">A propos</a></li>
-              <li><a class="grey-text text-lighten-3" href="/articles">Articles</a></li>
-              <li><a class="grey-text text-lighten-3" href="/breves">Brèves</a></li>
-              <li>
-                <a class="orange-text" href="/rss.xml" target="_blank">
-                  <i class="material-icons aligned-icon">rss_feed</i>Flux RSS
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col l4 s12">
-            <h5 class="white-text">Social</h5>
-            <ul>
-              <li><a class="grey-text text-lighten-3" href="https://twitter.com/MrSausageroll" target="_blank" rel="noopener">Twitter</a></li>
-              <li><a class="grey-text text-lighten-3" href="https://github.com/dkvz" target="_blank" rel="noopener">Github</a></li>
-              <li><a class="grey-text text-lighten-3" href="/pages/contact">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container">
         ©&nbsp;2018-AnnéeEnCours dkvz.eu&nbsp;; I probably won't sue you
-        </div>
       </div>
-    </footer>
-   
-  </body>
+    </div>
+  </footer>
+
+</body>
+
 </html>
-      

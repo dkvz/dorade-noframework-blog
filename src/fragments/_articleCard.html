@@ -8,17 +8,19 @@
       </div>
       <div class="article-info">
         <div class="date-author">
-          <i class="material-icons">date_range</i>&nbsp;{{date}}
+          <i class="material-icons" aria-hidden="true">date_range</i>&nbsp;{{date}}
         </div>
         <div class="date-author">
-            <i class="material-icons">account_box</i>&nbsp;Par <b>{{author}}</b>
+          <i class="material-icons" aria-hidden="true">account_box</i>&nbsp;Par <b>{{author}}</b>
         </div>
       </div>
       {{summary}}
     </div>
     <div class="card-action">
-      <a class="waves-effect waves-light btn" href="/articles/{{articleURL}}"><i class="material-icons right">open_in_new</i>Suite</a>
-      <a class="waves-effect waves-light btn right" href="/articles/{{articleURL}}#commentsA"></span><i class="material-icons right">comment</i>{{commentsCount}}</a>
+      <a class="waves-effect waves-light btn" href="/articles/{{articleURL}}"><i class="material-icons right"
+          aria-hidden="true">open_in_new</i>Suite</a>
+      <a class="waves-effect waves-light btn right" href="/articles/{{articleURL}}#commentsA"></span><i
+          class="material-icons right" aria-hidden="true">comment</i>{{commentsCount}}</a>
     </div>
   </div>
 </div>
