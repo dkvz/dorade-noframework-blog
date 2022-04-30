@@ -512,8 +512,8 @@ var app = {
   },
   parseTemplate: function (fragment, data) {
     var mainTpl = this.fragments[fragment].template;
-    for (var i = 0; 
-      this.fragments[fragment].properties && i < this.fragments[fragment].properties.length; 
+    for (var i = 0;
+      this.fragments[fragment].properties && i < this.fragments[fragment].properties.length;
       i++) {
       var cur = this.fragments[fragment].properties[i];
       var reg = new RegExp('\{\{' + cur.name + '\}\}', 'g');
@@ -864,7 +864,7 @@ var app = {
         e.currentTarget.value,
         app.homeLayoutA,
         'articles',
-        function() {
+        function () {
           // Check if we need to focus on the search results:
           app.hideSpinner();
           var scrollVal = document.body.scrollTop || document.documentElement.scrollTop;
@@ -879,7 +879,7 @@ var app = {
       app.removeContentFromNode(document.getElementById('articles'));
     }
   },
-  showNothingFound: function(show) {
+  showNothingFound: function (show) {
     var nf = document.getElementById('nothingFound');
     if (nf) nf.style.display = show ? '' : 'none';
   },
@@ -933,7 +933,7 @@ var app = {
       data: JSON.stringify({ include: termsArray })
     });
   },
-  submitSearchForm: function(e) {
+  submitSearchForm: function (e) {
     e.preventDefault();
     if (app.searchInput) app.searchInput.blur();
   }
@@ -942,6 +942,7 @@ window.app = app;
 
 /*
 * Including the JS and polyfills
+* NB: I don't have polyfills anymore
 */
 window.$ = require('jquery');
 //$ = window.$;

@@ -9,9 +9,7 @@ The site could live without Webpack although it would take some work to put ever
 
 I'm a weird person.
 
-The site populates its dynamic content using calls to this other project: [DoradeBlogEngineSpring](https://github.com/dkvz/DoradeBlogEngineSpring) which was whipped up very quickly so please don't look at the code there.
-
-In the history of backends used for these projects we also have a discontinued [Play framework](https://github.com/dkvz/dorade-blog-engine) app.
+The site populates its dynamic content using calls to an independant API which currently is [written in Rust](https://github.com/dkvz/dkvz-blog-backend).
 
 ## Pre-requisites
 * NodeJS version 6+
@@ -46,11 +44,9 @@ To use the cache busting capabilities you need to increment the version in packa
 To serve the website on Apache, Nginx or others you'll need to use a fallback resource to index.html or a rewrite that has the same effect.
 
 ## Supported browsers
-The polyfill for addEventListener and removeEventListener is acutally useless since Materialize is not supposed to be supported below IE 11 and I also use classList at some point. I removed it at some point.
+I wrote the code with IE 8 support in mind without transpiling. I then found out later that MaterializeCSS only supports IE 11+.
 
-The pinned toolbar on scrolling might also not work on IE 8, same with the infinite scrolling (which might even not work on IE 9).
-
-We're not providing a polyfill for the routing, which uses HTML 5 pushstate API. I think only IE 10 supports it but I might be wrong on that.
+It's fine though, I learned some old school JavaScript.
 
 ## FAQ nobody asked for
 Regardless of any reponse 201X-me had to give here, you should not code your blog like this. Ever. Especially post the instant search feature which got things worse by a lot. It still works great though, I love that ElasticSearch vibe at very little cost.
