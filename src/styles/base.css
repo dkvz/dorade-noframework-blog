@@ -4,41 +4,53 @@ body {
   flex-direction: column;
   scroll-behavior: smooth;
 }
+
 .gradient-bg {
   background-color: #455A64;
   /*background: linear-gradient(to bottom, rgba(96,125,139,1) 0%,rgba(0,0,0,0) 100%);*/
   /*background: linear-gradient(to bottom, rgba(69,90,100,1) 0%,rgba(0,0,0,0) 100%);*/
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#607d8b+0,ffffff+50,607d8b+100&0.9+0,0.9+100 */
-  background: -moz-linear-gradient(top, rgba(220,220,220,0.9) 0%,rgba(69,90,100,0.9) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(220,220,220,0.9) 0%,rgba(69,90,100,0.9) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(220,220,220,0.9) 0%,rgba(69,90,100,0.9) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6607d8b',GradientType=0 ); /* IE6-9 */
+  background: -moz-linear-gradient(top, rgba(220, 220, 220, 0.9) 0%, rgba(69, 90, 100, 0.9) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(220, 220, 220, 0.9) 0%, rgba(69, 90, 100, 0.9) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(220, 220, 220, 0.9) 0%, rgba(69, 90, 100, 0.9) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6607d8b', GradientType=0);
+  /* IE6-9 */
 }
+
 .pattern-bg {
   background-image: url('../../assets/patpull.jpg');
   background-repeat: repeat;
   background-position: top left;
   background-attachment: fixed;
 }
+
 .hero-button {
   width: 260px;
   max-width: 100%;
 }
+
 main {
   flex: 1 0 auto;
 }
+
 nav {
   position: relative;
   top: 0;
 }
+
 nav .categories-wrapper {
   height: 64px;
   background-color: inherit;
 }
+
 nav .categories-container {
   background-color: inherit;
   position: relative;
 }
+
 nav .nav-background {
   position: absolute;
   top: 0;
@@ -51,31 +63,37 @@ nav .nav-background {
   background-position: 90% 30%;
   /*opacity: '';*/
 }
+
 .pinned {
   position: fixed !important;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 50;
-  box-shadow:0 2px 4px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
+
 .transp-box {
-  background-color: rgba(255,255,255,0.85);
+  background-color: rgba(255, 255, 255, 0.85);
 }
+
 @keyframes drop {
   0% {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0px);
   }
 }
+
 .drop-anim {
   animation-name: drop;
   animation-duration: 1s;
 }
+
 .top-img {
   border-radius: 50%;
   height: 110px;
@@ -83,12 +101,14 @@ nav .nav-background {
   margin-left: 6px;
 }
 
-.article-card ul, .normal-ul ul {
+.article-card ul,
+.normal-ul ul {
   padding-left: 34px;
   overflow: hidden;
 }
 
-.article-card ul > li, .normal-ul ul > li {
+.article-card ul>li,
+.normal-ul ul>li {
   list-style: disc outside none;
 }
 
@@ -122,7 +142,8 @@ nav .nav-background {
   font-family: "Roboto", sans-serif;
 }
 
-.row-flex, .image-row {
+.row-flex,
+.image-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -194,7 +215,7 @@ nav .nav-background {
   overflow: hidden;
 }
 
-.search-control input[type="text"], 
+.search-control input[type="text"],
 .search-control input[type="text"]:focus {
   border-bottom: none !important;
   box-shadow: none !important;
@@ -215,6 +236,10 @@ nav .nav-background {
   margin-bottom: 22px;
 }
 
+#homeContent h4 {
+  font-weight: bold;
+}
+
 @media (max-width: 600px) {
   nav .nav-background {
     background: url('../../assets/gillescut_300.png'), linear-gradient(to bottom, #085678 0%, #455a64 115%);
@@ -222,58 +247,79 @@ nav .nav-background {
     background-size: contain;
     background-repeat: no-repeat;
   }
+
   .cta-row {
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
   }
-  .cta-row > * {
+
+  .cta-row>* {
     width: 100%;
     margin-bottom: 14px;
   }
+
   .row-flex {
     display: flex;
     flex-direction: column;
     padding-bottom: 24px;
   }
+
   #mainEl {
     width: 100%;
   }
+
   #randomQuote {
     font-size: 0.65em;
   }
+
   #articleContent {
     font-size: 1.14em;
     line-height: 1.3em;
     padding-bottom: 20px;
   }
+
   #article {
     width: 100%;
   }
+
   .card-panel {
     padding: 24px 10px 24px 10px;
   }
+
   .mobile-hack {
     width: 100%;
     margin: 0 !important;
   }
+
   .article-card {
     padding-left: 12px;
     padding-right: 12px;
   }
+
   h2 {
     font-size: 2rem;
   }
+
   h3 {
     font-size: 1.8rem;
   }
+
   h4 {
     font-size: 1.6rem;
+  }
+
+  .home-articles:nth-child(1n+3) {
+    display: none;
   }
 }
 
 @media (max-width: 1032px) {
   #searchL {
+    display: none;
+  }
+
+  .home-articles:nth-child(1n+5) {
     display: none;
   }
 }
@@ -313,7 +359,7 @@ nav .nav-background {
   -webkit-border-radius: 0;
   border-radius: 0;
   display: block;
-  font-family: "dejavu sans mono","liberation mono","bitstream vera mono","dejavu mono",monospace;
+  font-family: "dejavu sans mono", "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
   margin-top: 1em;
   /*white-space: pre-wrap;
   word-wrap: break-word;*/
@@ -338,6 +384,7 @@ nav .nav-background {
 div.article-image.left {
   margin-right: 14px;
 }
+
 div.article-image.right {
   margin-left: 14px;
 }
@@ -357,13 +404,13 @@ div.article-image.right {
 }
 
 .comment-card pre {
-  white-space:pre-wrap;
+  white-space: pre-wrap;
 }
 
 .nice-links a {
   color: #ff487a;
   transition: color .3s ease-in-out;
-	-moz-transition: color .3s ease-in-out;
+  -moz-transition: color .3s ease-in-out;
   text-decoration: none;
 }
 
@@ -394,47 +441,116 @@ div.article-image.right {
 }
 
 @-webkit-keyframes zomg {
-  0%, 100% { color: #7ccdea; }
-  16%      { color: #0074D9; }
-  32%      { color: #2ECC40; }
-  48%      { color: #FFDC00; }
-  64%      { color: #B10DC9; }
-  80%      { color: #FF4136; }
+
+  0%,
+  100% {
+    color: #7ccdea;
+  }
+
+  16% {
+    color: #0074D9;
+  }
+
+  32% {
+    color: #2ECC40;
+  }
+
+  48% {
+    color: #FFDC00;
+  }
+
+  64% {
+    color: #B10DC9;
+  }
+
+  80% {
+    color: #FF4136;
+  }
 }
+
 @-moz-keyframes zomg {
-  0%, 100% { color: #7ccdea; }
-  16%      { color: #0074D9; }
-  32%      { color: #2ECC40; }
-  48%      { color: #FFDC00; }
-  64%      { color: #B10DC9; }
-  80%      { color: #FF4136; }
+
+  0%,
+  100% {
+    color: #7ccdea;
+  }
+
+  16% {
+    color: #0074D9;
+  }
+
+  32% {
+    color: #2ECC40;
+  }
+
+  48% {
+    color: #FFDC00;
+  }
+
+  64% {
+    color: #B10DC9;
+  }
+
+  80% {
+    color: #FF4136;
+  }
 }
+
 @keyframes zomg {
-  0%, 100% { color: #7ccdea; }
-  16%      { color: #0074D9; }
-  32%      { color: #2ECC40; }
-  48%      { color: #FFDC00; }
-  64%      { color: #B10DC9; }
-  80%      { color: #FF4136; }
+
+  0%,
+  100% {
+    color: #7ccdea;
+  }
+
+  16% {
+    color: #0074D9;
+  }
+
+  32% {
+    color: #2ECC40;
+  }
+
+  48% {
+    color: #FFDC00;
+  }
+
+  64% {
+    color: #B10DC9;
+  }
+
+  80% {
+    color: #FF4136;
+  }
 }
 
 /* Card scale-up effect */
 .scale-up {
-	-webkit-transform: scale(0.6);
-	transform: scale(0.6);
-	-webkit-animation: scaleUp 0.5s ease-in-out forwards;
-	animation: scaleUp 0.5s ease-in-out forwards;
+  -webkit-transform: scale(0.6);
+  transform: scale(0.6);
+  -webkit-animation: scaleUp 0.5s ease-in-out forwards;
+  animation: scaleUp 0.5s ease-in-out forwards;
 }
 
 @-webkit-keyframes scaleUp {
-	0% { }
-	100% { -webkit-transform: scale(1); opacity: 1; }
+  0% {}
+
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes scaleUp {
-	0% { }
-	100% { -webkit-transform: scale(1); transform: scale(1); opacity: 1; }
+  0% {}
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
 }
+
 /* End card scale-up effect */
 
 /* Simple page transition I'm using */
@@ -443,9 +559,15 @@ div.article-image.right {
 }
 
 @keyframes transLeft {
-  0% {transform: translate3d(-20vw, 0, 0);}
-  100% {transform: translate3d(0, 0, 0);}
+  0% {
+    transform: translate3d(-20vw, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
+
 /* End page transition I'm using */
 
 .aligned-icon {
@@ -464,16 +586,33 @@ div.article-image.right {
 }
 
 @-webkit-keyframes divider {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(55); }
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(55);
+  }
 }
+
 @-moz-keyframes divider {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(55); }
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(55);
+  }
 }
+
 @keyframes divider {
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(55); }
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(55);
+  }
 }
 
 .transition-container {

@@ -6,7 +6,7 @@ var app = window.app;
 // We need to set the acive element in the menus (both mobile and top)
 // in here (class = "active").
 
-page('*', function(data, next) {
+page('*', function (data, next) {
   // Gets called before any routing happens.
   // Reset anything that would've been loaded before.
   // This is just a design choice but an easy and effective one.
@@ -19,7 +19,7 @@ page('*', function(data, next) {
     next();
   }
 });
-page('/', function() {
+page('/', function () {
   app.currentPage = 'home';
   document.title = app.titleBase;
   app.setMenuItemActive('homeL');
@@ -34,7 +34,7 @@ page('/', function() {
     resetCacheNodes = true;
   }
   // We need to load the articles and shorts in the callback:
-  app.setMainContent('home', function() {
+  app.setMainContent('home', function () {
     if (resetCacheNodes) app.cacheNodes = true;
   });
   app.disableInfiniteScrolling();
@@ -56,13 +56,13 @@ page('/', function() {
   );
   // We always load frm 0 on the home page.
   app.loadArticlesOrShorts(
-    0, 
+    0,
     app.maxArticlesHome,
     false,
     'desc',
     'lastArticles',
-    app.homeLayoutA,
-    function() {
+    app.homeLayoutA + ' home-articles',
+    function () {
       app.hideOtherSpinner('articlesSpinner');
       // app.loadedCount is only used in the articles
       // or shorts list page.
@@ -70,24 +70,24 @@ page('/', function() {
     }
   );
   app.loadArticlesOrShorts(
-    0, 
+    0,
     app.maxShortsHome,
     true,
     'desc',
     'lastShorts',
-    app.homeLayoutS,
-    function() {
+    app.homeLayoutS + ' home-articles',
+    function () {
       app.hideOtherSpinner('shortsSpinner');
       app.loadedCount = 0;
     }
   );
 });
-page('/pages/:name', function(data) {
+page('/pages/:name', function (data) {
   document.title = (data.params.name.charAt(0).toUpperCase() +
-    data.params.name.slice(1)).replace('-', ' ') + ' | ' 
+    data.params.name.slice(1)).replace('-', ' ') + ' | '
     + app.titleBase;
   // loadStaticPage disables all the scrolling listeners.
-  switch(data.params.name) {
+  switch (data.params.name) {
     case 'about':
     case 'contact':
     case 'hireme':
@@ -104,7 +104,7 @@ page('/pages/:name', function(data) {
       page.redirect('/');
   }
 });
-page('/tag/:name', function(data) {
+page('/tag/:name', function (data) {
   app.currentTags = [];
   app.currentTags.push(data.params.name);
   app.setMenuItemActive('articlesL');
@@ -112,9 +112,9 @@ page('/tag/:name', function(data) {
   // Set the right links to active in the dropdown menu
   // AND in the mobile menu:
   app.setActiveMenuTag(data.params.name);
-  app.showArticlesPage();  
+  app.showArticlesPage();
 });
-page('/breves', function() {
+page('/breves', function () {
   app.currentTags = [];
   app.currentPage = 'breves';
   app.setMenuItemActive('shortsL');
@@ -122,7 +122,7 @@ page('/breves', function() {
   app.showArticlesPage();
   // The showArticlesPage function sets the active menu.
 });
-page('/breves/:id', function(data) {
+page('/breves/:id', function (data) {
   // This is almost identical to the 
   // articles/article_url page.
   // Could be refactored.
@@ -131,12 +131,12 @@ page('/breves/:id', function(data) {
   app.loadedCount = 0;
   app.setMenuItemActive('shortsL');
   app.showSpinner();
-  app.setMainContent('article', function() {
+  app.setMainContent('article', function () {
     app.hideSpinner();
     app.loadArticle(data.params.id, data.hash);
   });
 });
-page('/articles', function() {
+page('/articles', function () {
   // The page has a go to top button.
   // Reset tags:
   app.currentTags = [];
@@ -145,13 +145,13 @@ page('/articles', function() {
   app.setActiveMenuTag();
   app.showArticlesPage();
 });
-page('/search', function() {
+page('/search', function () {
   // I chose to have no title change for the
   // search page.
   app.setMenuItemActive('searchL');
   app.disableInfiniteScrolling();
   if (!app.transitioning) {
-    app.setMainContent('search', function() {
+    app.setMainContent('search', function () {
       app.searchInput = document.getElementById('searchInput');
       app.searchInput.addEventListener(
         'input',
@@ -165,7 +165,7 @@ page('/search', function() {
     });
   }
 });
-page('/articles/:name/:toBottom?', function(data) {
+page('/articles/:name/:toBottom?', function (data) {
   // The toBottom thing is a legacy from the older
   // blog, it's not being used and will not make
   // anything go to any bottom.
@@ -173,7 +173,7 @@ page('/articles/:name/:toBottom?', function(data) {
   app.loadedCount = 0;
   app.showSpinner();
   app.setMenuItemActive('articlesL');
-  app.setMainContent('article', function() {
+  app.setMainContent('article', function () {
     // Save current article URL in the context:
     app.previousArticle = data.params.name;
     // I'm not sure if I can just pass what a function
@@ -183,13 +183,13 @@ page('/articles/:name/:toBottom?', function(data) {
     app.loadArticle(data.params.name, data.hash, true);
   });
 });
-page('/contact', function() {
+page('/contact', function () {
   page.redirect('/pages/contact');
 });
-page('/about', function() {
+page('/about', function () {
   page.redirect('pages/about');
 });
-page('*', function() {
+page('*', function () {
   app.show404();
   page.redirect('/');
 });
