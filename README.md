@@ -3,6 +3,8 @@ This project is an experiment producing a blog engine similar to one I made usin
 
 The blog: https://dkvz.eu
 
+**NB:** It's quite old and on life support (mistakes were made and fixed with tape) because I got limited time to make a shiny new one.
+
 I do use Webpack, the Javascript router Page.js and the MaterializeCSS project (which uses jQuery, so I sparingly do as well).
 
 The site could live without Webpack although it would take some work to put everything together manually. One of my requirements was that this had to survive a hypothetical global apocalypse in which someone issues a `rm -rf node_modules` that affects all the computers in the world, until the end of times.

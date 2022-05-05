@@ -21,10 +21,10 @@ var app = {
   jsDir: 'scripts',
   //canScrollIntoView: document.body.scrollIntoView ? true : false,
   quotes: [
-    'Vas-y répète le mot trompette dans ta tête',
+    'Salut, tu trouves ça romantique la TROMPETTE?',
     'Les SITES INTERNET doivent avoir un sous-titre',
     'Si Gargamel mange tous les schtroumpfs y a plus d\'histoire',
-    'Optimisation de la conversion Kasteel Bier en lignes de code',
+    'Regarde-les arborer leur gangue manichéenne de pur marasme',
     'Le Teflon n\'accroche pas mais il est collé sur la poêle?',
     'Kesse tu fais ici va prendre un bain',
     'La monogamie aurait provoqué la disparition de l\'os pénien',
@@ -32,7 +32,13 @@ var app = {
     'Péter un plomb et peindre tout en brun',
     'Nous paissons, vous paissez, ils paissent',
     'Qui a commandé un décacapou?',
-    'Dkvz.eu recommande officiellement la Bing toolbar'
+    'Dkvz.eu recommande officiellement la Bing toolbar',
+    'Une éponge c\'est d\'office toujours propre, non?',
+    'Si ta pierre anti-wifi fonctionnait y aurait pu internet',
+    'C\'est impossible de trouver un goth de plus de 25 ans',
+    'Tu t\'es perdu ou quoi?',
+    'Vous auriez volé du fromage?',
+    'font-family: cursive;'
   ],
   fragments: {
     short: {
@@ -652,7 +658,7 @@ var app = {
   infiniteScrollCallback: function () {
     // I could use window.innerHeight without jQuery but
     // it's IE 9+ only.
-    var inner = $('#mainEl').innerHeight();
+    var inner = app.mainEl.innerHeight();
     var thres;
     if ($(document).width() > 2000) {
       thres = 900;
@@ -982,7 +988,10 @@ M.Dropdown.init(document.querySelector('.dropdown-trigger'));
 //$('.dropdown-button').dropdown();
 
 
-app.mainEl = document.getElementById('mainEl');
+//app.mainEl = document.getElementById('mainEl');
+// Keeping that ref using jQuery because the infinite
+// scrolling callback is using jQuery.
+app.mainEl = $('#mainEl');
 app.contentEl = document.getElementById('contentEl');
 app.bodyEl = document.getElementById('bodyEl');
 // Load tags only once in here:
