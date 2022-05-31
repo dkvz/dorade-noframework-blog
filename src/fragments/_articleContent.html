@@ -31,29 +31,33 @@
       <div class="collapsible-header"><i class="material-icons" aria-hidden="true">comment</i>Ecrire un commentaire
       </div>
       <div class="collapsible-body">
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="nameInput" required type="text" />
-            <label for="nameInput">Votre nom</label>
+        <form method="POST" action="#" id="commentFormEl">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="nameInput" required type="text" />
+              <label for="nameInput">Votre nom</label>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="commentInput" required class="materialize-textarea"></textarea>
+              <label for="commentInput">Commentaire</label>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix" aria-hidden="true">help</i>
+              <input id="questionInput" type="text" />
+              <label for="questionInput">Combien font 2+4x0?</label>
+            </div>
+            <div class="col s12">
+              <input type="hidden" value="{{id}}" id="articleIdInput" />
+              <button class="btn waves-effect waves-light right" 
+                type="submit" 
+                name="action" 
+                id="submitComment">
+                Envoyer
+                <i class="material-icons right" aria-hidden="true">send</i>
+              </button>
+            </div>
           </div>
-          <div class="input-field col s12">
-            <textarea id="commentInput" required class="materialize-textarea"></textarea>
-            <label for="commentInput">Commentaire</label>
-          </div>
-          <div class="input-field col s12">
-            <i class="material-icons prefix" aria-hidden="true">help</i>
-            <input id="questionInput" type="text" />
-            <label for="questionInput">Combien font 2+4x0?</label>
-          </div>
-          <div class="col s12">
-            <input type="hidden" value="{{id}}" id="articleIdInput" />
-            <button class="btn waves-effect waves-light right" name="action" onclick="app.sendComment()"
-              id="submitComment">
-              Envoyer
-              <i class="material-icons right" aria-hidden="true">send</i>
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     </li>
   </ul>

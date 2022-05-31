@@ -5,9 +5,8 @@ app.fragments.comment.template = require('./fragments/_comment.html');
 app.fragments.article404.template = require('./fragments/_article404.html');
 
 app.fragments.article.initPage = function() {
-  // If I add event listeners here and keep the nodes intact 
-  // in some variable, the listeners should stick around.
   M.Collapsible.init(document.querySelector('.collapsible'));
+  document.getElementById('commentFormEl').addEventListener('submit', app.sendComment);
   //$('.collapsible').collapsible();
 };
 
@@ -63,7 +62,8 @@ app.simpleHtmlStrip = function(text) {
   return text.replace(/<(?:.|\n)*?>/gm, '');
 };
 
-app.sendComment = function() {
+app.sendComment = function(event) {
+  event.preventDefault();
   // Disable the save button:
   var subm = document.getElementById('submitComment');
   subm.disabled = 'disabled';
@@ -93,7 +93,7 @@ app.sendComment = function() {
         }
         app.toast('Envoi en cours...');
         $.post(
-          this.apiUrl + '/comments', 
+          app.apiUrl + '/comments', 
           body
         ).done(function(data) {
           app.toast('Message enregistré. Enfin si tout va bien.');
@@ -105,6 +105,7 @@ app.sendComment = function() {
           // Updated materialize has another way to do this:
           M.Collapsible
             .getInstance(document.getElementById('commentForm')).close();
+          comment.value = '';
           app.loadComments(app.loadedCount, app.maxComments, function() {
             app.hideSpinner();
             app.bottomReached = false;
