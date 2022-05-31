@@ -1,9 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var dev = process.env.NODE_ENV === 'dev';
 
@@ -28,7 +28,7 @@ var config = {
     publicPath: '/'
   },
   module: {
-    loaders: [
+    rules: [
       // This loader will inline CSS in the JS.
       // Reduces the amount of required requests
       // but creates a big FOUC.
@@ -41,10 +41,10 @@ var config = {
       },*/
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/i,
@@ -109,20 +109,24 @@ var config = {
       },
       chunks: ['app']
     }),
-    new CopyWebpackPlugin([
-      {from: 'assets', to: 'assets'},
-      {from: 'webroot', to: ''},
-      //{from: 'wp-content', to: 'wp-content'}
-    ]),
-    new ExtractTextPlugin("styles/[name][contenthash].css"),
+    new CopyWebpackPlugin({
+      patterns: [
+        {from: 'assets', to: 'assets'},
+        {from: 'webroot', to: ''},
+        //{from: 'wp-content', to: 'wp-content'}
+      ]
+    }),
+    new MiniCssExtractPlugin({
+      chunkFilename: 'styles/[name][contenthash].css'
+    }),
     new webpack.DefinePlugin({
       VERSION: quotedVers
     })
   ],
   devServer: {
     port: 8081,
-    historyApiFallback: true,
-    publicPath: '/'
+    historyApiFallback: true
+    //publicPath: '/'
   }
 }
 
