@@ -1,2 +1,2 @@
 
-app.fragments.about.template = require('./fragments/about.html');
+app.fragments.about.template = require('./fragments/about.html').default;

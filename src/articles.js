@@ -1,5 +1,5 @@
 
-app.fragments.articles.template = require('./fragments/articles.html');
+app.fragments.articles.template = require('./fragments/articles.html').default;
 
 app.fragments.articles.initPage = function() {
   document.getElementById('checkboxSort').checked = app.orderDesc;

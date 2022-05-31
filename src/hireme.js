@@ -1,2 +1,2 @@
 
-app.fragments.hireme.template = require('./fragments/hireme.html');
+app.fragments.hireme.template = require('./fragments/hireme.html').default;

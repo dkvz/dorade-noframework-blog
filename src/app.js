@@ -961,15 +961,16 @@ require('materialize-css/dist/js/materialize.min.js');
 /*
 * Add the HTML fragments of objects on the home page
 * Other fragments will be lazy loaded.
+* At some point I had to add default due to a Webpack upgrade.
 */
-app.fragments.short.template = require('./fragments/_breve.html');
-app.fragments.articleCard.template = require('./fragments/_articleCard.html');
-app.fragments.tag.template = require('./fragments/_tag.html');
-app.fragments.menuTag.template = require('./fragments/_menuTag.html');
-app.fragments.menuTagMobile.template = require('./fragments/_menuTagMobile.html');
-app.fragments.home.template = require('./fragments/home.html');
-app.fragments.search.template = require('./fragments/search.html');
-app.fragments.searchCard.template = require('./fragments/_searchCard.html');
+app.fragments.short.template = require('./fragments/_breve.html').default;
+app.fragments.articleCard.template = require('./fragments/_articleCard.html').default;
+app.fragments.tag.template = require('./fragments/_tag.html').default;
+app.fragments.menuTag.template = require('./fragments/_menuTag.html').default;
+app.fragments.menuTagMobile.template = require('./fragments/_menuTagMobile.html').default;
+app.fragments.home.template = require('./fragments/home.html').default;
+app.fragments.search.template = require('./fragments/search.html').default;
+app.fragments.searchCard.template = require('./fragments/_searchCard.html').default;
 
 /*
 * Page initialization - listeners

@@ -1,8 +1,8 @@
 
-app.fragments.article.template = require('./fragments/article.html');
-app.fragments.articleContent.template = require('./fragments/_articleContent.html');
-app.fragments.comment.template = require('./fragments/_comment.html');
-app.fragments.article404.template = require('./fragments/_article404.html');
+app.fragments.article.template = require('./fragments/article.html').default;
+app.fragments.articleContent.template = require('./fragments/_articleContent.html').default;
+app.fragments.comment.template = require('./fragments/_comment.html').default;
+app.fragments.article404.template = require('./fragments/_article404.html').default;
 
 app.fragments.article.initPage = function() {
   M.Collapsible.init(document.querySelector('.collapsible'));

@@ -1,2 +1,2 @@
 
-app.fragments.contact.template = require('./fragments/contact.html');
+app.fragments.contact.template = require('./fragments/contact.html').default;
