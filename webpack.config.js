@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
 
 var dev = process.env.NODE_ENV === 'dev';
 
@@ -100,6 +100,7 @@ var config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      scriptLoading: "defer",
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -111,8 +112,8 @@ var config = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        {from: 'assets', to: 'assets'},
-        {from: 'webroot', to: ''},
+        { from: 'assets', to: 'assets' },
+        { from: 'webroot', to: '' },
         //{from: 'wp-content', to: 'wp-content'}
       ]
     }),
@@ -134,7 +135,7 @@ if (dev) {
   config.devtool = 'eval-source-map';
   //config.plugins[0].minify = false;
 } else {
-  config.plugins.push(new CleanWebpackPlugin(['dist']));
+  config.plugins.push(new CleanWebpackPlugin());
 }
 
 module.exports = config;
