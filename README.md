@@ -435,6 +435,7 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 -> This broke other views because card-panel is used everywhere. I have to add another class specific to the articles and shorts list.
 
 ### TODO
+- [ ] Pretty sure the font isn't loading (Roboto?) - It's no longer in the assets either.
 - [x] If we click multiple times on the search link, does the input event listener fire multiple times?
 - [x] I can probably remove all the articlesPageSearchMode stuff and related IDs from routing and the corresponding templates.
 - [x] If the snippet in search cards is too short the card doesn't take the whole width. It should.
@@ -455,11 +456,9 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 - [ ] To gototop button should be on the main template. Just show it when required.
 - [ ] Add some kind of no-javascript disclaimer.
 - [ ] I need to test the infinite scrolling on a huge resolution.
-- [ ] What is the CSS style text-size-adjust?
-- [ ] Use the SASS CSS from materialize. If I do that, I need to replace mentions to Roboto in my css file and replace that with the SASS variable used for the base font family.
+- [ ] Use the SASS CSS from materialize.
 - [ ] I need to put my robot / IE loadmore button.
 - [ ] Due do a bug I had to fix the version of webpack-dev-server to 2.9.7. I might have to change that at some point, when a version superior to 2.10 is out.
-- [ ] The webpack config could be more homogeneous and cleaned up.
 - [ ] I think app.previousArticle is now unused. To check.
 - [ ] When the backend returns a 404 the jquery AJAX stuff always outputs a parse error as well. I might have to still return content type json on my errors, or add a listener to ajax errors and prevent the output.
 - [ ] Theme color in the manifest.json is wrong.
@@ -467,7 +466,7 @@ I added a new media media query on card-panel for mobile devices with reduced ma
   * Removing nodes also GCs the listeners, but not very effectively on old IE versions (as in IE 8).
   * So this is very low priority.
     * I will never do this.
-- [ ] npm run dev doesn't work on windows. I made another command: npm run dev-win. But that is more like a hack. I'm also not 100% sure it even works. Or if it doesn't set the env to dev forever after it ran once.
+- [x] npm run dev doesn't work on windows. I made another command: npm run dev-win. But that is more like a hack. I'm also not 100% sure it even works. Or if it doesn't set the env to dev forever after it ran once (fixed using cross-env).
 
 ### Historical
 * Rework the navbar background. Try a jpg version without the transparency, make it smaller.
