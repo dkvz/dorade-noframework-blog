@@ -41,7 +41,7 @@ var config = {
         ]
       },*/
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/i,
+        test: /\.(jpe?g|png|gif|svg|webp)$/i,
         // Trying out Webpack 5's builtin loader:
         type: 'asset'
         // We could use a custom filename like so:
@@ -85,14 +85,15 @@ var config = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: '/'
+              publicPath: '/',
+              //esModule: false
             }
           },
           'css-loader'
         ]
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        test: /\.(woff2?|eot|ttf|otf)$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
