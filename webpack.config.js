@@ -25,7 +25,8 @@ var config = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'scripts/[name]' + vers + '.js',
     chunkFilename: 'fragments/[name][hash].js',
-    publicPath: '/'
+    publicPath: '/',
+    assetModuleFilename: 'assets/[hash][ext][query]'
   },
   module: {
     rules: [
@@ -48,7 +49,16 @@ var config = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/i,
-        use: [
+        // Trying out Webpack 5's builtin loader:
+        type: 'asset'
+        // We could use a custom filename like so:
+        /*
+        generator: {
+         filename: 'img/[name][hash:7].[ext]'
+        }
+        */
+
+        /*use: [
           {
             loader: 'url-loader',
             options: {
@@ -74,7 +84,7 @@ var config = {
               ]
             }
           }
-        ]
+        ]*/
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
