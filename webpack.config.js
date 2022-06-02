@@ -118,7 +118,7 @@ var config = {
       ]
     }),
     new MiniCssExtractPlugin({
-      chunkFilename: 'styles/[name][contenthash].css'
+      filename: 'styles/[name][contenthash].css'
     }),
     new webpack.DefinePlugin({
       VERSION: quotedVers
