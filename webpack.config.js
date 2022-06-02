@@ -41,13 +41,6 @@ var config = {
         ]
       },*/
       {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader'
-        ]
-      },
-      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/i,
         // Trying out Webpack 5's builtin loader:
         type: 'asset'
@@ -85,6 +78,18 @@ var config = {
             }
           }
         ]*/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '/'
+            }
+          },
+          'css-loader'
+        ]
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
