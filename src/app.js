@@ -437,7 +437,7 @@ var app = {
       if (data && data.length) {
         app.loadedCount += data.length;
         for (var d = 0; d < data.length; d++) {
-          data[d].layout = '"' + layout + '"';
+          data[d].layout = layout;
           if (data[d].thumbImage) {
             data[d].hideThumbImage = '';
           } else {
@@ -903,7 +903,7 @@ var app = {
           app.pauseRevealAnimations = true;
           for (var i = 0; i < data.length; i++) {
             // Add the layout and other template properties here:
-            data[i].layout = '"' + layout + '"';
+            data[i].layout = layout;
             var parsedArt = app.parseTemplate(
               'searchCard', data[i]
             );

@@ -434,6 +434,11 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 
 -> This broke other views because card-panel is used everywhere. I have to add another class specific to the articles and shorts list.
 
+## Webpack upgrade - Issues
+
+### CSS in fragments is loaded wrong
+For instance, the {{layout}} in `_breves.html` doesn't work in "prod" if unquoted. But it doesn't work in "dev" if quoted.
+
 ### TODO
 - [ ] Pretty sure the font isn't loading (Roboto?) - It's no longer in the assets either.
 - [x] If we click multiple times on the search link, does the input event listener fire multiple times?
