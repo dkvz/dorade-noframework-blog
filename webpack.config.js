@@ -4,6 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
+var CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 var dev = process.env.NODE_ENV === 'dev';
 
@@ -89,7 +90,12 @@ var config = {
               //esModule: false
             }
           },
-          'css-loader'
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          }
         ]
       },
       {
@@ -112,6 +118,12 @@ var config = {
         ]
       }
     ]
+  },
+  optimization: {
+    minimizer: [
+      `...`,
+      new CssMinimizerPlugin(),
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({

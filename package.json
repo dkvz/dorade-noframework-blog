@@ -1,6 +1,6 @@
 {
   "name": "dorade-noframework-blog",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Pure JS, Webpack, and MaterializeCSS (also JQuery because of the latter)",
   "main": "index.html",
   "scripts": {
@@ -26,6 +26,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.1.0",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^4.5.2",
     "imagemin": "^6.0.0",

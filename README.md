@@ -441,6 +441,8 @@ For instance, the {{layout}} in `_breves.html` doesn't work in "prod" if unquote
 
 ### TODO
 - [ ] Pretty sure the font isn't loading (Roboto?) - It's no longer in the assets either.
+- [ ] I had to disable asset loading "url()" in CSS files because it was creating "file://" URLs for some reason, but I should try to add them back. Maybe.
+- [ ] The webpack directory copy of assets might conflict with the assets loader.
 - [x] If we click multiple times on the search link, does the input event listener fire multiple times?
 - [x] I can probably remove all the articlesPageSearchMode stuff and related IDs from routing and the corresponding templates.
 - [x] If the snippet in search cards is too short the card doesn't take the whole width. It should.
