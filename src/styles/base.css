@@ -312,6 +312,10 @@ nav .nav-background {
   .home-articles:nth-child(1n+3) {
     display: none;
   }
+
+  .article-image iframe {
+    max-height: 350px;
+  }
 }
 
 @media (max-width: 1032px) {
