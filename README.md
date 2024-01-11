@@ -14,7 +14,7 @@ I'm a weird person.
 The site populates its dynamic content using calls to an independant API which currently is [written in Rust](https://github.com/dkvz/dkvz-blog-backend).
 
 ## Pre-requisites
-* NodeJS version 6+
+* Used to be NodeJS version 6+, there's an environment variable set in the run scripts in package.json that makes Node 16+ work with this project, but that also means it no longer works for versions lower than Node 16.
 
 ## Install
 Clone the repository. Get inside the project directory and run:
