@@ -663,9 +663,9 @@ var app = {
     if ($(document).width() > 2000) {
       thres = 900;
     } else if ($(document).width() >= 1300) {
-      thres = 650;
+      thres = 700;
     } else {
-      thres = 500;
+      thres = 1000;
     }
     var curDiff = window.pageYOffset - inner;
     // Uncomment following line for top secret debugging:
