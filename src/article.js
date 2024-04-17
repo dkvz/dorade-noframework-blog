@@ -1,3 +1,14 @@
+var hljs = require('highlight.js/lib/core');
+// The following line disables highlightjs automatic language detection.
+hljs.configure({languages:[]});
+hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
+hljs.registerLanguage('html', require('highlight.js/lib/languages/xml'));
+hljs.registerLanguage('css', require('highlight.js/lib/languages/css'));
+hljs.registerLanguage('java', require('highlight.js/lib/languages/java'));
+hljs.registerLanguage('php', require('highlight.js/lib/languages/php'));
+hljs.registerLanguage('json', require('highlight.js/lib/languages/json'));
+hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'));
+hljs.registerLanguage('rust', require('highlight.js/lib/languages/rust'));
 
 app.fragments.article.template = require('./fragments/article.html').default;
 app.fragments.articleContent.template = require('./fragments/_articleContent.html').default;
@@ -8,6 +19,8 @@ app.fragments.article.initPage = function() {
   M.Collapsible.init(document.querySelector('.collapsible'));
   document.getElementById('commentFormEl').addEventListener('submit', app.sendComment);
   //$('.collapsible').collapsible();
+  // Enable syntax highlight:
+  hljs.highlightAll();
 };
 
 app.htmlEntities = function htmlEntities(str) {

@@ -352,6 +352,11 @@ nav .nav-background {
   padding-bottom: 16px;
 }
 
+/* 
+At some point I added highlightJS and 
+this class had to heavily stripped down.
+*/
+/*
 .screen {
   font-size: 0.85em;
   padding: 15px;
@@ -365,13 +370,16 @@ nav .nav-background {
   display: block;
   font-family: "dejavu sans mono", "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
   margin-top: 1em;
-  /*white-space: pre-wrap;
-  word-wrap: break-word;*/
   -moz-tab-size: 4;
   tab-size: 4;
   word-break: normal;
   overflow: auto;
   line-height: 1.25em;
+}
+*/
+.screen {
+  font-size: 0.85em;
+  font-family: "dejavu sans mono", "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
 }
 
 .article-image {

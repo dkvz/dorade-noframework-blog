@@ -5,6 +5,10 @@
 require('materialize-css/dist/css/materialize.min.css');
 // I could split my CSS and load it in the page-specific scripts.
 require('./styles/base.css');
+// I have to add the highlightJS CSS here because I'm not willing
+// to fight webpack and have a second CSS file dynamically added
+// to article pages.
+require('highlight.js/styles/atom-one-dark.css');
 
 /*
 * Initialize the global app object
