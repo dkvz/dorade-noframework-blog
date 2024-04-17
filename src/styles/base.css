@@ -380,6 +380,8 @@ this class had to heavily stripped down.
 .screen {
   font-size: 0.85em;
   font-family: "dejavu sans mono", "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
+  word-break: normal;
+  overflow: auto;
 }
 
 .article-image {
