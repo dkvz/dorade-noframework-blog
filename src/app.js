@@ -42,7 +42,8 @@ var app = {
     'C\'est impossible de trouver un goth de plus de 25 ans',
     'Tu t\'es perdu ou quoi?',
     'Vous auriez volé du fromage?',
-    'font-family: cursive;'
+    'font-family: cursive;',
+    'La fondue au fromage sans le pain c\'est que du fromage'
   ],
   fragments: {
     short: {

@@ -440,6 +440,7 @@ I added a new media media query on card-panel for mobile devices with reduced ma
 For instance, the {{layout}} in `_breves.html` doesn't work in "prod" if unquoted. But it doesn't work in "dev" if quoted.
 
 ### TODO
+- [ ] I only do syntax highlight on the articles page because it was easy, but we ultimately need it for article summaries on home and articles pages as well.
 - [ ] Pretty sure the font isn't loading (Roboto?) - It's no longer in the assets either.
 - [ ] I had to disable asset loading "url()" in CSS files because it was creating "file://" URLs for some reason, but I should try to add them back. Maybe.
 - [ ] The webpack directory copy of assets might conflict with the assets loader.
