@@ -382,6 +382,7 @@ this class had to heavily stripped down.
   font-family: "dejavu sans mono", "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
   word-break: normal;
   overflow: auto;
+  tab-size: 2;
 }
 
 .article-image {
