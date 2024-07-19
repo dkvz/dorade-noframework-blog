@@ -9,7 +9,7 @@ hljs.registerLanguage('php', require('highlight.js/lib/languages/php'));
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'));
 hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'));
 hljs.registerLanguage('rust', require('highlight.js/lib/languages/rust'));
-hljs.registerLanguage('rust', require('highlight.js/lib/languages/go'));
+hljs.registerLanguage('go', require('highlight.js/lib/languages/go'));
 
 app.fragments.article.template = require('./fragments/article.html').default;
 app.fragments.articleContent.template = require('./fragments/_articleContent.html').default;
