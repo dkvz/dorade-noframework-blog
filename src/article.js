@@ -1,7 +1,8 @@
 var hljs = require('highlight.js/lib/core');
 // The following line disables highlightjs automatic language detection.
-hljs.configure({languages:[]});
+hljs.configure({ languages: [] });
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
+hljs.registerLanguage('typescript', require('highlight.js/lib/languages/typescript'));
 hljs.registerLanguage('html', require('highlight.js/lib/languages/xml'));
 hljs.registerLanguage('css', require('highlight.js/lib/languages/css'));
 hljs.registerLanguage('java', require('highlight.js/lib/languages/java'));
@@ -16,7 +17,7 @@ app.fragments.articleContent.template = require('./fragments/_articleContent.htm
 app.fragments.comment.template = require('./fragments/_comment.html').default;
 app.fragments.article404.template = require('./fragments/_article404.html').default;
 
-app.fragments.article.initPage = function() {
+app.fragments.article.initPage = function () {
   M.Collapsible.init(document.querySelector('.collapsible'));
   document.getElementById('commentFormEl').addEventListener('submit', app.sendComment);
   //$('.collapsible').collapsible();
@@ -33,50 +34,50 @@ app.htmlEntities = function htmlEntities(str) {
     .replace(/"/g, '&quot;');
 };
 
-app.loadComments = function(start, count, callback) {
+app.loadComments = function (start, count, callback) {
   // Get the articleId from the hidden input:
   var articleId = app.getCurrentArticleId();
   if (articleId !== '') {
     // We don't need to set bottomReached an all that
     // here, it's set in the infiniteScrolling function.
     $.getJSON(
-      app.apiUrl + '/comments-starting-from/' + articleId + 
-        '?start=' + app.loadedCount + '&max=' + count, 
-      function(data) {
-      // Set ret with the data.
-      if (data && data.length) {
-        var docFrag = document.createDocumentFragment();
-        for (var i = 0; i < data.length; i++) {
-          data[i].number = app.loadedCount + (i + 1);
-          // Some escaping that the server should do, this is a 
-          // terrible bandaid DONT LOOK!
-          // (I'm writing a new backend)
-          data[i].comment = app.htmlEntities(data[i].comment);
-          data[i].author = app.htmlEntities(data[i].author);
-          
-          docFrag.appendChild(app.createElementFromText(
-            app.parseTemplate('comment', data[i])
-          ));
+      app.apiUrl + '/comments-starting-from/' + articleId +
+      '?start=' + app.loadedCount + '&max=' + count,
+      function (data) {
+        // Set ret with the data.
+        if (data && data.length) {
+          var docFrag = document.createDocumentFragment();
+          for (var i = 0; i < data.length; i++) {
+            data[i].number = app.loadedCount + (i + 1);
+            // Some escaping that the server should do, this is a 
+            // terrible bandaid DONT LOOK!
+            // (I'm writing a new backend)
+            data[i].comment = app.htmlEntities(data[i].comment);
+            data[i].author = app.htmlEntities(data[i].author);
+
+            docFrag.appendChild(app.createElementFromText(
+              app.parseTemplate('comment', data[i])
+            ));
+          }
+          app.loadedCount += data.length;
+          document.getElementById('comments').appendChild(docFrag);
         }
-        app.loadedCount += data.length;
-        document.getElementById('comments').appendChild(docFrag);
-      }
-      callback(data);
-    }).fail(function(xhr, errorText) {
-      // If we get a 404 it's no use trying to load more articles.
-      // or shorts.
-      console.log('HTTP error in fetching comments - ' 
-        + xhr.status);
-      callback(null);
-    });
+        callback(data);
+      }).fail(function (xhr, errorText) {
+        // If we get a 404 it's no use trying to load more articles.
+        // or shorts.
+        console.log('HTTP error in fetching comments - '
+          + xhr.status);
+        callback(null);
+      });
   }
 };
 
-app.simpleHtmlStrip = function(text) {
+app.simpleHtmlStrip = function (text) {
   return text.replace(/<(?:.|\n)*?>/gm, '');
 };
 
-app.sendComment = function(event) {
+app.sendComment = function (event) {
   event.preventDefault();
   // Disable the save button:
   var subm = document.getElementById('submitComment');
@@ -97,7 +98,7 @@ app.sendComment = function(event) {
         // some reason.
         // It should work with jQuery as a data object, needs testing.
         var body = {
-          author: author.value, 
+          author: author.value,
           comment: comment.value
         };
         if (isNaN(numericId)) {
@@ -107,9 +108,9 @@ app.sendComment = function(event) {
         }
         app.toast('Envoi en cours...');
         $.post(
-          app.apiUrl + '/comments', 
+          app.apiUrl + '/comments',
           body
-        ).done(function(data) {
+        ).done(function (data) {
           app.toast('Message enregistré. Enfin si tout va bien.');
           // We need to load more comments here:
           app.showSpinner();
@@ -120,11 +121,11 @@ app.sendComment = function(event) {
           M.Collapsible
             .getInstance(document.getElementById('commentForm')).close();
           comment.value = '';
-          app.loadComments(app.loadedCount, app.maxComments, function() {
+          app.loadComments(app.loadedCount, app.maxComments, function () {
             app.hideSpinner();
             app.bottomReached = false;
           });
-        }).fail(function(xhr, errorText) {
+        }).fail(function (xhr, errorText) {
           app.toast('Votre commentaire n\'a pas pu' +
             ' être enregistré pour une raison obscure.');
         });
@@ -151,7 +152,7 @@ app.sendComment = function(event) {
   subm.disabled = '';
 };
 
-app.getCurrentArticleId = function() {
+app.getCurrentArticleId = function () {
   var el = document.getElementById('articleIdInput');
   if (el) {
     return document.getElementById('articleIdInput').value;
@@ -159,7 +160,7 @@ app.getCurrentArticleId = function() {
   return '';
 };
 
-app.loadArticle = function(articleId, hash, toc) {
+app.loadArticle = function (articleId, hash, toc) {
   // To call after "setMainContent"
   app.bottomReached = true;
   app.showOtherSpinner('articleSpinner');
@@ -172,7 +173,7 @@ app.loadArticle = function(articleId, hash, toc) {
   var artsEl = document.getElementById('article');
   app.removeContentFromNode(artsEl);
   // Let's make the request:
-  this.getArticle(articleId, function(data) {
+  this.getArticle(articleId, function (data) {
     var docFrag = document.createDocumentFragment();
     if (data) {
       // Don't forget to set the title of the page.
@@ -197,7 +198,7 @@ app.loadArticle = function(articleId, hash, toc) {
       // Need to encode the names of the tags:
       if (data.tags && data.tags.length > 0) {
         for (var t = 0; t < data.tags.length; t++) {
-          data.tags[t].nameEncoded = 
+          data.tags[t].nameEncoded =
             encodeURIComponent(data.tags[t].name);
         }
       }
@@ -225,7 +226,7 @@ app.loadArticle = function(articleId, hash, toc) {
       // a big reflow when loading which makes going
       // to a specific anchor too fast unreliable.
       // Hence the 1 second timeout here:
-      setTimeout(function() {
+      setTimeout(function () {
         location.href = '#' + hash;
       }, 1000);
     }
@@ -234,12 +235,12 @@ app.loadArticle = function(articleId, hash, toc) {
   });
 };
 
-app.getArticle = function(articleId, callback) {
+app.getArticle = function (articleId, callback) {
   // articleId can also the article URL.
   var url = this.apiUrl + '/article/' + articleId;
-  $.getJSON(url, function(data) {
+  $.getJSON(url, function (data) {
     callback(data);
-  }).fail(function(xhr, errorText) {
+  }).fail(function (xhr, errorText) {
     // Every error will be considered as if it was a 404.
     callback(null);
   });
@@ -256,7 +257,7 @@ app.getArticle = function(articleId, callback) {
  * @param {*} end 
  * @param {*} lvlStr 
  */
-app.addTOC = function(contentObj, lvl, maxLvl, start, end, lvlStr) {
+app.addTOC = function (contentObj, lvl, maxLvl, start, end, lvlStr) {
   var count = 1;
   var lookingFor = '<h' + lvl + '>';
   var lookingForClose = '</h' + lvl + '>';
@@ -296,7 +297,7 @@ app.addTOC = function(contentObj, lvl, maxLvl, start, end, lvlStr) {
         title + '</a></li>\n';
       // Add the anchor, will look like this:
       // We need to add an id to the Hx element that we're working with here.
-      var addLvlStr = ' id="' + addLvlStrPartial +  '"';
+      var addLvlStr = ' id="' + addLvlStrPartial + '"';
       contentObj.content = contentObj.content.substring(0, first + 3) + addLvlStr +
         contentObj.content.substring(first + 3, contentObj.content.length);
       count++;
